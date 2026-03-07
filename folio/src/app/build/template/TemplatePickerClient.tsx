@@ -13,6 +13,24 @@ export default function TemplatePickerClient({ templateMetas, userPlan }: Templa
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
   const [hasProfile, setHasProfile] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+
+  async function handleUnlock() {
+    setCheckoutLoading(true);
+    try {
+      const res = await fetch('/folio/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: 'pdt_0NZwpK8C6q5489M5CBvHT', planType: 'pro' }),
+      });
+      const data = await res.json() as { checkoutUrl?: string; error?: string };
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      }
+    } catch {
+      setCheckoutLoading(false);
+    }
+  }
 
   useEffect(() => {
     const profile = sessionStorage.getItem('folio_profile');
@@ -24,7 +42,7 @@ export default function TemplatePickerClient({ templateMetas, userPlan }: Templa
   }, [router]);
 
   function handleSelect(slug: string, isPremium: boolean) {
-    if (isPremium && userPlan === 'free') return;
+    if (userPlan === 'free') return;
     setSelected(slug);
   }
 
@@ -58,12 +76,12 @@ export default function TemplatePickerClient({ templateMetas, userPlan }: Templa
           Pick your template
         </h1>
         <p style={{ color: 'var(--cream-dim)', marginBottom: '40px', textAlign: 'center' }}>
-          {userPlan === 'free' ? 'Free plan includes 3 templates. Upgrade for all 5.' : 'All 5 templates available on your plan.'}
+          {userPlan === 'free' ? 'All templates require an active plan. Unlock to continue.' : 'All 5 templates available on your plan.'}
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-          {templateMetas.map((meta) => {
-            const locked = meta.isPremium && userPlan === 'free';
+           {templateMetas.map((meta) => {
+             const locked = userPlan === 'free';
             const isSelected = selected === meta.slug;
 
             return (
@@ -123,10 +141,24 @@ export default function TemplatePickerClient({ templateMetas, userPlan }: Templa
         </div>
 
         {userPlan === 'free' && (
-          <p style={{ textAlign: 'center', marginTop: '24px', color: 'var(--cream-dim)', fontSize: '0.85rem' }}>
-            Want premium templates?{' '}
-            <a href="/start" style={{ color: 'var(--gold)' }}>Upgrade to Pro →</a>
-          </p>
+          <div style={{ textAlign: 'center', marginTop: '32px' }}>
+            <p style={{ color: 'var(--cream-dim)', fontSize: '0.85rem', marginBottom: '12px' }}>
+              Unlock all templates to build and publish your site.
+            </p>
+            <button
+              type="button"
+              onClick={handleUnlock}
+              disabled={checkoutLoading}
+              style={{
+                backgroundColor: 'var(--gold)', color: 'var(--bg)',
+                border: 'none', borderRadius: '8px', padding: '12px 28px',
+                fontSize: '0.95rem', fontWeight: '600', cursor: checkoutLoading ? 'not-allowed' : 'pointer',
+                fontFamily: 'var(--font-dm-sans)', opacity: checkoutLoading ? 0.7 : 1,
+              }}
+            >
+              {checkoutLoading ? 'Redirecting...' : 'Unlock All Templates →'}
+            </button>
+          </div>
         )}
       </div>
     </div>
