@@ -71,6 +71,11 @@ export default function BuildStep1() {
   const [location, setLocation] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
   const [linkedinUrl, setLinkedinUrl] = useState('');
+  const [twitterUrl, setTwitterUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
+  const [githubUrl, setGithubUrl] = useState('');
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [websiteUrl, setWebsiteUrl] = useState('');
   const [skillsRaw, setSkillsRaw] = useState('');
 
   const [experiences, setExperiences] = useState<ExperienceItem[]>([
@@ -126,6 +131,11 @@ export default function BuildStep1() {
       location: location.trim(),
       avatar_url: avatarUrl.trim(),
       linkedin_url: linkedinUrl.trim(),
+      twitter_url: twitterUrl.trim() || undefined,
+      instagram_url: instagramUrl.trim() || undefined,
+      github_url: githubUrl.trim() || undefined,
+      youtube_url: youtubeUrl.trim() || undefined,
+      website_url: websiteUrl.trim() || undefined,
       experience: experiences
         .filter((e) => e.title || e.company)
         .map((e) => ({ title: e.title, company: e.company, dates: e.dates })),
@@ -416,7 +426,7 @@ export default function BuildStep1() {
           </div>
 
           <div style={{ ...sectionDivider, marginTop: '32px' }}>
-            <p style={sectionHeading}>Links</p>
+            <p style={sectionHeading}>Social Links</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               <div>
                 <label htmlFor="linkedin-url" style={labelStyle}>
@@ -428,6 +438,76 @@ export default function BuildStep1() {
                   value={linkedinUrl}
                   onChange={(e) => setLinkedinUrl(e.target.value)}
                   placeholder="https://linkedin.com/in/yourname"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="twitter-url" style={labelStyle}>
+                  Twitter/X URL
+                </label>
+                <input
+                  id="twitter-url"
+                  type="url"
+                  value={twitterUrl}
+                  onChange={(e) => setTwitterUrl(e.target.value)}
+                  placeholder="https://x.com/yourname"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="github-url" style={labelStyle}>
+                  GitHub URL
+                </label>
+                <input
+                  id="github-url"
+                  type="url"
+                  value={githubUrl}
+                  onChange={(e) => setGithubUrl(e.target.value)}
+                  placeholder="https://github.com/yourname"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="instagram-url" style={labelStyle}>
+                  Instagram URL
+                </label>
+                <input
+                  id="instagram-url"
+                  type="url"
+                  value={instagramUrl}
+                  onChange={(e) => setInstagramUrl(e.target.value)}
+                  placeholder="https://instagram.com/yourname"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="youtube-url" style={labelStyle}>
+                  YouTube URL
+                </label>
+                <input
+                  id="youtube-url"
+                  type="url"
+                  value={youtubeUrl}
+                  onChange={(e) => setYoutubeUrl(e.target.value)}
+                  placeholder="https://youtube.com/@yourname"
+                  style={inputStyle}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="website-url" style={labelStyle}>
+                  Personal Website
+                </label>
+                <input
+                  id="website-url"
+                  type="url"
+                  value={websiteUrl}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  placeholder="https://yourwebsite.com"
                   style={inputStyle}
                 />
               </div>
