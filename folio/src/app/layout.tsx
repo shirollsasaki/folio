@@ -41,8 +41,8 @@ export default function RootLayout({
     <ClerkProvider
       signInUrl="/folio/sign-in"
       signUpUrl="/folio/sign-up"
-      afterSignInUrl="/folio/dashboard"
-      afterSignUpUrl="/folio/build"
+      signInFallbackRedirectUrl="/folio/dashboard"
+      signUpFallbackRedirectUrl="/folio/build"
     >
       <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable}`}>
         <body className="antialiased">
