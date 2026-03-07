@@ -1,0 +1,2 @@
+src/lib/billing.ts(17,5): error TS2322: Type 'string | null | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.

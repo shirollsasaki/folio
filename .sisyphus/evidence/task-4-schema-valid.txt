@@ -1,0 +1,37 @@
+Schema SQL Validation Report
+=============================
+
+File: supabase/schema.sql
+
+✓ Users table created with:
+  - id (TEXT PRIMARY KEY) - Clerk user ID
+  - email (TEXT NOT NULL)
+  - dodo_customer_id (TEXT nullable)
+  - subscription_id (TEXT nullable)
+  - subscription_status (TEXT with CHECK constraint for 7 Dodo states)
+  - plan (TEXT with CHECK constraint for free/pro/agency)
+  - created_at (TIMESTAMPTZ with NOW() default)
+
+✓ Sites table created with:
+  - id (UUID PRIMARY KEY with gen_random_uuid())
+  - user_id (TEXT REFERENCES users(id) ON DELETE CASCADE)
+  - template_id (TEXT NOT NULL)
+  - vercel_project_id (TEXT nullable)
+  - vercel_url (TEXT nullable)
+  - custom_domain (TEXT nullable)
+  - profile_data (JSONB NOT NULL)
+  - created_at (TIMESTAMPTZ with NOW() default)
+  - updated_at (TIMESTAMPTZ with NOW() default)
+
+✓ Trigger created:
+  - update_updated_at_column() function for auto-updating sites.updated_at
+
+✓ Row Level Security enabled on both tables
+
+✓ RLS Policies:
+  - Users can view own data (SELECT)
+  - Service role can do anything on users (ALL)
+  - Users can view own sites (SELECT)
+  - Service role can do anything on sites (ALL)
+
+All SQL syntax is valid and follows PostgreSQL standards.

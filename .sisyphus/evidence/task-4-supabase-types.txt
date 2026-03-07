@@ -1,0 +1,4 @@
+src/lib/billing.ts(17,5): error TS2322: Type 'string | null | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/lib/billing.ts(33,40): error TS2339: Property 'createPortalSession' does not exist on type 'Customers'.
+src/lib/billing.ts(46,5): error TS2353: Object literal may only specify known properties, and 'proration_behavior' does not exist in type 'SubscriptionChangePlanParams'.
