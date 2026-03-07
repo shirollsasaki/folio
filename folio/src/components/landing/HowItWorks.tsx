@@ -18,16 +18,16 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" style={{ padding: '80px 48px', backgroundColor: 'var(--bg2)' }}>
+    <section id="how-it-works" style={{ padding: '100px 48px', backgroundColor: 'var(--bg3)' }}>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: 'var(--font-playfair)', fontSize: '2rem', textAlign: 'center', marginBottom: '64px' }}>
+        <h2 style={{ fontFamily: 'var(--font-playfair)', fontSize: '2rem', textAlign: 'center', marginBottom: '64px', color: 'var(--cream)' }}>
           Three steps to your personal website
         </h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
           {steps.map((step) => (
-            <div key={step.num} style={{ padding: '32px', backgroundColor: 'var(--bg3)', borderRadius: '12px', border: '1px solid var(--border)' }}>
-              <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--gold)', fontSize: '0.8rem', marginBottom: '16px' }}>{step.num}</p>
-              <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.2rem', marginBottom: '12px' }}>{step.title}</h3>
+            <div key={step.num} style={{ padding: '32px', backgroundColor: 'var(--bg)', borderRadius: '24px', border: '1px solid var(--border)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+              <p style={{ fontFamily: 'var(--font-dm-mono)', color: 'var(--gold)', fontSize: '1.2rem', fontWeight: 700, marginBottom: '16px' }}>{step.num}</p>
+              <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.2rem', marginBottom: '12px', color: 'var(--cream)' }}>{step.title}</h3>
               <p style={{ color: 'var(--cream-dim)', lineHeight: '1.6', fontSize: '0.95rem' }}>{step.desc}</p>
             </div>
           ))}

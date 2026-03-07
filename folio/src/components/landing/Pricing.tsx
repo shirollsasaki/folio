@@ -1,74 +1,148 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui';
-
-const plans = [
-  {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    features: ['1 website', '3 templates', 'Folio subdomain', 'LinkedIn extraction'],
-    cta: 'Get started free',
-    href: '/sign-up',
-    highlight: false,
-  },
-  {
-    name: 'Pro',
-    price: '$12',
-    period: 'per month',
-    features: ['3 websites', 'All 5 templates', 'Custom domain', 'Priority support', 'AI bio cleanup'],
-    cta: 'Start Pro',
-    href: '/sign-up',
-    highlight: true,
-  },
-  {
-    name: 'Agency',
-    price: '$49',
-    period: 'per month',
-    features: ['Unlimited websites', 'All 5 templates', 'Custom domains', 'White-label', 'API access'],
-    cta: 'Start Agency',
-    href: '/sign-up',
-    highlight: false,
-  },
+const features = [
+  'All templates',
+  'Custom domain',
+  'LinkedIn extraction',
+  'AI bio cleanup',
+  'Priority support',
 ];
 
 export function Pricing() {
   return (
-    <section id="pricing" style={{ padding: '80px 48px', backgroundColor: 'var(--bg2)' }}>
+    <section
+      id="pricing"
+      style={{ padding: '80px 48px', backgroundColor: 'var(--bg2)' }}
+    >
+      <style>{`
+        .pricing-cta:hover {
+          background-color: var(--gold-light) !important;
+        }
+      `}</style>
       <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: 'var(--font-playfair)', fontSize: '2rem', textAlign: 'center', marginBottom: '16px' }}>
+        <h2
+          style={{
+            fontFamily: 'var(--font-playfair)',
+            fontSize: '2rem',
+            textAlign: 'center',
+            marginBottom: '16px',
+            color: 'var(--cream)',
+          }}
+        >
           Simple, transparent pricing
         </h2>
-        <p style={{ color: 'var(--cream-dim)', textAlign: 'center', marginBottom: '48px' }}>
-          Start free. Upgrade when you need more.
+        <p
+          style={{
+            color: 'var(--cream-dim)',
+            textAlign: 'center',
+            marginBottom: '48px',
+          }}
+        >
+          Everything you need to build your personal brand online.
         </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-          {plans.map((plan) => (
-            <div key={plan.name} style={{
-              padding: '32px', borderRadius: '12px',
-              backgroundColor: plan.highlight ? 'var(--bg3)' : 'var(--bg)',
-              border: plan.highlight ? '1px solid var(--border-gold)' : '1px solid var(--border)',
-            }}>
-              <p style={{ color: 'var(--cream-dim)', fontSize: '0.85rem', marginBottom: '8px' }}>{plan.name}</p>
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '4px' }}>
-                <span style={{ fontFamily: 'var(--font-playfair)', fontSize: '2.5rem', fontWeight: '700', color: plan.highlight ? 'var(--gold)' : 'var(--cream)' }}>{plan.price}</span>
-                <span style={{ color: 'var(--cream-dim)', fontSize: '0.85rem' }}>/{plan.period}</span>
-              </div>
-              <ul style={{ listStyle: 'none', padding: 0, margin: '24px 0', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {plan.features.map((f) => (
-                  <li key={f} style={{ color: 'var(--cream-dim)', fontSize: '0.9rem', display: 'flex', gap: '8px' }}>
-                    <span style={{ color: 'var(--gold)' }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <div style={{ width: '100%' }}>
-                <Link href={plan.href} style={{ display: 'block', width: '100%' }}>
-                  <Button variant={plan.highlight ? 'primary' : 'secondary'} size="md">
-                    {plan.cta}
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          ))}
+
+        <div
+          style={{
+            maxWidth: '480px',
+            margin: '0 auto',
+            backgroundColor: 'var(--bg)',
+            border: '1px solid var(--border-gold)',
+            borderRadius: '24px',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+            padding: '48px',
+          }}
+        >
+          <p
+            style={{
+              color: 'var(--cream-dim)',
+              fontSize: '0.75rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: '16px',
+            }}
+          >
+            Pro
+          </p>
+
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              gap: '4px',
+              marginBottom: '32px',
+            }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-playfair)',
+                fontSize: '3.5rem',
+                fontWeight: '700',
+                color: 'var(--gold)',
+                lineHeight: 1,
+              }}
+            >
+              $12
+            </span>
+            <span style={{ color: 'var(--cream-dim)', fontSize: '0.85rem' }}>
+              /per month
+            </span>
+          </div>
+
+          <ul
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              margin: '0 0 32px 0',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+            }}
+          >
+            {features.map((f) => (
+              <li
+                key={f}
+                style={{
+                  display: 'flex',
+                  gap: '10px',
+                  alignItems: 'center',
+                  color: 'var(--cream)',
+                  fontSize: '0.95rem',
+                }}
+              >
+                <span style={{ color: 'var(--gold)', fontWeight: '700' }}>✓</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="/folio/sign-up"
+            className="pricing-cta"
+            style={{
+              display: 'block',
+              textAlign: 'center',
+              backgroundColor: 'var(--gold)',
+              color: '#FFFFFF',
+              borderRadius: '100px',
+              padding: '14px 32px',
+              fontFamily: 'var(--font-dm-sans)',
+              fontWeight: '600',
+              fontSize: '0.95rem',
+              textDecoration: 'none',
+              transition: 'background-color 0.2s ease',
+            }}
+          >
+            Get started
+          </a>
+
+          <p
+            style={{
+              color: 'var(--cream-dim)',
+              fontSize: '0.8rem',
+              textAlign: 'center',
+              marginTop: '16px',
+            }}
+          >
+            Cancel anytime · No contracts
+          </p>
         </div>
       </div>
     </section>

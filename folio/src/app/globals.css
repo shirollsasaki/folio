@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0e0d0c;
-  --bg2: #141310;
-  --bg3: #1c1a17;
-  --cream: #f0ead8;
-  --cream-dim: #c4b99a;
-  --gold: #c9a84c;
-  --gold-light: #e8c96a;
-  --border: rgba(240, 234, 216, 0.1);
-  --border-gold: rgba(201, 168, 76, 0.3);
+  --bg: #FFFFFF;
+  --bg2: #FAFAFA;
+  --bg3: #F2F2F7;
+  --cream: #111111;
+  --cream-dim: #8E8E93;
+  --gold: #E8956A;
+  --gold-light: #F4A97B;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-gold: rgba(232, 149, 106, 0.3);
 }
 
 * {
@@ -23,6 +23,7 @@ html {
   color: var(--cream);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -59,7 +60,7 @@ a:hover {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg2);
+  background: var(--bg3);
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border-gold);

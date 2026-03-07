@@ -5,3 +5,4 @@ export { Templates } from './Templates';
 export { Pricing } from './Pricing';
 export { FinalCTA } from './FinalCTA';
 export { Footer } from './Footer';
+export { Dock } from './Dock';
