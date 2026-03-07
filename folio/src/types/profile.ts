@@ -16,9 +16,12 @@ export interface ProfileData {
   location: string;
   avatar_url: string;
   linkedin_url: string;
-  twitter_url?: string;
-  instagram_url?: string;
-  experience: Experience[];
+   twitter_url?: string;
+   instagram_url?: string;
+   github_url?: string;
+   youtube_url?: string;
+   website_url?: string;
+   experience: Experience[];
   skills: string[];
   custom_links: CustomLink[];
 }

@@ -13,9 +13,12 @@ export const DeployRequestSchema = z.object({
     location: z.string(),
     avatar_url: z.string(),
     linkedin_url: z.string(),
-    twitter_url: z.string().optional(),
-    instagram_url: z.string().optional(),
-    experience: z.array(z.object({
+     twitter_url: z.string().optional(),
+     instagram_url: z.string().optional(),
+     github_url: z.string().optional(),
+     youtube_url: z.string().optional(),
+     website_url: z.string().optional(),
+     experience: z.array(z.object({
       title: z.string(),
       company: z.string(),
       dates: z.string(),
