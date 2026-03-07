@@ -38,7 +38,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      signInUrl="/folio/sign-in"
+      signUpUrl="/folio/sign-up"
+      afterSignInUrl="/folio/dashboard"
+      afterSignUpUrl="/folio/build"
+    >
       <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable}`}>
         <body className="antialiased">
           {children}
