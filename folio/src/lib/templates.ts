@@ -1,24 +1,142 @@
 import type { TemplateEntry } from '@/types';
+
+// Original templates
 import ImpactReport from '@/templates/impact-report';
 import TerminalHacker from '@/templates/terminal-hacker';
 import BrutalistGrid from '@/templates/brutalist-grid';
 import ForestLink from '@/templates/forest-link';
 import VioletPro from '@/templates/violet-pro';
-import MinimalCards from '@/templates/minimal-cards';
-import BoldHeader from '@/templates/bold-header';
-import GridShowcase from '@/templates/grid-showcase';
-import SidePanel from '@/templates/side-panel';
-import TimelineFlow from '@/templates/timeline-flow';
-import SplitScreen from '@/templates/split-screen';
-import MagazineLayout from '@/templates/magazine-layout';
-import CompactMinimal from '@/templates/compact-minimal';
-import NeonTerminal from '@/templates/neon-terminal';
-import ElegantSerif from '@/templates/elegant-serif';
+
+// New immersive 3D templates
+import CityBuilder from '@/templates/city-builder';
+import SpaceJourney from '@/templates/space-journey';
+import ParticleUniverse from '@/templates/particle-universe';
+import FloatingIslands from '@/templates/floating-islands';
+import ScrollDepth from '@/templates/scroll-depth';
+import PhysicsPlayground from '@/templates/physics-playground';
+import GameWorld from '@/templates/game-world';
+import ShaderArt from '@/templates/shader-art';
+import Terminal3D from '@/templates/terminal-3d';
+import VRMuseum from '@/templates/vr-museum';
+
 import { createMockProfile } from '@/test/mocks/profile';
 
 const mockProfile = createMockProfile();
 
 export const templates: TemplateEntry[] = [
+  // Immersive 3D Templates (Premium)
+  {
+    Component: CityBuilder,
+    meta: {
+      name: 'City Builder',
+      slug: 'city-builder',
+      tag: 'dark',
+      previewImage: '/previews/city-builder.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: SpaceJourney,
+    meta: {
+      name: 'Space Journey',
+      slug: 'space-journey',
+      tag: 'dark',
+      previewImage: '/previews/space-journey.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: ParticleUniverse,
+    meta: {
+      name: 'Particle Universe',
+      slug: 'particle-universe',
+      tag: 'dark',
+      previewImage: '/previews/particle-universe.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: FloatingIslands,
+    meta: {
+      name: 'Floating Islands',
+      slug: 'floating-islands',
+      tag: 'light',
+      previewImage: '/previews/floating-islands.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: ScrollDepth,
+    meta: {
+      name: 'Scroll Depth',
+      slug: 'scroll-depth',
+      tag: 'dark',
+      previewImage: '/previews/scroll-depth.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: PhysicsPlayground,
+    meta: {
+      name: 'Physics Playground',
+      slug: 'physics-playground',
+      tag: 'dark',
+      previewImage: '/previews/physics-playground.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: GameWorld,
+    meta: {
+      name: 'Game World',
+      slug: 'game-world',
+      tag: 'dark',
+      previewImage: '/previews/game-world.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: ShaderArt,
+    meta: {
+      name: 'Shader Art',
+      slug: 'shader-art',
+      tag: 'dark',
+      previewImage: '/previews/shader-art.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: Terminal3D,
+    meta: {
+      name: 'Terminal 3D',
+      slug: 'terminal-3d',
+      tag: 'dark',
+      previewImage: '/previews/terminal-3d.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: VRMuseum,
+    meta: {
+      name: 'VR Museum',
+      slug: 'vr-museum',
+      tag: 'dark',
+      previewImage: '/previews/vr-museum.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+
+  // Original templates
   {
     Component: ImpactReport,
     meta: {
@@ -71,116 +189,6 @@ export const templates: TemplateEntry[] = [
       tag: 'light',
       previewImage: '/previews/violet-pro.png',
       isPremium: true,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: MinimalCards,
-    meta: {
-      name: 'Minimal Cards',
-      slug: 'minimal-cards',
-      tag: 'light',
-      previewImage: '/previews/minimal-cards.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: BoldHeader,
-    meta: {
-      name: 'Bold Header',
-      slug: 'bold-header',
-      tag: 'dark',
-      previewImage: '/previews/bold-header.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: GridShowcase,
-    meta: {
-      name: 'Grid Showcase',
-      slug: 'grid-showcase',
-      tag: 'light',
-      previewImage: '/previews/grid-showcase.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: SidePanel,
-    meta: {
-      name: 'Side Panel',
-      slug: 'side-panel',
-      tag: 'dark',
-      previewImage: '/previews/side-panel.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: TimelineFlow,
-    meta: {
-      name: 'Timeline Flow',
-      slug: 'timeline-flow',
-      tag: 'light',
-      previewImage: '/previews/timeline-flow.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: SplitScreen,
-    meta: {
-      name: 'Split Screen',
-      slug: 'split-screen',
-      tag: 'dark',
-      previewImage: '/previews/split-screen.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: MagazineLayout,
-    meta: {
-      name: 'Magazine Layout',
-      slug: 'magazine-layout',
-      tag: 'light',
-      previewImage: '/previews/magazine-layout.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: CompactMinimal,
-    meta: {
-      name: 'Compact Minimal',
-      slug: 'compact-minimal',
-      tag: 'light',
-      previewImage: '/previews/compact-minimal.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: NeonTerminal,
-    meta: {
-      name: 'Neon Terminal',
-      slug: 'neon-terminal',
-      tag: 'dark',
-      previewImage: '/previews/neon-terminal.png',
-      isPremium: false,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: ElegantSerif,
-    meta: {
-      name: 'Elegant Serif',
-      slug: 'elegant-serif',
-      tag: 'light',
-      previewImage: '/previews/elegant-serif.png',
-      isPremium: false,
     },
     defaultProps: { profile: mockProfile },
   },
