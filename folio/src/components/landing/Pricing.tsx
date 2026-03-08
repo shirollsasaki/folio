@@ -1,125 +1,111 @@
-import LumoButton from '@/components/lumo/LumoButton';
+import Link from 'next/link';
 
 export function Pricing() {
   const plans = [
     {
       name: "Free",
       price: "$0",
-      period: "forever",
+      period: "/mo",
+      description: "Perfect for getting started",
       features: [
-        "yourname.folio.site subdomain",
-        "5 template options",
-        "LinkedIn sync",
-        "Basic customization",
-        "Mobile responsive"
+        "Folio subdomain",
+        "5 templates",
+        "LinkedIn import",
+        "Basic analytics"
       ],
-      cta: "Get Started",
-      href: "/sign-up",
-      variant: "secondary" as const
+      cta: "Start Free",
+      ctaLink: "/sign-up",
+      popular: false
     },
     {
       name: "Pro",
       price: "$12",
-      period: "per month",
+      period: "/mo",
+      description: "For professionals who want more",
       features: [
-        "Custom domain (your.domain.com)",
-        "All 15 premium templates",
-        "Advanced customization",
-        "Priority support",
-        "Remove Folio branding"
+        "Custom domain",
+        "All 15 templates",
+        "AI bio cleanup",
+        "Priority support"
       ],
-      cta: "Start Free Trial",
-      href: "/sign-up?plan=pro",
-      variant: "primary" as const,
+      cta: "Go Pro",
+      ctaLink: "/sign-up?plan=pro",
       popular: true
     }
   ];
 
   return (
-    <section 
-      className="py-24 px-8"
-      style={{ backgroundColor: 'var(--lumo-bg-base)' }}
-    >
-      <div className="max-w-6xl mx-auto space-y-16">
-        <h2 
-          className="font-serif text-3xl md:text-4xl text-center font-normal tracking-tight"
-          style={{ color: 'var(--lumo-text)' }}
-        >
-          Simple, transparent pricing
-        </h2>
+    <section id="pricing" className="bg-white py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900">
+            Simple Pricing
+          </h2>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {plans.map((plan, index) => (
             <div 
               key={index}
-              className="p-8 rounded-lg border transition-all hover:shadow-lg relative"
-              style={{ 
-                backgroundColor: 'var(--lumo-bg-base)',
-                borderColor: plan.popular ? 'var(--lumo-accent)' : 'var(--lumo-text-muted)' + '33',
-                borderWidth: plan.popular ? '2px' : '1px'
-              }}
+              className={`relative bg-white rounded-2xl border-2 p-8 ${
+                plan.popular 
+                  ? 'border-blue-600 shadow-xl shadow-blue-600/10' 
+                  : 'border-slate-200'
+              }`}
             >
               {plan.popular && (
-                <div 
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-xs px-4 py-1 rounded-full"
-                  style={{ 
-                    backgroundColor: 'var(--lumo-accent)',
-                    color: '#fff'
-                  }}
-                >
-                  POPULAR
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="px-4 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
+                    Most Popular
+                  </span>
                 </div>
               )}
 
-              <div className="space-y-6">
-                <div>
-                  <h3 
-                    className="font-serif text-2xl mb-2 font-normal"
-                    style={{ color: 'var(--lumo-text)' }}
-                  >
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline gap-2">
-                    <span 
-                      className="font-serif text-4xl font-normal"
-                      style={{ color: 'var(--lumo-text)' }}
-                    >
-                      {plan.price}
-                    </span>
-                    <span 
-                      className="font-mono text-sm"
-                      style={{ color: 'var(--lumo-text-muted)' }}
-                    >
-                      {plan.period}
-                    </span>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                  {plan.name}
+                </h3>
+                <div className="flex items-baseline justify-center mb-2">
+                  <span className="text-5xl font-bold text-slate-900">
+                    {plan.price}
+                  </span>
+                  <span className="text-xl text-slate-500 ml-1">
+                    {plan.period}
+                  </span>
+                </div>
+                <p className="text-slate-600">
+                  {plan.description}
+                </p>
+              </div>
+
+              <Link 
+                href={plan.ctaLink}
+                className={`block w-full py-3 text-center font-medium rounded-lg transition-colors mb-6 ${
+                  plan.popular
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-slate-100 text-slate-900 hover:bg-slate-200'
+                }`}
+              >
+                {plan.cta}
+              </Link>
+
+              <div className="space-y-3">
+                {plan.features.map((feature, featureIndex) => (
+                  <div key={featureIndex} className="flex items-start">
+                    <svg className="w-5 h-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-slate-700">{feature}</span>
                   </div>
-                </div>
-
-                <ul className="space-y-3">
-                  {plan.features.map((feature, i) => (
-                    <li 
-                      key={i}
-                      className="flex items-start gap-3 font-mono text-sm"
-                      style={{ color: 'var(--lumo-text-muted)' }}
-                    >
-                      <span style={{ color: 'var(--lumo-accent)' }}>✓</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="w-full flex justify-center">
-                  <LumoButton 
-                    href={plan.href} 
-                    variant={plan.variant}
-                  >
-                    {plan.cta}
-                  </LumoButton>
-                </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
+
+        <p className="text-center text-sm text-slate-500 mt-8">
+          Cancel anytime · No contracts
+        </p>
       </div>
     </section>
   );

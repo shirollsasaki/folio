@@ -1,122 +1,76 @@
-import { templates } from '@/lib/templates';
-import LumoButton from '@/components/lumo/LumoButton';
+import Link from 'next/link';
 
 export function Templates() {
-  return (
-    <section 
-      className="py-24 px-8"
-      style={{ backgroundColor: 'var(--lumo-bg-base)' }}
-    >
-      <style>{`
-        .templates-deck {
-          scrollbar-width: none;
-        }
-        .templates-deck::-webkit-scrollbar {
-          display: none;
-        }
-        .template-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .template-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(230, 126, 34, 0.15);
-        }
-      `}</style>
+  const templates = [
+    { name: "Minimal", tag: "Light", color: "from-slate-50 to-white" },
+    { name: "Bold", tag: "Dark", color: "from-slate-900 to-slate-800" },
+    { name: "Creative", tag: "Light", color: "from-blue-50 to-indigo-50" },
+    { name: "Professional", tag: "Dark", color: "from-gray-800 to-gray-900" },
+    { name: "Modern", tag: "Light", color: "from-emerald-50 to-teal-50" },
+    { name: "Classic", tag: "Dark", color: "from-purple-900 to-indigo-900" },
+  ];
 
-      <div className="max-w-6xl mx-auto space-y-16">
-        <div className="text-center space-y-4">
-          <h2 
-            className="font-serif text-3xl md:text-4xl font-normal tracking-tight"
-            style={{ color: 'var(--lumo-text)' }}
-          >
-            Start with a template
+  return (
+    <section id="templates" className="bg-white py-20 md:py-28">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900">
+            15 Stunning Templates
           </h2>
-          <p 
-            className="font-mono text-sm"
-            style={{ color: 'var(--lumo-text-muted)' }}
-          >
-            Professionally designed starting points. Customize every detail.
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            From minimal to bold. Dark to light. Find your style.
           </p>
         </div>
 
-        <div
-          className="templates-deck"
-          style={{
-            display: 'flex',
-            overflowX: 'auto',
-            gap: '24px',
-            paddingBottom: '24px',
-          }}
-        >
-          {templates.map((entry) => (
-            <div
-              key={entry.meta.slug}
-              className="template-card"
-              style={{
-                flexShrink: 0,
-                width: '300px',
-                borderRadius: '16px',
-                boxShadow: '0 10px 30px rgba(74, 44, 42, 0.1)',
-                backgroundColor: 'var(--lumo-bg-base)',
-                overflow: 'hidden',
-                border: '1px solid var(--lumo-text-muted)33',
-              }}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {templates.map((template, index) => (
+            <div 
+              key={index}
+              className="group cursor-pointer"
             >
-              <div
-                style={{
-                  width: 300,
-                  height: 200,
-                  overflow: 'hidden',
-                  position: 'relative',
-                  flexShrink: 0,
-                }}
-              >
-                <iframe
-                  src={`/preview/${entry.meta.slug}`}
-                  title={entry.meta.name}
-                  style={{
-                    border: 'none',
-                    width: 1200,
-                    height: 800,
-                    transform: 'scale(0.25)',
-                    transformOrigin: 'top left',
-                    pointerEvents: 'none',
-                  }}
-                />
+              <div className="relative aspect-[3/4] rounded-xl overflow-hidden border border-slate-200 hover:border-blue-300 transition-all hover:shadow-xl">
+                {/* Colored placeholder instead of iframe */}
+                <div className={`w-full h-full bg-gradient-to-br ${template.color} flex items-center justify-center`}>
+                  <div className="text-center">
+                    <div className={`text-6xl font-bold mb-2 ${
+                      template.tag === "Dark" ? "text-white" : "text-slate-900"
+                    }`}>
+                      {template.name.charAt(0)}
+                    </div>
+                    <div className={`text-sm font-medium ${
+                      template.tag === "Dark" ? "text-white/60" : "text-slate-500"
+                    }`}>
+                      {template.name}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Tag badge */}
+                <div className="absolute top-4 right-4">
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-medium text-slate-700 rounded-full border border-slate-200">
+                    {template.tag}
+                  </span>
+                </div>
               </div>
-
-              <div
-                style={{
-                  padding: '16px 18px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <p
-                  className="font-mono text-sm font-medium"
-                  style={{ color: 'var(--lumo-text)', margin: 0 }}
-                >
-                  {entry.meta.name}
-                </p>
-                <span
-                  className="font-mono text-[0.6rem] uppercase tracking-wider px-2 py-1 rounded border"
-                  style={{
-                    color: entry.meta.tag === 'dark' ? 'var(--lumo-accent)' : 'var(--lumo-text-muted)',
-                    borderColor: entry.meta.tag === 'dark' ? 'var(--lumo-accent)' : 'var(--lumo-text-muted)' + '66',
-                  }}
-                >
-                  {entry.meta.tag}
-                </span>
+              
+              <div className="mt-4 flex items-center justify-between">
+                <h3 className="font-semibold text-slate-900">{template.name}</h3>
+                <span className="text-sm text-slate-500">{template.tag}</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center">
-          <LumoButton href="/templates" variant="secondary">
+        <div className="text-center mt-12">
+          <Link 
+            href="/templates" 
+            className="inline-flex items-center px-6 py-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-colors"
+          >
             View All Templates
-          </LumoButton>
+            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>
