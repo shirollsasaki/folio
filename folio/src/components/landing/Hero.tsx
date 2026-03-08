@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export function Hero() {
   return (
@@ -48,7 +47,7 @@ export function Hero() {
             No credit card required · Deploy in seconds · Always synced with LinkedIn
           </p>
 
-          {/* Hero Mockup - Real Portfolio */}
+          {/* Hero Mockup - Styled Portfolio Preview */}
           <div className="pt-16 max-w-6xl mx-auto">
             <div className="relative">
               {/* Browser Frame */}
@@ -65,14 +64,70 @@ export function Hero() {
                   </div>
                 </div>
                 
-                {/* Actual Portfolio Screenshot */}
-                <div className="relative aspect-[16/10] bg-slate-900">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/portfolio-mockup.jpg"
-                    alt="Beautiful portfolio website example"
-                    className="w-full h-full object-cover object-top"
-                  />
+                {/* Styled Portfolio Mockup */}
+                <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 md:p-16">
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-12">
+                    <div className="space-y-2">
+                      <h2 className="text-3xl md:text-4xl font-bold text-white">Alex Rivera</h2>
+                      <p className="text-blue-300 text-lg">Senior Product Designer at Figma</p>
+                      <p className="text-slate-400">San Francisco, CA</p>
+                    </div>
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-500"></div>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-6 mb-12">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-blue-400 mb-1">8</div>
+                      <div className="text-xs text-slate-400 uppercase tracking-wide">Years Experience</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-blue-400 mb-1">12</div>
+                      <div className="text-xs text-slate-400 uppercase tracking-wide">Skills</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-blue-400 mb-1">25</div>
+                      <div className="text-xs text-slate-400 uppercase tracking-wide">Projects</div>
+                    </div>
+                  </div>
+
+                  {/* About */}
+                  <div className="mb-12">
+                    <h3 className="text-lg font-bold text-blue-300 mb-3 uppercase tracking-wide">About</h3>
+                    <div className="space-y-2">
+                      <div className="h-2 bg-slate-700 rounded w-full"></div>
+                      <div className="h-2 bg-slate-700 rounded w-5/6"></div>
+                      <div className="h-2 bg-slate-700 rounded w-4/6"></div>
+                    </div>
+                  </div>
+
+                  {/* Skills */}
+                  <div className="mb-12">
+                    <h3 className="text-lg font-bold text-blue-300 mb-4 uppercase tracking-wide">Skills</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {['Product Design', 'Figma', 'Design Systems', 'Prototyping', 'User Research'].map((skill, i) => (
+                        <span key={i} className="px-3 py-1.5 bg-blue-500/20 text-blue-300 text-sm rounded-full border border-blue-500/30">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Experience */}
+                  <div>
+                    <h3 className="text-lg font-bold text-blue-300 mb-4 uppercase tracking-wide">Experience</h3>
+                    <div className="space-y-4">
+                      <div className="border-l-2 border-blue-500 pl-4">
+                        <div className="text-white font-semibold">Senior Product Designer</div>
+                        <div className="text-slate-400 text-sm">Figma • 2021 - Present</div>
+                      </div>
+                      <div className="border-l-2 border-slate-700 pl-4 opacity-60">
+                        <div className="text-white font-semibold">Product Designer</div>
+                        <div className="text-slate-400 text-sm">Stripe • 2019 - 2021</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
