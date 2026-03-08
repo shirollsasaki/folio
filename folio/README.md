@@ -115,13 +115,26 @@ src/
 
 ## Templates
 
-Folio ships with **5 professionally designed templates**:
+Folio ships with **15 professionally designed templates**:
 
+### Premium Templates (5)
 1. **Impact Report** — Clean, professional light theme with stat grid
 2. **Terminal Hacker** — Dark terminal/hacker aesthetic with CRT effects
 3. **Brutalist Grid** — Bold brutalist grid layout with monospace fonts
 4. **Forest Link** — Dark green link-in-bio style for social media
 5. **Violet Pro** — Purple gradient header with professional stat cards
+
+### Standard Templates (10)
+6. **Minimal Cards** — Light card-based minimal design
+7. **Bold Header** — Dark theme with large bold typography
+8. **Grid Showcase** — Light grid-based portfolio showcase
+9. **Side Panel** — Dark sidebar navigation style
+10. **Timeline Flow** — Light vertical timeline layout
+11. **Split Screen** — Dark 50/50 split design
+12. **Magazine Layout** — Light editorial/magazine style with serif fonts
+13. **Compact Minimal** — Ultra-minimal single-page light design
+14. **Neon Terminal** — Dark neon/cyberpunk aesthetic with scanlines
+15. **Elegant Serif** — Light elegant serif typography with decorative accents
 
 Each template lives in `src/templates/{slug}/index.tsx` and exports a default React component accepting `TemplateProps`:
 
