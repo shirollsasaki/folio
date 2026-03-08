@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   basePath: '/folio',
-  assetPrefix: process.env.NODE_ENV === 'production' ? 'https://folio-afterapp.vercel.app' : undefined,
   images: {
     remotePatterns: [
       {
