@@ -1,238 +1,89 @@
+import LumoButton from '@/components/lumo/LumoButton';
+import Link from 'next/link';
+
 export function Hero() {
   return (
-    <section
-      style={{
-        minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '80px 24px',
-        overflow: 'hidden',
-      }}
+    <section 
+      className="relative z-10 flex flex-col justify-between min-h-screen px-8 py-32"
+      style={{ backgroundColor: 'var(--lumo-bg-base)' }}
     >
-      <style>{`
-        @keyframes hero-breathe {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-        }
-        @keyframes hero-morph {
-          0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
-          100% { border-radius: 50% 50% 40% 60% / 50% 50% 50% 50%; }
-        }
-        @keyframes hero-spin-slow {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        @keyframes hero-eq {
-          0%, 100% { height: 6px; }
-          50% { height: 14px; }
-        }
-        @keyframes hero-fade-in {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+      {/* Header */}
+      <header className="flex justify-between items-center w-full max-w-6xl mx-auto border-b pb-6"
+        style={{ borderColor: 'var(--lumo-text-muted)' + '33' }}>
+        <Link 
+          href="/" 
+          className="font-serif text-3xl md:text-4xl font-normal tracking-tight uppercase italic no-underline hover:text-lumo-accent transition-colors"
+          style={{ color: 'var(--lumo-text)' }}
+        >
+          Folio
+        </Link>
+        <nav className="flex gap-8 md:gap-12">
+          <Link 
+            href="/templates" 
+            className="font-mono text-[0.7rem] tracking-wider uppercase font-normal no-underline transition-all"
+            style={{ color: 'var(--lumo-text)' }}
+          >
+            Templates
+          </Link>
+          <Link 
+            href="/sign-in" 
+            className="font-mono text-[0.7rem] tracking-wider uppercase font-normal no-underline transition-all"
+            style={{ color: 'var(--lumo-text)' }}
+          >
+            Sign In
+          </Link>
+        </nav>
+      </header>
 
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          max-width: 1400px;
-          width: 100%;
-          align-items: center;
-        }
-
-        .hero-header-meta {
-          font-size: 0.85rem;
-          color: var(--cream-dim);
-          font-family: var(--font-dm-sans);
-          margin-bottom: 2rem;
-          font-weight: 500;
-          letter-spacing: 0.02em;
-          text-transform: uppercase;
-        }
-
-        .hero-transcript {
-          font-size: 2.25rem;
-          line-height: 1.3;
-          font-weight: 500;
-          font-family: var(--font-dm-sans);
-          color: var(--cream-dim);
-          margin-bottom: 3rem;
-          max-width: 600px;
-          position: relative;
-          -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-          mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        }
-
-        .hero-highlight {
-          color: var(--cream);
-        }
-
-        .hero-trust {
-          margin-top: 16px;
-          font-size: 0.8rem;
-          color: var(--cream-dim);
-          font-family: var(--font-dm-sans);
-        }
-
-        .hero-orb-column {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        .hero-orb-container {
-          width: 500px;
-          height: 500px;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          animation: hero-breathe 8s ease infinite;
-        }
-
-        .hero-orb-glow {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle, rgba(255,240,245,0.8) 0%, transparent 70%);
-          z-index: -1;
-        }
-
-        .hero-orb-base {
-          position: absolute;
-          width: 400px;
-          height: 400px;
-          border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-          background: radial-gradient(circle at 30% 30%, #FFF5F0 0%, #FFE4E1 40%, #FFEBCD 100%);
-          box-shadow:
-            inset 10px 10px 40px rgba(255,255,255,0.8),
-            inset -10px -10px 40px rgba(255,218,185,0.4),
-            20px 20px 60px rgba(255,228,225,0.4);
-          animation: hero-morph 12s ease alternate infinite;
-          filter: blur(1px);
-        }
-
-        .hero-orb-vein {
-          position: absolute;
-          border-radius: 50%;
-          border: 1px solid rgba(255,160,122,0.3);
-          transform: rotate(45deg);
-          clip-path: ellipse(60% 80% at 50% 50%);
-          animation: hero-spin-slow linear infinite;
-        }
-
-        .hero-status-pill {
-          margin-top: 3rem;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          font-size: 0.9rem;
-          font-weight: 500;
-          color: var(--cream-dim);
-          font-family: var(--font-dm-sans);
-          opacity: 0;
-          animation: hero-fade-in 1s 1s forwards;
-        }
-
-        .hero-equalizer {
-          display: flex;
-          gap: 3px;
-          height: 16px;
-          align-items: center;
-        }
-
-        .hero-bar {
-          width: 3px;
-          background-color: var(--cream-dim);
-          border-radius: 4px;
-          animation: hero-eq 1.2s ease infinite;
-        }
-
-        .hero-bar:nth-child(1) {
-          animation-delay: 0s;
-          height: 6px;
-        }
-
-        .hero-bar:nth-child(2) {
-          animation-delay: 0.1s;
-          height: 12px;
-        }
-
-        .hero-bar:nth-child(3) {
-          animation-delay: 0.2s;
-          height: 8px;
-        }
-
-        @media (max-width: 1024px) {
-          .hero-grid {
-            grid-template-columns: 1fr;
-          }
-          .hero-orb-container {
-            width: 300px;
-            height: 300px;
-          }
-          .hero-orb-base {
-            width: 250px;
-            height: 250px;
-          }
-        }
-      `}</style>
-
-      <div className="hero-grid">
-        <div>
-          <p className="hero-header-meta">FOLIO · PERSONAL WEBSITE</p>
-          <div className="hero-transcript">
-            <span className="hero-highlight">Build Your Personal Website in Minutes.</span>
-            {' '}Turn your profile into a stunning personal site. Pick a template, customize,
-            <span style={{ color: 'var(--cream-dim)' }}> and go live in minutes.</span>
-          </div>
-          <a
-            href="/folio/sign-up"
-            style={{
-              display: 'inline-block',
-              backgroundColor: 'var(--gold)',
-              color: '#FFFFFF',
-              padding: '16px 40px',
-              borderRadius: '100px',
-              fontWeight: 600,
-              fontSize: '1rem',
-              textDecoration: 'none',
-              fontFamily: 'var(--font-dm-sans)',
+      {/* Hero Content */}
+      <main className="flex-1 flex items-center justify-center text-center w-full max-w-6xl mx-auto">
+        <div className="space-y-8">
+          <h1 
+            className="font-serif text-4xl md:text-6xl leading-[0.85] font-normal tracking-tight uppercase opacity-0 animate-fade-in-slow"
+            style={{ 
+              color: 'var(--lumo-text)',
+              animationDelay: '0.5s',
+              animationFillMode: 'forwards'
             }}
           >
-            Get Started →
-          </a>
-          <p className="hero-trust">No credit card required · Deploy in seconds</p>
-        </div>
+            Your Portfolio<br />In Minutes
+          </h1>
+          
+          <p 
+            className="font-mono text-xs md:text-[0.75rem] uppercase tracking-[0.2em] opacity-0 animate-fade-in-slow"
+            style={{ 
+              color: 'var(--lumo-accent)',
+              animationDelay: '1.2s',
+              animationFillMode: 'forwards'
+            }}
+          >
+            Turn LinkedIn into a stunning portfolio website
+          </p>
 
-        <div className="hero-orb-column">
-          <div className="hero-orb-container">
-            <div className="hero-orb-glow" />
-            <div className="hero-orb-base" />
-            <div
-              className="hero-orb-vein"
-              style={{ width: '380px', height: '380px', animationDuration: '25s' }}
-            />
-            <div
-              className="hero-orb-vein"
-              style={{
-                width: '360px',
-                height: '360px',
-                animationDuration: '20s',
-                borderColor: 'rgba(255,255,255,0.6)',
-              }}
-            />
+          <div 
+            className="flex flex-col md:flex-row gap-6 justify-center opacity-0 animate-fade-in-slow"
+            style={{
+              animationDelay: '1.8s',
+              animationFillMode: 'forwards'
+            }}
+          >
+            <LumoButton href="/sign-up" variant="primary">
+              Get Started
+            </LumoButton>
+            <LumoButton href="/templates" variant="secondary">
+              View Templates
+            </LumoButton>
           </div>
-          <div className="hero-status-pill">
-            <span>Building portfolios</span>
-            <div className="hero-equalizer">
-              <div className="hero-bar" />
-              <div className="hero-bar" />
-              <div className="hero-bar" />
-            </div>
-          </div>
+        </div>
+      </main>
+
+      {/* Scroll indicator */}
+      <div className="flex justify-center">
+        <div className="flex flex-col items-center opacity-70 animate-bounce-scroll">
+          <div 
+            className="w-[15px] h-[15px] border-b-2 border-r-2 transform rotate-45"
+            style={{ borderColor: 'var(--lumo-accent)' }}
+          />
         </div>
       </div>
     </section>

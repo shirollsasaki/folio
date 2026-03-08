@@ -1,148 +1,124 @@
-const features = [
-  'All templates',
-  'Custom domain',
-  'LinkedIn extraction',
-  'AI bio cleanup',
-  'Priority support',
-];
+import LumoButton from '@/components/lumo/LumoButton';
 
 export function Pricing() {
+  const plans = [
+    {
+      name: "Free",
+      price: "$0",
+      period: "forever",
+      features: [
+        "yourname.folio.site subdomain",
+        "5 template options",
+        "LinkedIn sync",
+        "Basic customization",
+        "Mobile responsive"
+      ],
+      cta: "Get Started",
+      href: "/sign-up",
+      variant: "secondary" as const
+    },
+    {
+      name: "Pro",
+      price: "$12",
+      period: "per month",
+      features: [
+        "Custom domain (your.domain.com)",
+        "All 15 premium templates",
+        "Advanced customization",
+        "Priority support",
+        "Remove Folio branding"
+      ],
+      cta: "Start Free Trial",
+      href: "/sign-up?plan=pro",
+      variant: "primary" as const,
+      popular: true
+    }
+  ];
+
   return (
-    <section
-      id="pricing"
-      style={{ padding: '80px 48px', backgroundColor: 'var(--bg2)' }}
+    <section 
+      className="py-24 px-8"
+      style={{ backgroundColor: 'var(--lumo-bg-base)' }}
     >
-      <style>{`
-        .pricing-cta:hover {
-          background-color: var(--gold-light) !important;
-        }
-      `}</style>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        <h2
-          style={{
-            fontFamily: 'var(--font-playfair)',
-            fontSize: '2rem',
-            textAlign: 'center',
-            marginBottom: '16px',
-            color: 'var(--cream)',
-          }}
+      <div className="max-w-6xl mx-auto space-y-16">
+        <h2 
+          className="font-serif text-3xl md:text-4xl text-center font-normal tracking-tight"
+          style={{ color: 'var(--lumo-text)' }}
         >
           Simple, transparent pricing
         </h2>
-        <p
-          style={{
-            color: 'var(--cream-dim)',
-            textAlign: 'center',
-            marginBottom: '48px',
-          }}
-        >
-          Everything you need to build your personal brand online.
-        </p>
 
-        <div
-          style={{
-            maxWidth: '480px',
-            margin: '0 auto',
-            backgroundColor: 'var(--bg)',
-            border: '1px solid var(--border-gold)',
-            borderRadius: '24px',
-            boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
-            padding: '48px',
-          }}
-        >
-          <p
-            style={{
-              color: 'var(--cream-dim)',
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.1em',
-              marginBottom: '16px',
-            }}
-          >
-            Pro
-          </p>
-
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: '4px',
-              marginBottom: '32px',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-playfair)',
-                fontSize: '3.5rem',
-                fontWeight: '700',
-                color: 'var(--gold)',
-                lineHeight: 1,
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {plans.map((plan, index) => (
+            <div 
+              key={index}
+              className="p-8 rounded-lg border transition-all hover:shadow-lg relative"
+              style={{ 
+                backgroundColor: 'var(--lumo-bg-base)',
+                borderColor: plan.popular ? 'var(--lumo-accent)' : 'var(--lumo-text-muted)' + '33',
+                borderWidth: plan.popular ? '2px' : '1px'
               }}
             >
-              $12
-            </span>
-            <span style={{ color: 'var(--cream-dim)', fontSize: '0.85rem' }}>
-              /per month
-            </span>
-          </div>
+              {plan.popular && (
+                <div 
+                  className="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-xs px-4 py-1 rounded-full"
+                  style={{ 
+                    backgroundColor: 'var(--lumo-accent)',
+                    color: '#fff'
+                  }}
+                >
+                  POPULAR
+                </div>
+              )}
 
-          <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              margin: '0 0 32px 0',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-            }}
-          >
-            {features.map((f) => (
-              <li
-                key={f}
-                style={{
-                  display: 'flex',
-                  gap: '10px',
-                  alignItems: 'center',
-                  color: 'var(--cream)',
-                  fontSize: '0.95rem',
-                }}
-              >
-                <span style={{ color: 'var(--gold)', fontWeight: '700' }}>✓</span>
-                {f}
-              </li>
-            ))}
-          </ul>
+              <div className="space-y-6">
+                <div>
+                  <h3 
+                    className="font-serif text-2xl mb-2 font-normal"
+                    style={{ color: 'var(--lumo-text)' }}
+                  >
+                    {plan.name}
+                  </h3>
+                  <div className="flex items-baseline gap-2">
+                    <span 
+                      className="font-serif text-4xl font-normal"
+                      style={{ color: 'var(--lumo-text)' }}
+                    >
+                      {plan.price}
+                    </span>
+                    <span 
+                      className="font-mono text-sm"
+                      style={{ color: 'var(--lumo-text-muted)' }}
+                    >
+                      {plan.period}
+                    </span>
+                  </div>
+                </div>
 
-          <a
-            href="/folio/sign-up"
-            className="pricing-cta"
-            style={{
-              display: 'block',
-              textAlign: 'center',
-              backgroundColor: 'var(--gold)',
-              color: '#FFFFFF',
-              borderRadius: '100px',
-              padding: '14px 32px',
-              fontFamily: 'var(--font-dm-sans)',
-              fontWeight: '600',
-              fontSize: '0.95rem',
-              textDecoration: 'none',
-              transition: 'background-color 0.2s ease',
-            }}
-          >
-            Get started
-          </a>
+                <ul className="space-y-3">
+                  {plan.features.map((feature, i) => (
+                    <li 
+                      key={i}
+                      className="flex items-start gap-3 font-mono text-sm"
+                      style={{ color: 'var(--lumo-text-muted)' }}
+                    >
+                      <span style={{ color: 'var(--lumo-accent)' }}>✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-          <p
-            style={{
-              color: 'var(--cream-dim)',
-              fontSize: '0.8rem',
-              textAlign: 'center',
-              marginTop: '16px',
-            }}
-          >
-            Cancel anytime · No contracts
-          </p>
+                <div className="w-full flex justify-center">
+                  <LumoButton 
+                    href={plan.href} 
+                    variant={plan.variant}
+                  >
+                    {plan.cta}
+                  </LumoButton>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

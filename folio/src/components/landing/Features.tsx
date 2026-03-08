@@ -1,19 +1,28 @@
-export function HowItWorks() {
-  const steps = [
+export function Features() {
+  const features = [
     {
-      number: "01",
-      title: "Paste your LinkedIn URL",
-      description: "We extract everything automatically"
+      title: "LinkedIn Sync",
+      description: "Auto-updates from your profile"
     },
     {
-      number: "02",
-      title: "Pick a template",
-      description: "15 options, all customizable"
+      title: "Custom Domain",
+      description: "Use your.domain.com"
     },
     {
-      number: "03",
-      title: "Deploy instantly",
+      title: "Fast Deployment",
       description: "Live in seconds"
+    },
+    {
+      title: "Mobile Responsive",
+      description: "Works everywhere"
+    },
+    {
+      title: "Always Updated",
+      description: "Syncs with LinkedIn"
+    },
+    {
+      title: "Pro Templates",
+      description: "Premium designs"
     }
   ];
 
@@ -27,11 +36,11 @@ export function HowItWorks() {
           className="font-serif text-3xl md:text-4xl text-center font-normal tracking-tight"
           style={{ color: 'var(--lumo-text)' }}
         >
-          Three steps to your portfolio
+          Everything you need
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
+          {features.map((feature, index) => (
             <div 
               key={index}
               className="p-8 rounded-lg border transition-all hover:shadow-lg"
@@ -40,23 +49,17 @@ export function HowItWorks() {
                 borderColor: 'var(--lumo-text-muted)' + '33'
               }}
             >
-              <div 
-                className="font-mono text-xs mb-4 tracking-wider"
-                style={{ color: 'var(--lumo-accent)' }}
-              >
-                {step.number}
-              </div>
               <h3 
                 className="font-serif text-xl mb-3 font-normal"
                 style={{ color: 'var(--lumo-text)' }}
               >
-                {step.title}
+                {feature.title}
               </h3>
               <p 
                 className="font-mono text-sm"
                 style={{ color: 'var(--lumo-text-muted)' }}
               >
-                {step.description}
+                {feature.description}
               </p>
             </div>
           ))}
