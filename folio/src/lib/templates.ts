@@ -1,142 +1,142 @@
 import type { TemplateEntry } from '@/types';
 
-// Original templates
+// Original working templates
 import ImpactReport from '@/templates/impact-report';
 import TerminalHacker from '@/templates/terminal-hacker';
 import BrutalistGrid from '@/templates/brutalist-grid';
 import ForestLink from '@/templates/forest-link';
 import VioletPro from '@/templates/violet-pro';
 
-// New immersive 3D templates
-import CityBuilder from '@/templates/city-builder';
-import SpaceJourney from '@/templates/space-journey';
-import ParticleUniverse from '@/templates/particle-universe';
-import FloatingIslands from '@/templates/floating-islands';
-import ScrollDepth from '@/templates/scroll-depth';
-import PhysicsPlayground from '@/templates/physics-playground';
-import GameWorld from '@/templates/game-world';
-import ShaderArt from '@/templates/shader-art';
-import Terminal3D from '@/templates/terminal-3d';
-import VRMuseum from '@/templates/vr-museum';
+// New working templates (replacing broken 3D ones)
+import MinimalPro from '@/templates/minimal-pro';
+import BoldContrast from '@/templates/bold-contrast';
+import GradientModern from '@/templates/gradient-modern';
+import NeoBrutalist from '@/templates/neo-brutalist';
+import ElegantSerif from '@/templates/elegant-serif';
+import CreativeGrid from '@/templates/creative-grid';
+import TimelineVertical from '@/templates/timeline-vertical';
+import SplitLayout from '@/templates/split-layout';
+import CardStack from '@/templates/card-stack';
+import MinimalDark from '@/templates/minimal-dark';
 
 import { createMockProfile } from '@/test/mocks/profile';
 
 const mockProfile = createMockProfile();
 
 export const templates: TemplateEntry[] = [
-  // Immersive 3D Templates (Premium)
+  // New working templates
   {
-    Component: CityBuilder,
+    Component: MinimalPro,
     meta: {
-      name: 'City Builder',
-      slug: 'city-builder',
-      tag: 'dark',
-      previewImage: '/previews/city-builder.png',
-      isPremium: true,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: SpaceJourney,
-    meta: {
-      name: 'Space Journey',
-      slug: 'space-journey',
-      tag: 'dark',
-      previewImage: '/previews/space-journey.png',
-      isPremium: true,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: ParticleUniverse,
-    meta: {
-      name: 'Particle Universe',
-      slug: 'particle-universe',
-      tag: 'dark',
-      previewImage: '/previews/particle-universe.png',
-      isPremium: true,
-    },
-    defaultProps: { profile: mockProfile },
-  },
-  {
-    Component: FloatingIslands,
-    meta: {
-      name: 'Floating Islands',
-      slug: 'floating-islands',
+      name: 'Minimal Pro',
+      slug: 'minimal-pro',
       tag: 'light',
-      previewImage: '/previews/floating-islands.png',
+      previewImage: '/previews/minimal-pro.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: ScrollDepth,
+    Component: BoldContrast,
     meta: {
-      name: 'Scroll Depth',
-      slug: 'scroll-depth',
+      name: 'Bold Contrast',
+      slug: 'bold-contrast',
       tag: 'dark',
-      previewImage: '/previews/scroll-depth.png',
+      previewImage: '/previews/bold-contrast.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: PhysicsPlayground,
+    Component: GradientModern,
     meta: {
-      name: 'Physics Playground',
-      slug: 'physics-playground',
-      tag: 'dark',
-      previewImage: '/previews/physics-playground.png',
+      name: 'Gradient Modern',
+      slug: 'gradient-modern',
+      tag: 'light',
+      previewImage: '/previews/gradient-modern.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: GameWorld,
+    Component: NeoBrutalist,
     meta: {
-      name: 'Game World',
-      slug: 'game-world',
-      tag: 'dark',
-      previewImage: '/previews/game-world.png',
+      name: 'Neo Brutalist',
+      slug: 'neo-brutalist',
+      tag: 'light',
+      previewImage: '/previews/neo-brutalist.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: ShaderArt,
+    Component: ElegantSerif,
     meta: {
-      name: 'Shader Art',
-      slug: 'shader-art',
-      tag: 'dark',
-      previewImage: '/previews/shader-art.png',
+      name: 'Elegant Serif',
+      slug: 'elegant-serif',
+      tag: 'light',
+      previewImage: '/previews/elegant-serif.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: Terminal3D,
+    Component: CreativeGrid,
     meta: {
-      name: 'Terminal 3D',
-      slug: 'terminal-3d',
-      tag: 'dark',
-      previewImage: '/previews/terminal-3d.png',
+      name: 'Creative Grid',
+      slug: 'creative-grid',
+      tag: 'light',
+      previewImage: '/previews/creative-grid.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
   {
-    Component: VRMuseum,
+    Component: TimelineVertical,
     meta: {
-      name: 'VR Museum',
-      slug: 'vr-museum',
+      name: 'Timeline Vertical',
+      slug: 'timeline-vertical',
       tag: 'dark',
-      previewImage: '/previews/vr-museum.png',
+      previewImage: '/previews/timeline-vertical.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: SplitLayout,
+    meta: {
+      name: 'Split Layout',
+      slug: 'split-layout',
+      tag: 'light',
+      previewImage: '/previews/split-layout.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: CardStack,
+    meta: {
+      name: 'Card Stack',
+      slug: 'card-stack',
+      tag: 'light',
+      previewImage: '/previews/card-stack.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: MinimalDark,
+    meta: {
+      name: 'Minimal Dark',
+      slug: 'minimal-dark',
+      tag: 'dark',
+      previewImage: '/previews/minimal-dark.png',
       isPremium: true,
     },
     defaultProps: { profile: mockProfile },
   },
 
-  // Original templates
+  // Original working templates
   {
     Component: ImpactReport,
     meta: {
