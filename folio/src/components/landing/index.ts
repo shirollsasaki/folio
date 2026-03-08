@@ -1,5 +1,6 @@
 export { Nav } from './Nav';
 export { Hero } from './Hero';
+export { Stats } from './Stats';
 export { HowItWorks } from './HowItWorks';
 export { Templates } from './Templates';
 export { Features } from './Features';

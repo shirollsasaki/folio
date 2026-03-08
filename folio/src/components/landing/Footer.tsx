@@ -1,80 +1,103 @@
 import Link from 'next/link';
+import { Twitter, Linkedin, Github } from 'lucide-react';
 
 export function Footer() {
+  const sections = [
+    {
+      title: "Product",
+      links: [
+        { label: "Templates", href: "/templates" },
+        { label: "Pricing", href: "#pricing" },
+        { label: "Features", href: "#features" },
+        { label: "FAQ", href: "#faq" }
+      ]
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About", href: "/about" },
+        { label: "Blog", href: "/blog" },
+        { label: "Contact", href: "/contact" }
+      ]
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy", href: "/privacy" },
+        { label: "Terms", href: "/terms" }
+      ]
+    }
+  ];
+
   return (
-    <footer className="bg-slate-50 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          <div className="col-span-2 md:col-span-1">
-            <Link 
-              href="/" 
-              className="font-playfair text-2xl font-bold text-slate-900 inline-block mb-4"
-            >
-              Folio
-            </Link>
-            <p className="text-sm text-slate-600">
-              Turn your LinkedIn into a stunning portfolio website in minutes.
+    <footer className="bg-slate-900 text-white py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-12 border-b border-slate-800">
+          {/* Brand */}
+          <div className="lg:col-span-2 space-y-4">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
+                F
+              </div>
+              <span className="text-xl font-bold">Folio</span>
+            </div>
+            <p className="text-slate-400 max-w-xs leading-relaxed">
+              Transform your LinkedIn profile into a stunning portfolio website in minutes. No code required.
             </p>
+            
+            {/* Social Links */}
+            <div className="flex gap-4 pt-2">
+              <a 
+                href="https://twitter.com/folio" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://linkedin.com/company/folio" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://github.com/folio" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+            </div>
           </div>
 
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Product</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/templates" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Templates
-                </Link>
-              </li>
-              <li>
-                <Link href="#pricing" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link href="#faq" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  FAQ
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Account</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/sign-in" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Sign In
-                </Link>
-              </li>
-              <li>
-                <Link href="/sign-up" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Sign Up
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-slate-900 mb-4">Legal</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/privacy" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-sm text-slate-600 hover:text-slate-900 transition-colors">
-                  Terms
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Link Sections */}
+          {sections.map((section, index) => (
+            <div key={index} className="space-y-4">
+              <h3 className="font-bold text-white">{section.title}</h3>
+              <ul className="space-y-3">
+                {section.links.map((link, i) => (
+                  <li key={i}>
+                    <Link 
+                      href={link.href}
+                      className="text-slate-400 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="pt-8 border-t border-slate-200 text-center">
-          <p className="text-sm text-slate-600">
-            © 2026 Folio. All rights reserved.
-          </p>
+        {/* Copyright */}
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
+          <p>© {new Date().getFullYear()} Folio. All rights reserved.</p>
+          <p>Built with ❤️ for professionals everywhere</p>
         </div>
       </div>
     </footer>

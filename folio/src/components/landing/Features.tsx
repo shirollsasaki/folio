@@ -1,85 +1,80 @@
+import { Linkedin, Globe, Zap, Smartphone, RefreshCw, Sparkles } from 'lucide-react';
+
 export function Features() {
   const features = [
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-        </svg>
-      ),
+      icon: <Linkedin className="w-7 h-7" />,
       title: "LinkedIn Sync",
-      description: "Import your profile in one click"
+      description: "Import your profile in one click. Your experience, skills, and achievements automatically flow in.",
+      gradient: "from-blue-500 to-blue-600"
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-        </svg>
-      ),
+      icon: <Globe className="w-7 h-7" />,
       title: "Custom Domain",
-      description: "yourname.com - make it yours"
+      description: "Use your own domain (yourname.com) or get a free subdomain. Make it truly yours.",
+      gradient: "from-purple-500 to-purple-600"
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-        </svg>
-      ),
+      icon: <RefreshCw className="w-7 h-7" />,
       title: "Always Updated",
-      description: "Edit anytime, changes go live instantly"
+      description: "Edit anytime, changes go live instantly. Your portfolio evolves with your career.",
+      gradient: "from-green-500 to-emerald-600"
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      ),
+      icon: <Smartphone className="w-7 h-7" />,
       title: "Mobile Responsive",
-      description: "Looks perfect on every device"
+      description: "Looks perfect on every device. Your visitors get a great experience, guaranteed.",
+      gradient: "from-pink-500 to-rose-600"
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ),
+      icon: <Zap className="w-7 h-7" />,
       title: "Fast Deployment",
-      description: "Live in under 10 seconds"
+      description: "Live in under 10 seconds. No waiting, no complex setup. Just ship it.",
+      gradient: "from-yellow-500 to-orange-600"
     },
     {
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-        </svg>
-      ),
+      icon: <Sparkles className="w-7 h-7" />,
       title: "Pro Templates",
-      description: "Premium designs that stand out"
+      description: "Premium designs that stand out. Built by designers who care about details.",
+      gradient: "from-indigo-500 to-blue-600"
     }
   ];
 
   return (
     <section className="bg-slate-50 py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900">
-            Everything You Need
+        <div className="text-center space-y-6 mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            Everything You Need,{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Nothing You Don't
+            </span>
           </h2>
+          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
+            Powerful features that make portfolio building effortless
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white p-6 rounded-xl border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all"
+              className="group bg-white p-8 rounded-2xl border-2 border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 space-y-4"
             >
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+              {/* Icon */}
+              <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center text-white shadow-lg shadow-${feature.gradient.split('-')[1]}-500/20 group-hover:scale-110 transition-transform`}>
                 {feature.icon}
               </div>
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
-                {feature.title}
-              </h3>
-              <p className="text-slate-600">
-                {feature.description}
-              </p>
+              
+              {/* Content */}
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-slate-900">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -25,15 +26,22 @@ export function FAQ() {
     {
       question: "Can I cancel my Pro subscription?",
       answer: "Absolutely. Cancel anytime, no questions asked. You'll keep Pro features until the end of your billing period."
+    },
+    {
+      question: "Do I need any technical skills?",
+      answer: "Not at all! If you can use LinkedIn, you can use Folio. Everything is point-and-click, no coding required."
     }
   ];
 
   return (
-    <section className="bg-slate-50 py-20 md:py-28">
+    <section id="faq" className="bg-white py-20 md:py-28">
       <div className="max-w-3xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900">
-            Frequently Asked Questions
+        <div className="text-center space-y-6 mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            Questions?{' '}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              We've Got Answers
+            </span>
           </h2>
         </div>
 
@@ -41,34 +49,42 @@ export function FAQ() {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="bg-white rounded-xl border border-slate-200 overflow-hidden"
+              className="bg-white rounded-xl border-2 border-slate-200 hover:border-blue-200 overflow-hidden transition-all"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 transition-colors"
+                className="w-full px-6 md:px-8 py-5 text-left flex items-center justify-between hover:bg-slate-50 transition-colors group"
               >
-                <span className="font-semibold text-slate-900 pr-8">
+                <span className="font-bold text-slate-900 pr-8 text-lg">
                   {faq.question}
                 </span>
-                <svg 
-                  className={`w-5 h-5 text-slate-500 transition-transform flex-shrink-0 ${
+                <ChevronDown 
+                  className={`w-6 h-6 text-slate-400 group-hover:text-blue-600 transition-all flex-shrink-0 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                />
               </button>
               
               {openIndex === index && (
-                <div className="px-6 pb-4 text-slate-600">
+                <div className="px-6 md:px-8 pb-6 text-slate-600 leading-relaxed text-base">
                   {faq.answer}
                 </div>
               )}
             </div>
           ))}
+        </div>
+
+        {/* Still have questions? */}
+        <div className="mt-12 text-center">
+          <p className="text-slate-600 mb-4">
+            Still have questions?
+          </p>
+          <a 
+            href="mailto:support@folio.app" 
+            className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold"
+          >
+            Get in touch with our team →
+          </a>
         </div>
       </div>
     </section>
