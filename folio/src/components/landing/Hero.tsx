@@ -67,13 +67,11 @@ export function Hero() {
                 
                 {/* Actual Portfolio Screenshot */}
                 <div className="relative aspect-[16/10] bg-slate-900">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src="/portfolio-mockup.jpg"
                     alt="Beautiful portfolio website example"
-                    fill
-                    className="object-cover object-top"
-                    priority
-                    unoptimized
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
               </div>
