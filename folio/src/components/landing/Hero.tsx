@@ -73,6 +73,7 @@ export function Hero() {
                     fill
                     className="object-cover object-top"
                     priority
+                    unoptimized
                   />
                 </div>
               </div>
