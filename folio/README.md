@@ -115,15 +115,24 @@ src/
 
 ## Templates
 
+Folio ships with **5 professionally designed templates**:
+
+1. **Impact Report** — Clean, professional light theme with stat grid
+2. **Terminal Hacker** — Dark terminal/hacker aesthetic with CRT effects
+3. **Brutalist Grid** — Bold brutalist grid layout with monospace fonts
+4. **Forest Link** — Dark green link-in-bio style for social media
+5. **Violet Pro** — Purple gradient header with professional stat cards
+
 Each template lives in `src/templates/{slug}/index.tsx` and exports a default React component accepting `TemplateProps`:
 
 ```typescript
 import type { TemplateProps } from '@/types/template';
 
-export default function MyTemplate({ profile }: TemplateProps) {
+export default function MyTemplate({ profile, accentColor }: TemplateProps) {
   // profile.name, profile.headline, profile.bio
   // profile.experience[], profile.skills[]
-  // profile.socials { linkedin, twitter, github, instagram, youtube, website, portfolio }
+  // profile.linkedin_url, twitter_url, github_url, etc.
+  // accentColor — optional hex color override
   return <div>...</div>;
 }
 ```
@@ -135,7 +144,13 @@ import MyTemplate from '@/templates/my-template';
 
 export const templates: TemplateEntry[] = [
   {
-    meta: { name: 'My Template', slug: 'my-template', tag: 'light', isPremium: true },
+    meta: { 
+      name: 'My Template', 
+      slug: 'my-template', 
+      tag: 'light', // or 'dark'
+      previewImage: '/previews/my-template.png',
+      isPremium: true 
+    },
     Component: MyTemplate,
     defaultProps: { profile: createMockProfile() },
   },
@@ -177,35 +192,92 @@ The `assetPrefix` in `next.config.ts` is set to `https://folio-afterapp.vercel.a
 
 ## Environment Variables
 
+Copy `.env.local.example` to `.env.local` and fill in the required values:
+
 ```bash
-# Clerk
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/folio/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/folio/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/folio/dashboard
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/folio/build
-
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-
-# Dodo Payments
-DODO_API_KEY=
-DODO_WEBHOOK_KEY=
-DODO_PRODUCT_ID=
-
-# Proxycurl (LinkedIn extraction)
-PROXYCURL_API_KEY=
-
-# OpenAI (bio cleanup)
-OPENAI_API_KEY=
-
-# Vercel (site deployment)
-VERCEL_TOKEN=
-VERCEL_TEAM_ID=
+cp .env.local.example .env.local
 ```
+
+### Required Environment Variables
+
+#### Clerk Auth
+Authentication and user management via Clerk.
+
+- **`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`** — Get from [Clerk Dashboard](https://dashboard.clerk.com) → Your App → API Keys
+- **`CLERK_SECRET_KEY`** — Secret key from same API Keys page
+- **`CLERK_WEBHOOK_SECRET`** — Create webhook endpoint in Clerk Dashboard → Webhooks → Add Endpoint (point to `/api/webhooks/clerk`)
+- **`NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in`** — Sign-in page route (no /folio prefix needed, handled by basePath)
+- **`NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up`** — Sign-up page route
+- **`NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/build`** — Redirect after sign-in
+- **`NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/build`** — Redirect after sign-up
+
+#### Supabase Database
+PostgreSQL database for storing user sites and profiles.
+
+- **`NEXT_PUBLIC_SUPABASE_URL`** — Get from [Supabase Dashboard](https://app.supabase.com) → Project Settings → API → Project URL
+- **`NEXT_PUBLIC_SUPABASE_ANON_KEY`** — Anon/Public key from same API page
+- **`SUPABASE_SERVICE_ROLE_KEY`** — Service role key (secret) — **do not expose client-side**
+
+#### Dodo Payments
+Payment processing and subscription management.
+
+- **`DODO_PAYMENTS_API_KEY`** — Get from [Dodo Payments Dashboard](https://dodo.dev/dashboard)
+- **`DODO_PAYMENTS_WEBHOOK_KEY`** — Webhook signing secret (Dashboard → Webhooks)
+- **`DODO_PAYMENTS_RETURN_URL=https://afterapp.fun/folio/build`** — Redirect after successful payment
+- **`DODO_PAYMENTS_ENVIRONMENT=test_mode`** — Use `test_mode` for development, `live` for production
+- **`DODO_PRODUCT_PRO`** — Product ID for Pro plan (create in Dashboard → Products)
+- **`DODO_PRODUCT_AGENCY`** — Product ID for Agency plan (if applicable)
+
+#### LinkedIn Extraction
+Proxycurl API for extracting LinkedIn profile data.
+
+- **`PROXYCURL_API_KEY`** — Get from [Proxycurl](https://nubela.co/proxycurl/) → Dashboard → API Keys
+  - Used by `/api/extract` endpoint to scrape LinkedIn profiles
+  - Rate limits vary by plan
+
+#### AI Bio Enhancement
+Anthropic Claude API for cleaning up and enhancing bio text.
+
+- **`ANTHROPIC_API_KEY`** — Get from [Anthropic Console](https://console.anthropic.com/) → API Keys
+  - Used to polish and format extracted LinkedIn bio text
+  - Optional but recommended for better bio quality
+
+#### Vercel Deployment
+Programmatic deployment of user sites.
+
+- **`VERCEL_API_TOKEN`** — Create at [Vercel Dashboard](https://vercel.com/account/tokens) → Settings → Tokens
+  - Needs deployment permissions
+- **`VERCEL_TEAM_ID`** — Found in Vercel Dashboard → Team Settings → General → Team ID
+  - Required if deploying under a team account
+
+#### App Configuration
+
+- **`NEXT_PUBLIC_APP_URL=https://afterapp.fun/folio`** — Public-facing URL for your app
+  - Used for absolute URLs in emails, webhooks, etc.
+
+### Development Setup
+
+1. Copy example env file:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+2. Fill in **at minimum** these keys to run locally:
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+   - `CLERK_SECRET_KEY`
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+
+3. For full feature testing (LinkedIn import, payments, deployment), configure:
+   - Proxycurl API key
+   - Dodo Payments keys
+   - Vercel API token
+
+4. Run dev server:
+   ```bash
+   npm run dev
+   ```
 
 ---
 
