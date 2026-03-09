@@ -1,12 +1,41 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Link from 'next/link';
-import { UserButton, useAuth } from '@clerk/nextjs';
+
+type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error' | 'duplicate';
+
+const scrollToWaitlist = () => {
+  document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' });
+};
 
 export function WarmGreyLanding() {
-  const router = useRouter();
-  const { isSignedIn } = useAuth();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<WaitlistStatus>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json() as { success?: boolean; message?: string; error?: string };
+      if (data.success) {
+        if (data.message?.includes('Already')) {
+          setStatus('duplicate');
+        } else {
+          setStatus('success');
+        }
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+  };
 
   return (
     <div className="app-frame" style={{ minHeight: 'auto', height: 'auto' }}>
@@ -15,28 +44,6 @@ export function WarmGreyLanding() {
         <Link href="#how" className="app-tab">How It Works</Link>
         <Link href="#features" className="app-tab">Features</Link>
         <Link href="#pricing" className="app-tab">Pricing</Link>
-        
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '12px', paddingRight: '20px' }}>
-          {isSignedIn ? (
-            <>
-              <Link href="/dashboard" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
-                Dashboard
-              </Link>
-              <UserButton 
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: { width: 32, height: 32 }
-                  }
-                }}
-              />
-            </>
-          ) : (
-            <Link href="/sign-in" className="btn btn-secondary" style={{ padding: '8px 16px', fontSize: '13px' }}>
-              Sign In
-            </Link>
-          )}
-        </div>
       </div>
       
       <div className="app-body" style={{ display: 'block', overflow: 'visible' }}>
@@ -63,22 +70,44 @@ export function WarmGreyLanding() {
               No coding required. Auto-syncs when you update LinkedIn.
             </p>
             
-            <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button 
-                type="button"
+            <form
+              id="waitlist-form"
+              onSubmit={handleSubmit}
+              style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '8px' }}
+            >
+              <input
+                type="email"
+                className="input input-large"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={status === 'loading' || status === 'success'}
+                required
+                style={{ maxWidth: '320px', flex: '1' }}
+              />
+              <button
+                type="submit"
                 className="btn btn-primary btn-large"
-                onClick={() => router.push('/sign-up')}
+                disabled={status === 'loading' || status === 'success'}
               >
-                Get Started Free →
+                {status === 'loading' ? 'Joining...' : status === 'success' ? '✓ You\'re in' : 'Join Waitlist →'}
               </button>
-              <button 
-                type="button"
-                className="btn btn-secondary btn-large"
-                onClick={() => router.push('/sign-in')}
-              >
-                Sign In
-              </button>
-            </div>
+            </form>
+            {status === 'success' && (
+              <p style={{ marginTop: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
+                You're on the list! We'll reach out when we launch.
+              </p>
+            )}
+            {status === 'duplicate' && (
+              <p style={{ marginTop: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
+                You're already on the list! We'll reach out when we launch.
+              </p>
+            )}
+            {status === 'error' && (
+              <p style={{ marginTop: '12px', color: '#cc0000', fontSize: '14px' }}>
+                Something went wrong. Please try again.
+              </p>
+            )}
             
             <p className="text-secondary text-sm" style={{ marginTop: '24px' }}>
               No credit card required
@@ -216,54 +245,33 @@ export function WarmGreyLanding() {
           padding: '80px 48px',
           borderTop: '1px solid var(--border-light)'
         }}>
-          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '48px', justifyContent: 'center' }}>
               <span className="tag tag-filled">03</span>
               <h2 className="text-2xl">Pricing</h2>
             </div>
             
-            <div className="grid-2">
-              <div className="card">
-                <div className="card-body" style={{ textAlign: 'center', padding: '32px' }}>
-                  <p className="text-secondary text-sm mb-xs">Free</p>
-                  <p className="text-3xl font-medium mb-m">$0<span className="text-secondary text-sm">/forever</span></p>
-                  <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: '24px' }}>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>folio.site subdomain</li>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>LinkedIn auto-sync</li>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>SSL included</li>
-                    <li style={{ padding: '8px 0' }}>Community support</li>
-                  </ul>
-                  <button 
-                    type="button"
-                    className="btn btn-secondary w-full"
-                    onClick={() => router.push('/sign-up')}
-                  >
-                    Start Free
-                  </button>
-                </div>
-              </div>
-              
-              <div className="card" style={{ border: '2px solid var(--border-color)' }}>
-                <div className="card-body" style={{ textAlign: 'center', padding: '32px', position: 'relative' }}>
-                  <span className="tag tag-filled" style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)' }}>
-                    Popular
-                  </span>
-                  <p className="text-secondary text-sm mb-xs">Pro</p>
-                  <p className="text-3xl font-medium mb-m">$12<span className="text-secondary text-sm">/month</span></p>
-                  <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: '24px' }}>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>Custom domain</li>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>All 15 templates</li>
-                    <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>AI bio cleanup</li>
-                    <li style={{ padding: '8px 0' }}>Email support</li>
-                  </ul>
-                  <button 
-                    type="button"
-                    className="btn btn-primary w-full"
-                    onClick={() => router.push('/sign-up')}
-                  >
-                    Get Pro →
-                  </button>
-                </div>
+            <div className="card" style={{ border: '2px solid var(--border-color)' }}>
+              <div className="card-body" style={{ textAlign: 'center', padding: '40px 32px', position: 'relative' }}>
+                <span className="tag tag-filled" style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)' }}>
+                  Coming Soon
+                </span>
+                <p className="text-secondary text-sm mb-xs">Pro</p>
+                <p className="text-3xl font-medium mb-m">$12<span className="text-secondary text-sm">/month</span></p>
+                <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: '32px' }}>
+                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>Custom domain</li>
+                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>All 15 templates</li>
+                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>AI bio cleanup</li>
+                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>LinkedIn auto-sync</li>
+                  <li style={{ padding: '8px 0' }}>Email support</li>
+                </ul>
+                <button
+                  type="button"
+                  className="btn btn-primary w-full"
+                  onClick={scrollToWaitlist}
+                >
+                  Join Waitlist →
+                </button>
               </div>
             </div>
           </div>
@@ -279,9 +287,9 @@ export function WarmGreyLanding() {
           <button 
             type="button"
             className="btn btn-primary btn-large"
-            onClick={() => router.push('/sign-up')}
+            onClick={scrollToWaitlist}
           >
-            Get Started Free →
+            Join Waitlist →
           </button>
         </section>
 
