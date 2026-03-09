@@ -1,49 +1,261 @@
-import Link from 'next/link';
-
 export function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid var(--border)', backgroundColor: 'var(--bg)', padding: '56px 48px 40px' }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr auto', gap: '48px', alignItems: 'flex-start' }}>
-        <div>
-          <a href="/folio" style={{ fontFamily: 'var(--font-playfair)', color: 'var(--cream)', fontWeight: 700, fontSize: '1.2rem', textDecoration: 'none', display: 'block', marginBottom: '10px' }}>
-            Folio
-          </a>
-          <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.85rem', lineHeight: 1.6, maxWidth: '280px' }}>
-            Turn your LinkedIn profile into a stunning personal website in minutes.
-          </p>
-        </div>
+    <footer
+      style={{
+        backgroundColor: 'var(--bg-primary)',
+        borderTop: '1px solid var(--border-light)',
+        padding: 'var(--space-12) 0',
+      }}
+      role="contentinfo"
+    >
+      <div className="container">
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'var(--space-8)',
+          }}
+        >
+          {/* Top Section */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: 'var(--space-8)',
+              flexWrap: 'wrap',
+            }}
+          >
+            {/* Logo & Tagline */}
+            <div style={{ maxWidth: '320px' }}>
+              <a
+                href="/folio"
+                style={{
+                  fontSize: 'var(--text-xl)',
+                  fontWeight: 700,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.02em',
+                  display: 'block',
+                  marginBottom: 'var(--space-3)',
+                }}
+                aria-label="Folio homepage"
+              >
+                Folio
+              </a>
+              <p
+                className="body-sm"
+                style={{
+                  color: 'var(--text-tertiary)',
+                  lineHeight: 'var(--leading-relaxed)',
+                }}
+              >
+                Turn your LinkedIn into a personal website in minutes. No code required.
+              </p>
+            </div>
 
-        <div style={{ display: 'flex', gap: '64px' }}>
-          <div>
-            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Product</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <a href="#templates" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Templates</a>
-              <a href="#pricing" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Pricing</a>
-              <a href="#how-it-works" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>How It Works</a>
-            </div>
+            {/* Navigation Links */}
+            <nav
+              style={{
+                display: 'flex',
+                gap: 'var(--space-12)',
+                flexWrap: 'wrap',
+              }}
+              aria-label="Footer navigation"
+            >
+              <div>
+                <h3
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: 600,
+                    color: 'var(--text-primary)',
+                    marginBottom: 'var(--space-3)',
+                  }}
+                >
+                  Product
+                </h3>
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-2)',
+                  }}
+                >
+                  <li>
+                    <a
+                      href="#how-it-works"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      How It Works
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#features"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      Features
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#pricing"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      Pricing
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3
+                  style={{
+                    fontSize: 'var(--text-sm)',
+                    fontWeight: 600,
+                    color: 'var(--text-primary)',
+                    marginBottom: 'var(--space-3)',
+                  }}
+                >
+                  Company
+                </h3>
+                <ul
+                  style={{
+                    listStyle: 'none',
+                    padding: 0,
+                    margin: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 'var(--space-2)',
+                  }}
+                >
+                  <li>
+                    <a
+                      href="/folio/about"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/folio/privacy"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      Privacy
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/folio/terms"
+                      className="footer-link"
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--text-tertiary)',
+                        textDecoration: 'none',
+                        transition: 'color var(--transition-fast)',
+                      }}
+                    >
+                      Terms
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
           </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Account</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Link href="/sign-in" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign In</Link>
-              <Link href="/sign-up" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign Up</Link>
-            </div>
-          </div>
-          <div>
-            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Legal</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <a href="/folio/privacy" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Privacy</a>
-              <a href="/folio/terms" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Terms</a>
+
+          {/* Bottom Section */}
+          <div
+            style={{
+              paddingTop: 'var(--space-8)',
+              borderTop: '1px solid var(--border-light)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 'var(--space-4)',
+              flexWrap: 'wrap',
+            }}
+          >
+            <p
+              className="body-sm"
+              style={{
+                color: 'var(--text-tertiary)',
+                margin: 0,
+              }}
+            >
+              © {new Date().getFullYear()} Folio. All rights reserved.
+            </p>
+
+            <div
+              style={{
+                display: 'flex',
+                gap: 'var(--space-4)',
+              }}
+            >
+              <a
+                href="https://twitter.com/folio"
+                className="footer-link"
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--text-tertiary)',
+                  textDecoration: 'none',
+                  transition: 'color var(--transition-fast)',
+                }}
+                aria-label="Follow Folio on Twitter"
+              >
+                Twitter
+              </a>
+              <a
+                href="https://github.com/folio"
+                className="footer-link"
+                style={{
+                  fontSize: 'var(--text-sm)',
+                  color: 'var(--text-tertiary)',
+                  textDecoration: 'none',
+                  transition: 'color var(--transition-fast)',
+                }}
+                aria-label="Follow Folio on GitHub"
+              >
+                GitHub
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div style={{ maxWidth: '1100px', margin: '40px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border)' }}>
-        <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.8rem' }}>
-          © 2026 Folio. All rights reserved.
-        </p>
-      </div>
     </footer>
   );
 }

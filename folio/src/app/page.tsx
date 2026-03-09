@@ -1,9 +1,7 @@
 import { 
   Nav, 
   Hero,
-  Stats,
   HowItWorks, 
-  Templates, 
   Features, 
   Pricing, 
   FAQ, 
@@ -16,9 +14,7 @@ export default function HomePage() {
     <>
       <Nav />
       <Hero />
-      <Stats />
       <HowItWorks />
-      <Templates />
       <Features />
       <Pricing />
       <FAQ />

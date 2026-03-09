@@ -107,11 +107,11 @@ export default function StartClient({ currentPlan, proPriceId, agencyPriceId }: 
             <Button
               variant={plan.variant}
               size="md"
-              isLoading={loading === plan.planType}
+              disabled={loading === plan.planType}
               onClick={plan.action}
               style={{ width: '100%' }}
             >
-              {plan.actionLabel}
+              {loading === plan.planType ? 'Loading...' : plan.actionLabel}
             </Button>
           </div>
         ))}

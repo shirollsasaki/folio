@@ -17,6 +17,8 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@supabase/supabase-js": "^2.98.0",
+    "@tabler/icons-react": "^3.40.0",
+    "clsx": "^2.1.1",
     "dodopayments": "^2.23.2",
     "framer-motion": "^12.35.0",
     "lucide-react": "^0.577.0",
@@ -24,7 +26,9 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "svix": "^1.86.0",
+    "tailwind-merge": "^3.5.0",
     "three": "^0.183.2",
+    "web-haptics": "^0.0.6",
     "zod": "^4.3.6"
   },
   "devDependencies": {

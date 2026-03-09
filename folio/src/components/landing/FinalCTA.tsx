@@ -1,36 +1,58 @@
 export function FinalCTA() {
   return (
-    <section style={{ padding: '140px 48px', textAlign: 'center', backgroundColor: 'var(--cream)', position: 'relative', overflow: 'hidden' }}>
-      <style>{`
-        .final-cta-btn:hover { background-color: var(--gold-light) !important; transform: translateY(-1px); }
-        .final-cta-btn { transition: background-color 0.2s ease, transform 0.15s ease !important; }
-        .final-cta-glow {
-          position: absolute;
-          width: 600px; height: 600px; border-radius: 50%;
-          background: radial-gradient(circle, rgba(232,149,106,0.12) 0%, transparent 70%);
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          pointer-events: none;
-        }
-      `}</style>
+    <section
+      className="section"
+      style={{
+        backgroundColor: 'var(--bg-secondary)',
+      }}
+      aria-labelledby="final-cta-heading"
+    >
+      <div className="container">
+        <div
+          style={{
+            maxWidth: 'var(--container-md)',
+            margin: '0 auto',
+            textAlign: 'center',
+            padding: 'var(--space-16) var(--space-6)',
+            backgroundColor: 'var(--bg-primary)',
+            borderRadius: 'var(--radius-2xl)',
+            border: '1px solid var(--border-light)',
+          }}
+        >
+          {/* Headline */}
+          <h2
+            id="final-cta-heading"
+            className="heading-2"
+            style={{
+              marginBottom: 'var(--space-6)',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+            }}
+          >
+            Your professional home should be online
+          </h2>
 
-      <div className="final-cta-glow" />
+          {/* Subheadline */}
+          <p
+            className="body-lg"
+            style={{
+              maxWidth: '36rem',
+              margin: '0 auto',
+              marginBottom: 'var(--space-8)',
+              fontSize: 'var(--text-xl)',
+            }}
+          >
+            Turn your LinkedIn into a website in the time it takes to make coffee.
+          </p>
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '24px' }}>
-          Get Started Today
-        </p>
-        <h2 style={{ fontFamily: 'var(--font-playfair)', fontSize: 'clamp(2rem, 5vw, 3.5rem)', marginBottom: '20px', color: '#FFFFFF', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15 }}>
-          Your personal website is<br />
-          <span style={{ color: 'var(--gold)' }}>3 minutes away</span>
-        </h2>
-        <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'rgba(255,255,255,0.55)', marginBottom: '48px', fontSize: '1.05rem', lineHeight: 1.6 }}>
-          Join professionals who use Folio to stand out online.<br />
-          No design skills needed. No credit card required.
-        </p>
-        <a href="/folio/sign-up" className="final-cta-btn" style={{ display: 'inline-block', backgroundColor: 'var(--gold)', color: '#FFFFFF', padding: '18px 48px', borderRadius: '100px', fontFamily: 'var(--font-dm-sans)', fontSize: '1rem', fontWeight: 600, textDecoration: 'none', boxShadow: '0 8px 32px rgba(232,149,106,0.4)' }}>
-          Build my website →
-        </a>
+          {/* CTA Button */}
+          <a
+            href="/folio/sign-up"
+            className="btn btn-primary btn-lg"
+            aria-label="Get started with Folio for free"
+          >
+            Get Started Free
+          </a>
+        </div>
       </div>
     </section>
   );

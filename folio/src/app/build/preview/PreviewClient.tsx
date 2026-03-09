@@ -144,7 +144,7 @@ export default function PreviewClient() {
           <Button
             variant="primary"
             size="md"
-            isLoading={deploying}
+            disabled={deploying}
             onClick={handleDeploy}
           >
             {deploying ? 'Deploying...' : 'Deploy my site →'}

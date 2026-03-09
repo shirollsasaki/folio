@@ -86,8 +86,8 @@ export default function DashboardClient({ user, initialSites }: DashboardClientP
                 <Button variant="primary" size="sm">Upgrade plan</Button>
               </a>
             ) : (
-              <Button variant="secondary" size="sm" isLoading={portalLoading} onClick={handlePortal}>
-                Manage subscription
+              <Button variant="secondary" size="sm" disabled={portalLoading} onClick={handlePortal}>
+                {portalLoading ? 'Loading...' : 'Manage subscription'}
               </Button>
             )}
             <a href="/build">
@@ -136,11 +136,11 @@ export default function DashboardClient({ user, initialSites }: DashboardClientP
                     <Button
                       variant="ghost"
                       size="sm"
-                      isLoading={deletingId === site.id}
+                      disabled={deletingId === site.id}
                       onClick={() => handleDelete(site.id)}
                       style={{ color: '#ef4444' }}
                     >
-                      Delete
+                      {deletingId === site.id ? 'Deleting...' : 'Delete'}
                     </Button>
                   </div>
                 </div>
