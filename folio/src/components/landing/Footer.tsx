@@ -1,104 +1,48 @@
 import Link from 'next/link';
-import { Twitter, Linkedin, Github } from 'lucide-react';
 
 export function Footer() {
-  const sections = [
-    {
-      title: "Product",
-      links: [
-        { label: "Templates", href: "/templates" },
-        { label: "Pricing", href: "#pricing" },
-        { label: "Features", href: "#features" },
-        { label: "FAQ", href: "#faq" }
-      ]
-    },
-    {
-      title: "Company",
-      links: [
-        { label: "About", href: "/about" },
-        { label: "Blog", href: "/blog" },
-        { label: "Contact", href: "/contact" }
-      ]
-    },
-    {
-      title: "Legal",
-      links: [
-        { label: "Privacy", href: "/privacy" },
-        { label: "Terms", href: "/terms" }
-      ]
-    }
-  ];
-
   return (
-    <footer className="bg-slate-900 text-white py-16 md:py-20">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-12 border-b border-slate-800">
-          {/* Brand */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
-                F
-              </div>
-              <span className="text-xl font-bold">Folio</span>
-            </div>
-            <p className="text-slate-400 max-w-xs leading-relaxed">
-              Transform your LinkedIn profile into a stunning portfolio website in minutes. No code required.
-            </p>
-            
-            {/* Social Links */}
-            <div className="flex gap-4 pt-2">
-              <a 
-                href="https://twitter.com/folio" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://linkedin.com/company/folio" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a 
-                href="https://github.com/folio" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </a>
+    <footer style={{ borderTop: '1px solid var(--border)', backgroundColor: 'var(--bg)', padding: '56px 48px 40px' }}>
+      <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr auto', gap: '48px', alignItems: 'flex-start' }}>
+        <div>
+          <a href="/folio" style={{ fontFamily: 'var(--font-playfair)', color: 'var(--cream)', fontWeight: 700, fontSize: '1.2rem', textDecoration: 'none', display: 'block', marginBottom: '10px' }}>
+            Folio
+          </a>
+          <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.85rem', lineHeight: 1.6, maxWidth: '280px' }}>
+            Turn your LinkedIn profile into a stunning personal website in minutes.
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', gap: '64px' }}>
+          <div>
+            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Product</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="#templates" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Templates</a>
+              <a href="#pricing" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Pricing</a>
+              <a href="#how-it-works" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>How It Works</a>
             </div>
           </div>
-
-          {/* Link Sections */}
-          {sections.map((section, index) => (
-            <div key={index} className="space-y-4">
-              <h3 className="font-bold text-white">{section.title}</h3>
-              <ul className="space-y-3">
-                {section.links.map((link, i) => (
-                  <li key={i}>
-                    <Link 
-                      href={link.href}
-                      className="text-slate-400 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          <div>
+            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Account</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <Link href="/folio/sign-in" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign In</Link>
+              <Link href="/folio/sign-up" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign Up</Link>
             </div>
-          ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Legal</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <a href="/folio/privacy" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Privacy</a>
+              <a href="/folio/terms" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Terms</a>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* Copyright */}
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
-          <p>© {new Date().getFullYear()} Folio. All rights reserved.</p>
-          <p>Built with ❤️ for professionals everywhere</p>
-        </div>
+      <div style={{ maxWidth: '1100px', margin: '40px auto 0', paddingTop: '24px', borderTop: '1px solid var(--border)' }}>
+        <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.8rem' }}>
+          © 2026 Folio. All rights reserved.
+        </p>
       </div>
     </footer>
   );

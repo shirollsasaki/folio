@@ -1,65 +1,79 @@
-import { Linkedin, Palette, Rocket } from 'lucide-react';
+const steps = [
+  {
+    num: '01',
+    title: 'Paste your LinkedIn URL',
+    desc: 'We extract your profile data automatically — name, headline, experience, skills, and bio. No manual entry.',
+    icon: '🔗',
+  },
+  {
+    num: '02',
+    title: 'Pick a template',
+    desc: 'Choose from professionally designed templates. Each one is crafted to make your work shine.',
+    icon: '🎨',
+  },
+  {
+    num: '03',
+    title: 'Deploy instantly',
+    desc: 'Your personal website goes live on a custom URL in seconds. Share it on LinkedIn, email, anywhere.',
+    icon: '🚀',
+  },
+];
 
 export function HowItWorks() {
-  const steps = [
-    {
-      icon: <Linkedin className="w-8 h-8" />,
-      title: "Connect LinkedIn",
-      description: "Import your profile data in one click. Your experience, skills, and achievements automatically flow in."
-    },
-    {
-      icon: <Palette className="w-8 h-8" />,
-      title: "Pick Your Style",
-      description: "Choose from 15 professionally designed templates. From minimal to bold, light to dark - find your vibe."
-    },
-    {
-      icon: <Rocket className="w-8 h-8" />,
-      title: "Deploy & Share",
-      description: "Your portfolio goes live in seconds. Get a custom domain or use ours. Share your new site anywhere."
-    }
-  ];
-
   return (
-    <section className="bg-slate-50 py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">
+    <section id="how-it-works" style={{ padding: '120px 48px', backgroundColor: 'var(--bg3)' }}>
+      <style>{`
+        .hiw-card {
+          padding: 40px 36px;
+          background: var(--bg);
+          border-radius: 24px;
+          border: 1px solid var(--border);
+          box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+          position: relative;
+          overflow: hidden;
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .hiw-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+        }
+        .hiw-card::before {
+          content: '';
+          position: absolute;
+          top: 0; left: 0; right: 0;
+          height: 3px;
+          background: linear-gradient(90deg, var(--gold), var(--gold-light));
+          opacity: 0;
+          transition: opacity 0.25s ease;
+        }
+        .hiw-card:hover::before { opacity: 1; }
+      `}</style>
+
+      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '72px' }}>
+          <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.75rem', color: 'var(--gold)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '16px' }}>
             How It Works
-          </h2>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-            Three simple steps to your professional portfolio
           </p>
+          <h2 style={{ fontFamily: 'var(--font-playfair)', fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', color: 'var(--cream)', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2 }}>
+            Three steps to your personal website
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {steps.map((step, index) => (
-            <div key={index} className="relative">
-              {/* Connector Line (desktop only) */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 bg-gradient-to-r from-blue-200 to-purple-200 z-0"></div>
-              )}
-              
-              <div className="relative bg-white p-8 rounded-2xl border-2 border-slate-200 hover:border-blue-300 hover:shadow-xl transition-all space-y-6 h-full">
-                {/* Step Number */}
-                <div className="absolute -top-4 -left-4 w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 text-white font-bold rounded-full flex items-center justify-center shadow-lg text-lg">
-                  {index + 1}
-                </div>
-                
-                {/* Icon */}
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center text-blue-600">
-                  {step.icon}
-                </div>
-                
-                {/* Content */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-slate-900">
-                    {step.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          {steps.map((step) => (
+            <div key={step.num} className="hiw-card">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '28px' }}>
+                <span style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '3rem', fontWeight: 700, color: 'var(--border)', lineHeight: 1, letterSpacing: '-0.04em' }}>
+                  {step.num}
+                </span>
+                <span style={{ fontSize: '1.8rem' }}>{step.icon}</span>
               </div>
+              <h3 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--cream)', marginBottom: '12px', letterSpacing: '-0.01em' }}>
+                {step.title}
+              </h3>
+              <p style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', lineHeight: 1.65, fontSize: '0.95rem' }}>
+                {step.desc}
+              </p>
             </div>
           ))}
         </div>
