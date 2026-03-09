@@ -9,6 +9,19 @@ export interface CustomLink {
   url: string;
 }
 
+export interface Project {
+  name: string;
+  description: string;
+  url?: string;
+  tags?: string[];
+}
+
+export interface Education {
+  degree: string;
+  school: string;
+  dates: string;
+}
+
 export interface ProfileData {
   name: string;
   headline: string;
@@ -16,12 +29,14 @@ export interface ProfileData {
   location: string;
   avatar_url: string;
   linkedin_url: string;
-   twitter_url?: string;
-   instagram_url?: string;
-   github_url?: string;
-   youtube_url?: string;
-   website_url?: string;
-   experience: Experience[];
+  twitter_url?: string;
+  instagram_url?: string;
+  github_url?: string;
+  youtube_url?: string;
+  website_url?: string;
+  experience: Experience[];
   skills: string[];
   custom_links: CustomLink[];
+  projects?: Project[];
+  education?: Education[];
 }

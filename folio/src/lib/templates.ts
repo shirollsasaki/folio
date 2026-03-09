@@ -1,9 +1,11 @@
 import type { TemplateEntry } from '@/types';
 
-// 3D immersive templates
 import CosmosTemplate from '@/templates/cosmos-3d';
 import FloatingBento3D from '@/templates/floating-bento-3d';
 import ParticleNetwork from '@/templates/particle-network';
+import ScrollJourney from '@/templates/scroll-journey';
+import Hologram from '@/templates/hologram';
+import PhysicsBubbles from '@/templates/physics-bubbles';
 
 // Original working templates
 import ImpactReport from '@/templates/impact-report';
@@ -62,8 +64,39 @@ export const templates: TemplateEntry[] = [
     },
     defaultProps: { profile: mockProfile },
   },
-
-  // New working templates
+  {
+    Component: ScrollJourney,
+    meta: {
+      name: 'Scroll Journey',
+      slug: 'scroll-journey',
+      tag: 'dark',
+      previewImage: '/previews/scroll-journey.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: Hologram,
+    meta: {
+      name: 'Hologram',
+      slug: 'hologram',
+      tag: 'dark',
+      previewImage: '/previews/hologram.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: PhysicsBubbles,
+    meta: {
+      name: 'Physics Bubbles',
+      slug: 'physics-bubbles',
+      tag: 'dark',
+      previewImage: '/previews/physics-bubbles.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
   {
     Component: MinimalPro,
     meta: {

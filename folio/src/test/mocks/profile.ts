@@ -21,6 +21,27 @@ export function createMockProfile(overrides: Partial<ProfileData> = {}): Profile
     custom_links: [
       { label: 'Folio', url: 'https://afterapp.fun/folio' },
     ],
+    projects: [
+      {
+        name: 'Folio',
+        description: 'Turn your LinkedIn profile into a stunning personal website in minutes. Pick a template, go live instantly.',
+        url: 'https://afterapp.fun/folio',
+        tags: ['Next.js', 'AI', 'SaaS'],
+      },
+      {
+        name: 'AfterApp',
+        description: 'Suite of indie productivity tools for founders and creators — built in public.',
+        url: 'https://afterapp.fun',
+        tags: ['TypeScript', 'Supabase', 'React'],
+      },
+    ],
+    education: [
+      {
+        degree: 'B.Tech Computer Science',
+        school: 'Engineering University',
+        dates: '2018 – 2022',
+      },
+    ],
     ...overrides,
   };
 }
