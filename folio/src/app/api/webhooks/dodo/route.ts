@@ -56,6 +56,7 @@ export async function POST(req: Request) {
 
     const body = await req.text();
 
+    // @ts-expect-error - dodopayments webhook module resolved at runtime
     const { verifyWebhookPayload } = await import('@dodopayments/core/webhook');
 
     let payload: DodoEventPayload;
