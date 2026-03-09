@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui';
+import { AppShell } from '@/components/AppShell';
 import type { PlanType } from '@/types';
 
 interface StartClientProps {
@@ -40,7 +40,6 @@ export default function StartClient({ currentPlan, proPriceId, agencyPriceId }: 
       features: ['1 website', '3 free templates', 'Folio subdomain'],
       action: () => router.push('/build'),
       actionLabel: 'Continue free →',
-      variant: 'secondary' as const,
       productId: '',
       planType: null,
     },
@@ -49,10 +48,9 @@ export default function StartClient({ currentPlan, proPriceId, agencyPriceId }: 
       name: 'Pro',
       price: '$12',
       period: '/month',
-      features: ['3 websites', 'All 5 templates', 'Custom domain', 'AI bio cleanup'],
+      features: ['3 websites', 'All 15 templates', 'Custom domain', 'AI bio cleanup'],
       action: () => handleCheckout(proPriceId, 'pro'),
-      actionLabel: 'Start Pro',
-      variant: 'primary' as const,
+      actionLabel: 'Start Pro →',
       productId: proPriceId,
       planType: 'pro' as const,
     },
@@ -61,67 +59,72 @@ export default function StartClient({ currentPlan, proPriceId, agencyPriceId }: 
       name: 'Agency',
       price: '$49',
       period: '/month',
-      features: ['Unlimited websites', 'All 5 templates', 'Custom domains', 'White-label'],
+      features: ['Unlimited websites', 'All 15 templates', 'Custom domains', 'White-label'],
       action: () => handleCheckout(agencyPriceId, 'agency'),
-      actionLabel: 'Start Agency',
-      variant: 'secondary' as const,
+      actionLabel: 'Start Agency →',
       productId: agencyPriceId,
       planType: 'agency' as const,
     },
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--cream)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px' }}>
-      <h1 style={{ fontFamily: 'var(--font-playfair)', fontSize: '2.5rem', marginBottom: '12px', textAlign: 'center' }}>
-        Choose your plan
-      </h1>
-      <p style={{ color: 'var(--cream-dim)', marginBottom: '48px', textAlign: 'center' }}>
-        Start free or unlock more with Pro.
-      </p>
+    <AppShell centered>
+      <div style={{ maxWidth: '900px', width: '100%' }}>
+        <div className="text-center mb-xl">
+          <h1 className="text-3xl font-medium mb-s">Choose your plan</h1>
+          <p className="text-secondary">Start free or unlock more with Pro.</p>
+        </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '24px', width: '100%', maxWidth: '900px' }}>
-        {plans.map((plan) => (
-          <div
-            key={plan.id}
-            style={{
-              padding: '32px',
-              borderRadius: '12px',
-              backgroundColor: plan.id === 'pro' ? 'var(--bg3)' : 'var(--bg2)',
-              border: plan.id === 'pro' ? '1px solid var(--border-gold)' : '1px solid var(--border)',
-            }}
-          >
-            <p style={{ color: 'var(--cream-dim)', fontSize: '0.85rem', marginBottom: '8px' }}>{plan.name}</p>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', marginBottom: '24px' }}>
-              <span style={{ fontFamily: 'var(--font-playfair)', fontSize: '2.2rem', fontWeight: '700', color: plan.id === 'pro' ? 'var(--gold)' : 'var(--cream)' }}>
-                {plan.price}
-              </span>
-              <span style={{ color: 'var(--cream-dim)', fontSize: '0.85rem' }}>{plan.period}</span>
-            </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 24px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {plan.features.map((f) => (
-                <li key={f} style={{ color: 'var(--cream-dim)', fontSize: '0.9rem', display: 'flex', gap: '8px' }}>
-                  <span style={{ color: 'var(--gold)' }}>✓</span> {f}
-                </li>
-              ))}
-            </ul>
-            <Button
-              variant={plan.variant}
-              size="md"
-              disabled={loading === plan.planType}
-              onClick={plan.action}
-              style={{ width: '100%' }}
+        <div className="grid-3" style={{ marginBottom: '32px' }}>
+          {plans.map((plan) => (
+            <div
+              key={plan.id}
+              className="card"
+              style={{
+                border: plan.id === 'pro' ? '2px solid var(--border-color)' : undefined,
+                position: 'relative',
+              }}
             >
-              {loading === plan.planType ? 'Loading...' : plan.actionLabel}
-            </Button>
-          </div>
-        ))}
-      </div>
+              {plan.id === 'pro' && (
+                <span 
+                  className="tag tag-filled" 
+                  style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)' }}
+                >
+                  Popular
+                </span>
+              )}
+              <div className="card-body" style={{ padding: '32px', textAlign: 'center' }}>
+                <p className="text-secondary text-sm mb-xs">{plan.name}</p>
+                <p className="text-3xl font-medium mb-m">
+                  {plan.price}
+                  <span className="text-secondary text-sm">{plan.period}</span>
+                </p>
+                <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: '24px' }}>
+                  {plan.features.map((f) => (
+                    <li key={f} style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)', display: 'flex', gap: '8px' }}>
+                      <span>✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  className={`btn ${plan.id === 'pro' ? 'btn-primary' : 'btn-secondary'} w-full`}
+                  disabled={loading === plan.planType}
+                  onClick={plan.action}
+                >
+                  {loading === plan.planType ? 'Loading...' : plan.actionLabel}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
 
-      {currentPlan !== 'free' && (
-        <p style={{ marginTop: '32px', color: 'var(--cream-dim)', fontSize: '0.9rem' }}>
-          You are on the <strong style={{ color: 'var(--gold)' }}>{currentPlan}</strong> plan.
-        </p>
-      )}
-    </div>
+        {currentPlan !== 'free' && (
+          <p className="text-center text-secondary">
+            You are on the <strong>{currentPlan}</strong> plan.
+          </p>
+        )}
+      </div>
+    </AppShell>
   );
 }

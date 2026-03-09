@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { renderToStaticMarkup } from 'react-dom/server';
 import React from 'react';
-import { Button } from '@/components/ui';
+import { AppShell, StepIndicator } from '@/components/AppShell';
 import { getTemplateBySlug } from '@/lib/templates';
 import type { ProfileData } from '@/types';
 
@@ -82,92 +82,74 @@ export default function PreviewClient() {
 
   if (deployedUrl) {
     return (
-      <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--cream)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px', textAlign: 'center' }}>
-        <div style={{ fontSize: '3rem', marginBottom: '24px' }}>🎉</div>
-        <h1 style={{ fontFamily: 'var(--font-playfair)', fontSize: '2rem', marginBottom: '16px' }}>
-          Your site is live!
-        </h1>
-        <p style={{ color: 'var(--cream-dim)', marginBottom: '32px' }}>
-          Your personal website has been deployed successfully.
-        </p>
-        <a
-          href={deployedUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: 'var(--gold)', fontSize: '1rem', marginBottom: '32px', display: 'block', wordBreak: 'break-all' }}
-        >
-          {deployedUrl}
-        </a>
-        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <Button variant="primary" size="md" onClick={() => router.push('/dashboard')}>
-            Go to dashboard →
-          </Button>
-          <a href={deployedUrl} target="_blank" rel="noopener noreferrer">
-            <Button variant="secondary" size="md">View live site</Button>
+      <AppShell centered>
+        <div className="text-center" style={{ maxWidth: '500px' }}>
+          <div style={{ fontSize: '4rem', marginBottom: '24px' }}>🎉</div>
+          <h1 className="text-3xl font-medium mb-s">Your site is live!</h1>
+          <p className="text-secondary mb-l">Your personal website has been deployed successfully.</p>
+          <a
+            href={deployedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-l"
+            style={{ display: 'block', wordBreak: 'break-all' }}
+          >
+            {deployedUrl}
           </a>
+          <div className="flex gap-m justify-center" style={{ flexWrap: 'wrap' }}>
+            <button type="button" className="btn btn-primary" onClick={() => router.push('/dashboard')}>
+              Go to dashboard →
+            </button>
+            <a href={deployedUrl} target="_blank" rel="noopener noreferrer">
+              <button type="button" className="btn btn-secondary">View live site</button>
+            </a>
+          </div>
         </div>
-      </div>
+      </AppShell>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg)', color: 'var(--cream)', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', padding: '24px' }}>
-        {[1, 2, 3].map((step) => (
-          <div
-            key={step}
-            style={{
-              width: '32px', height: '4px', borderRadius: '2px',
-              backgroundColor: 'var(--gold)',
-            }}
-          />
-        ))}
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px 24px', borderBottom: '1px solid var(--border)' }}>
-        <div>
-          <p style={{ color: 'var(--gold)', fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', fontFamily: 'var(--font-dm-mono)', marginBottom: '4px' }}>
-            Step 3 of 3
-          </p>
-          <h1 style={{ fontFamily: 'var(--font-playfair)', fontSize: '1.5rem' }}>
-            Preview your site
-          </h1>
+    <AppShell>
+      <div className="flex flex-col" style={{ height: '100%' }}>
+        <div className="content-header">
+          <div>
+            <StepIndicator currentStep={3} />
+            <span className="tag mb-xs" style={{ display: 'inline-block' }}>Step 3 of 3</span>
+            <h1 className="text-xl font-medium">Preview your site</h1>
+          </div>
+          <div className="flex gap-s items-center">
+            <button type="button" onClick={() => router.back()} className="btn btn-secondary">
+              ← Change template
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={deploying}
+              onClick={handleDeploy}
+            >
+              {deploying ? 'Deploying...' : 'Deploy my site →'}
+            </button>
+          </div>
         </div>
-        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <button
-            type="button"
-            onClick={() => router.back()}
-            style={{ color: 'var(--cream-dim)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.9rem' }}
-          >
-            ← Change template
-          </button>
-          <Button
-            variant="primary"
-            size="md"
-            disabled={deploying}
-            onClick={handleDeploy}
-          >
-            {deploying ? 'Deploying...' : 'Deploy my site →'}
-          </Button>
-        </div>
-      </div>
 
-      {error && (
-        <div style={{ margin: '16px 24px', padding: '12px 16px', backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '6px', color: '#ef4444', fontSize: '0.9rem' }}>
-          {error}
-        </div>
-      )}
+        {error && (
+          <div style={{ margin: '16px 24px', padding: '12px 16px', backgroundColor: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '8px', color: '#ef4444' }}>
+            {error}
+          </div>
+        )}
 
-      <div style={{ flex: 1, padding: '24px', backgroundColor: 'var(--bg2)' }}>
-        <div style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border)', height: 'calc(100vh - 200px)', backgroundColor: '#fff' }}>
-          <iframe
-            ref={iframeRef}
-            style={{ width: '100%', height: '100%', border: 'none' }}
-            title="Site preview"
-            sandbox="allow-same-origin"
-          />
+        <div style={{ flex: 1, padding: '24px', backgroundColor: 'var(--bg-tab-inactive-1)' }}>
+          <div className="card" style={{ height: 'calc(100vh - 280px)', overflow: 'hidden' }}>
+            <iframe
+              ref={iframeRef}
+              style={{ width: '100%', height: '100%', border: 'none', backgroundColor: '#fff' }}
+              title="Site preview"
+              sandbox="allow-same-origin"
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

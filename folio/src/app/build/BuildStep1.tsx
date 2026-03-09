@@ -1,7 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui';
+import { AppShell, StepIndicator } from '@/components/AppShell';
 import type { ProfileData } from '@/types';
 
 interface ExperienceItem {
@@ -16,50 +16,6 @@ interface CustomLinkItem {
   label: string;
   url: string;
 }
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '12px 16px',
-  backgroundColor: 'var(--bg2)',
-  border: '1px solid var(--border)',
-  borderRadius: '8px',
-  color: 'var(--cream)',
-  fontSize: '1rem',
-  outline: 'none',
-  fontFamily: 'var(--font-dm-sans)',
-};
-
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontSize: '0.75rem',
-  color: 'var(--cream-dim)',
-  marginBottom: '8px',
-  fontFamily: 'var(--font-dm-mono)',
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase' as const,
-};
-
-const sectionDivider: React.CSSProperties = {
-  borderTop: '1px solid var(--border)',
-  paddingTop: '32px',
-  marginTop: '8px',
-};
-
-const sectionHeading: React.CSSProperties = {
-  fontFamily: 'var(--font-dm-mono)',
-  fontSize: '0.7rem',
-  color: 'var(--gold)',
-  letterSpacing: '0.18em',
-  textTransform: 'uppercase' as const,
-  marginBottom: '20px',
-};
-
-const errorBubble: React.CSSProperties = {
-  color: '#ef4444',
-  fontSize: '0.8rem',
-  marginTop: '6px',
-  fontFamily: 'var(--font-dm-sans)',
-};
 
 export default function BuildStep1() {
   const router = useRouter();
@@ -223,156 +179,57 @@ export default function BuildStep1() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        backgroundColor: 'var(--bg)',
-        color: 'var(--cream)',
-        overflowY: 'auto',
-        padding: '48px 24px 80px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '48px' }}>
-        {[1, 2, 3].map((step) => (
-          <div
-            key={step}
-            style={{
-              width: '32px',
-              height: '4px',
-              borderRadius: '2px',
-              backgroundColor: step === 1 ? 'var(--gold)' : 'var(--border)',
-            }}
-          />
-        ))}
-      </div>
+    <AppShell>
+      <div className="app-main-scroll" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ width: '100%', maxWidth: '600px', padding: '48px 24px' }}>
+          <StepIndicator currentStep={1} />
+          
+          <span className="tag mb-s">Step 1 of 3</span>
+          <h1 className="text-2xl font-medium mb-s">Tell us about yourself</h1>
+          <p className="text-secondary mb-l">Import from LinkedIn or fill in manually.</p>
 
-      <div style={{ width: '100%', maxWidth: '600px' }}>
-        <p
-          style={{
-            color: 'var(--gold)',
-            fontSize: '0.75rem',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            marginBottom: '16px',
-            fontFamily: 'var(--font-dm-mono)',
-          }}
-        >
-          Step 1 of 3
-        </p>
-        <h1
-          style={{
-            fontFamily: 'var(--font-playfair)',
-            fontSize: '2.25rem',
-            marginBottom: '12px',
-            lineHeight: '1.2',
-          }}
-        >
-          Tell us about yourself
-        </h1>
-        <p
-          style={{
-            color: 'var(--cream-dim)',
-            marginBottom: '44px',
-            lineHeight: '1.6',
-            fontFamily: 'var(--font-dm-sans)',
-          }}
-        >
-          Import from LinkedIn or fill in manually.
-        </p>
+          {!showManualForm ? (
+          <div className="mb-l">
+            <div className="card mb-m">
+              <div className="card-body">
+                <span className="tag tag-filled mb-m" style={{ display: 'inline-block' }}>⚡ Quick Import</span>
+                <form onSubmit={handleLinkedInExtract}>
+                  <div className="mb-m">
+                    <label htmlFor="linkedin-extract" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      LinkedIn Profile URL
+                    </label>
+                    <input
+                      id="linkedin-extract"
+                      type="url"
+                      className="input"
+                      value={linkedinExtractUrl}
+                      onChange={(e) => setLinkedinExtractUrl(e.target.value)}
+                      placeholder="https://linkedin.com/in/yourname"
+                      disabled={isExtracting}
+                      style={{ opacity: isExtracting ? 0.6 : 1 }}
+                    />
+                    {extractError && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '6px' }}>{extractError}</p>}
+                  </div>
 
-        {!showManualForm ? (
-          <div style={{ marginBottom: '32px' }}>
-            <div
-              style={{
-                backgroundColor: 'var(--bg2)',
-                border: '1px solid var(--border)',
-                borderRadius: '12px',
-                padding: '32px',
-                marginBottom: '24px',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--gold)',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  marginBottom: '16px',
-                  fontFamily: 'var(--font-dm-mono)',
-                }}
-              >
-                ⚡ Quick Import
-              </p>
-              <form onSubmit={handleLinkedInExtract}>
-                <div style={{ marginBottom: '16px' }}>
-                  <label htmlFor="linkedin-extract" style={labelStyle}>
-                    LinkedIn Profile URL
-                  </label>
-                  <input
-                    id="linkedin-extract"
-                    type="url"
-                    value={linkedinExtractUrl}
-                    onChange={(e) => setLinkedinExtractUrl(e.target.value)}
-                    placeholder="https://linkedin.com/in/yourname"
+                  <button
+                    type="submit"
+                    className="btn btn-primary w-full"
                     disabled={isExtracting}
-                    style={{
-                      ...inputStyle,
-                      opacity: isExtracting ? 0.6 : 1,
-                      cursor: isExtracting ? 'not-allowed' : 'text',
-                    }}
-                  />
-                  {extractError && <p style={errorBubble}>{extractError}</p>}
-                </div>
-
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="md"
-                  disabled={isExtracting}
-                  style={{ width: '100%' }}
-                >
-                  {isExtracting ? 'Extracting profile...' : 'Import from LinkedIn'}
-                </Button>
-              </form>
+                  >
+                    {isExtracting ? 'Extracting profile...' : 'Import from LinkedIn'}
+                  </button>
+                </form>
+              </div>
             </div>
 
-            <div style={{ textAlign: 'center', margin: '24px 0' }}>
-              <span
-                style={{
-                  fontSize: '0.85rem',
-                  color: 'var(--cream-dim)',
-                  fontFamily: 'var(--font-dm-sans)',
-                }}
-              >
-                or
-              </span>
+            <div className="text-center mb-m">
+              <span className="text-secondary">or</span>
             </div>
 
             <button
               type="button"
               onClick={() => setShowManualForm(true)}
-              style={{
-                width: '100%',
-                padding: '14px',
-                backgroundColor: 'transparent',
-                border: '1px dashed var(--border-gold)',
-                borderRadius: '8px',
-                color: 'var(--gold)',
-                fontSize: '0.9rem',
-                fontFamily: 'var(--font-dm-mono)',
-                letterSpacing: '0.08em',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(201,168,76,0.05)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent';
-              }}
+              className="btn btn-secondary w-full"
             >
               Fill in manually instead
             </button>
@@ -380,413 +237,242 @@ export default function BuildStep1() {
         ) : (
           <>
             {name && (
-              <div
-                style={{
-                  backgroundColor: 'rgba(201,168,76,0.1)',
-                  border: '1px solid var(--border-gold)',
-                  borderRadius: '8px',
-                  padding: '16px',
-                  marginBottom: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                }}
-              >
+              <div className="card mb-l" style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px' }}>
                 {avatarUrl && (
                   <img
                     src={avatarUrl}
                     alt={name}
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      objectFit: 'cover',
-                    }}
+                    style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }}
                   />
                 )}
                 <div style={{ flex: 1 }}>
-                  <p
-                    style={{
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      color: 'var(--cream)',
-                      margin: '0 0 4px 0',
-                    }}
-                  >
-                    {name}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: '0.85rem',
-                      color: 'var(--cream-dim)',
-                      margin: 0,
-                    }}
-                  >
-                    {headline}
-                  </p>
+                  <p className="font-medium">{name}</p>
+                  <p className="text-secondary text-sm">{headline}</p>
                 </div>
-                <span
-                  style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--gold)',
-                    fontFamily: 'var(--font-dm-mono)',
-                  }}
-                >
-                  ✓ Imported
-                </span>
+                <span className="tag tag-filled">✓ Imported</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '32px' }}>
+            <form onSubmit={handleSubmit} className="flex flex-col">
+              <div className="flex flex-col gap-m mb-l">
                 <div>
-                  <label htmlFor="name" style={labelStyle}>
-                    Name <span style={{ color: 'var(--gold)' }}>*</span>
+                  <label htmlFor="name" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Name *
                   </label>
                   <input
                     id="name"
                     type="text"
+                    className="input"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Jane Smith"
-                    style={{
-                      ...inputStyle,
-                      borderColor: errors.name ? 'rgba(239,68,68,0.5)' : 'var(--border)',
-                    }}
+                    style={{ borderColor: errors.name ? '#ef4444' : undefined }}
                   />
-                  {errors.name && <p style={errorBubble}>{errors.name}</p>}
+                  {errors.name && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '6px' }}>{errors.name}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="headline" style={labelStyle}>
-                    Headline <span style={{ color: 'var(--gold)' }}>*</span>
+                  <label htmlFor="headline" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Headline *
                   </label>
                   <input
                     id="headline"
                     type="text"
+                    className="input"
                     value={headline}
                     onChange={(e) => setHeadline(e.target.value)}
                     placeholder="Senior Product Designer at Acme"
-                    style={{
-                      ...inputStyle,
-                      borderColor: errors.headline ? 'rgba(239,68,68,0.5)' : 'var(--border)',
-                    }}
+                    style={{ borderColor: errors.headline ? '#ef4444' : undefined }}
                   />
-                  {errors.headline && <p style={errorBubble}>{errors.headline}</p>}
+                  {errors.headline && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '6px' }}>{errors.headline}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="bio" style={labelStyle}>
-                    Bio <span style={{ color: 'var(--gold)' }}>*</span>
+                  <label htmlFor="bio" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Bio *
                   </label>
                   <textarea
                     id="bio"
+                    className="input"
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     placeholder="I'm a designer who loves systems thinking and building products people care about..."
                     rows={4}
-                    style={{
-                      ...inputStyle,
-                      resize: 'vertical',
-                      lineHeight: '1.6',
-                      borderColor: errors.bio ? 'rgba(239,68,68,0.5)' : 'var(--border)',
-                    }}
+                    style={{ resize: 'vertical', lineHeight: '1.6', borderColor: errors.bio ? '#ef4444' : undefined }}
                   />
-                  {errors.bio && <p style={errorBubble}>{errors.bio}</p>}
+                  {errors.bio && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '6px' }}>{errors.bio}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="location" style={labelStyle}>
+                  <label htmlFor="location" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     Location
                   </label>
                   <input
                     id="location"
                     type="text"
+                    className="input"
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder="San Francisco, CA"
-                    style={inputStyle}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="avatar-url" style={labelStyle}>
+                  <label htmlFor="avatar-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     Photo URL
                   </label>
                   <input
                     id="avatar-url"
                     type="url"
+                    className="input"
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
                     placeholder="https://example.com/your-photo.jpg"
-                    style={inputStyle}
                   />
                 </div>
               </div>
 
-              <div style={sectionDivider}>
-                <p style={sectionHeading}>Experience</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '32px', marginTop: '8px' }}>
+                <h3 className="text-lg font-medium mb-m">Experience</h3>
+                <div className="flex flex-col gap-m">
                   {experiences.map((exp, roleNum) => (
-                    <div
-                      key={exp._key}
-                      style={{
-                        backgroundColor: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '10px',
-                        padding: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '16px',
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-dm-mono)',
-                          fontSize: '0.68rem',
-                          color: 'var(--cream-dim)',
-                          letterSpacing: '0.1em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        Role {roleNum + 1}
-                      </p>
-                      <div>
-                        <label htmlFor={`exp-title-${exp._key}`} style={labelStyle}>
-                          Job Title
-                        </label>
-                        <input
-                          id={`exp-title-${exp._key}`}
-                          type="text"
-                          value={exp.title}
-                          onChange={(e) => updateExperience(exp._key, 'title', e.target.value)}
-                          placeholder="Senior Designer"
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor={`exp-company-${exp._key}`} style={labelStyle}>
-                          Company
-                        </label>
-                        <input
-                          id={`exp-company-${exp._key}`}
-                          type="text"
-                          value={exp.company}
-                          onChange={(e) => updateExperience(exp._key, 'company', e.target.value)}
-                          placeholder="Acme Inc."
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor={`exp-dates-${exp._key}`} style={labelStyle}>
-                          Dates
-                        </label>
-                        <input
-                          id={`exp-dates-${exp._key}`}
-                          type="text"
-                          value={exp.dates}
-                          onChange={(e) => updateExperience(exp._key, 'dates', e.target.value)}
-                          placeholder="2022 – Present"
-                          style={inputStyle}
-                        />
+                    <div key={exp._key} className="card">
+                      <div className="card-body">
+                        <span className="tag mb-s" style={{ display: 'inline-block' }}>Role {roleNum + 1}</span>
+                        <div className="flex flex-col gap-s">
+                          <div>
+                            <label htmlFor={`exp-title-${exp._key}`} className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                              Job Title
+                            </label>
+                            <input
+                              id={`exp-title-${exp._key}`}
+                              type="text"
+                              className="input"
+                              value={exp.title}
+                              onChange={(e) => updateExperience(exp._key, 'title', e.target.value)}
+                              placeholder="Senior Designer"
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor={`exp-company-${exp._key}`} className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                              Company
+                            </label>
+                            <input
+                              id={`exp-company-${exp._key}`}
+                              type="text"
+                              className="input"
+                              value={exp.company}
+                              onChange={(e) => updateExperience(exp._key, 'company', e.target.value)}
+                              placeholder="Acme Inc."
+                            />
+                          </div>
+                          <div>
+                            <label htmlFor={`exp-dates-${exp._key}`} className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                              Dates
+                            </label>
+                            <input
+                              id={`exp-dates-${exp._key}`}
+                              type="text"
+                              className="input"
+                              value={exp.dates}
+                              onChange={(e) => updateExperience(exp._key, 'dates', e.target.value)}
+                              placeholder="2022 – Present"
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
 
                   {experiences.length < 3 && (
-                    <button
-                      type="button"
-                      onClick={addExperience}
-                      style={{
-                        background: 'none',
-                        border: '1px dashed var(--border-gold)',
-                        borderRadius: '8px',
-                        color: 'var(--gold)',
-                        fontFamily: 'var(--font-dm-mono)',
-                        fontSize: '0.8rem',
-                        letterSpacing: '0.08em',
-                        padding: '12px',
-                        cursor: 'pointer',
-                        width: '100%',
-                        transition: 'border-color 0.2s, background-color 0.2s',
-                      }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'rgba(201,168,76,0.05)';
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = 'transparent';
-                      }}
-                    >
+                    <button type="button" onClick={addExperience} className="btn btn-secondary w-full">
                       + Add experience
                     </button>
                   )}
                 </div>
               </div>
 
-              <div style={{ ...sectionDivider, marginTop: '32px' }}>
-                <p style={sectionHeading}>Skills</p>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '32px', marginTop: '32px' }}>
+                <h3 className="text-lg font-medium mb-m">Skills</h3>
                 <div>
-                  <label htmlFor="skills" style={labelStyle}>
+                  <label htmlFor="skills" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     Skills (comma-separated)
                   </label>
                   <input
                     id="skills"
                     type="text"
+                    className="input"
                     value={skillsRaw}
                     onChange={(e) => setSkillsRaw(e.target.value)}
                     placeholder="React, TypeScript, Figma, Node.js"
-                    style={inputStyle}
                   />
-                  <p
-                    style={{
-                      fontSize: '0.75rem',
-                      color: 'var(--cream-dim)',
-                      marginTop: '8px',
-                      fontFamily: 'var(--font-dm-sans)',
-                      opacity: 0.7,
-                    }}
-                  >
-                    Separate each skill with a comma.
-                  </p>
+                  <p className="text-sm text-secondary mt-xs">Separate each skill with a comma.</p>
                 </div>
               </div>
 
-              <div style={{ ...sectionDivider, marginTop: '32px' }}>
-                <p style={sectionHeading}>Social Links</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ borderTop: '1px solid var(--border-light)', paddingTop: '32px', marginTop: '32px' }}>
+                <h3 className="text-lg font-medium mb-m">Social Links</h3>
+                <div className="flex flex-col gap-m">
                   <div>
-                    <label htmlFor="linkedin-url" style={labelStyle}>
+                    <label htmlFor="linkedin-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       LinkedIn URL
                     </label>
-                    <input
-                      id="linkedin-url"
-                      type="url"
-                      value={linkedinUrl}
-                      onChange={(e) => setLinkedinUrl(e.target.value)}
-                      placeholder="https://linkedin.com/in/yourname"
-                      style={inputStyle}
-                    />
+                    <input id="linkedin-url" type="url" className="input" value={linkedinUrl} onChange={(e) => setLinkedinUrl(e.target.value)} placeholder="https://linkedin.com/in/yourname" />
                   </div>
 
                   <div>
-                    <label htmlFor="twitter-url" style={labelStyle}>
+                    <label htmlFor="twitter-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Twitter/X URL
                     </label>
-                    <input
-                      id="twitter-url"
-                      type="url"
-                      value={twitterUrl}
-                      onChange={(e) => setTwitterUrl(e.target.value)}
-                      placeholder="https://x.com/yourname"
-                      style={inputStyle}
-                    />
+                    <input id="twitter-url" type="url" className="input" value={twitterUrl} onChange={(e) => setTwitterUrl(e.target.value)} placeholder="https://x.com/yourname" />
                   </div>
 
                   <div>
-                    <label htmlFor="github-url" style={labelStyle}>
+                    <label htmlFor="github-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       GitHub URL
                     </label>
-                    <input
-                      id="github-url"
-                      type="url"
-                      value={githubUrl}
-                      onChange={(e) => setGithubUrl(e.target.value)}
-                      placeholder="https://github.com/yourname"
-                      style={inputStyle}
-                    />
+                    <input id="github-url" type="url" className="input" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} placeholder="https://github.com/yourname" />
                   </div>
 
                   <div>
-                    <label htmlFor="instagram-url" style={labelStyle}>
+                    <label htmlFor="instagram-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Instagram URL
                     </label>
-                    <input
-                      id="instagram-url"
-                      type="url"
-                      value={instagramUrl}
-                      onChange={(e) => setInstagramUrl(e.target.value)}
-                      placeholder="https://instagram.com/yourname"
-                      style={inputStyle}
-                    />
+                    <input id="instagram-url" type="url" className="input" value={instagramUrl} onChange={(e) => setInstagramUrl(e.target.value)} placeholder="https://instagram.com/yourname" />
                   </div>
 
                   <div>
-                    <label htmlFor="youtube-url" style={labelStyle}>
+                    <label htmlFor="youtube-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       YouTube URL
                     </label>
-                    <input
-                      id="youtube-url"
-                      type="url"
-                      value={youtubeUrl}
-                      onChange={(e) => setYoutubeUrl(e.target.value)}
-                      placeholder="https://youtube.com/@yourname"
-                      style={inputStyle}
-                    />
+                    <input id="youtube-url" type="url" className="input" value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} placeholder="https://youtube.com/@yourname" />
                   </div>
 
                   <div>
-                    <label htmlFor="website-url" style={labelStyle}>
+                    <label htmlFor="website-url" className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       Personal Website
                     </label>
-                    <input
-                      id="website-url"
-                      type="url"
-                      value={websiteUrl}
-                      onChange={(e) => setWebsiteUrl(e.target.value)}
-                      placeholder="https://yourwebsite.com"
-                      style={inputStyle}
-                    />
+                    <input id="website-url" type="url" className="input" value={websiteUrl} onChange={(e) => setWebsiteUrl(e.target.value)} placeholder="https://yourwebsite.com" />
                   </div>
 
                   {customLinks.map((link, linkNum) => (
-                    <div
-                      key={link._key}
-                      style={{
-                        backgroundColor: 'var(--bg3)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '10px',
-                        padding: '20px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '14px',
-                      }}
-                    >
-                      <p
-                        style={{
-                          fontFamily: 'var(--font-dm-mono)',
-                          fontSize: '0.68rem',
-                          color: 'var(--cream-dim)',
-                          letterSpacing: '0.1em',
-                          textTransform: 'uppercase',
-                        }}
-                      >
-                        Custom Link {linkNum + 1}
-                      </p>
-                      <div>
-                        <label htmlFor={`link-label-${link._key}`} style={labelStyle}>
-                          Label
-                        </label>
-                        <input
-                          id={`link-label-${link._key}`}
-                          type="text"
-                          value={link.label}
-                          onChange={(e) => updateCustomLink(link._key, 'label', e.target.value)}
-                          placeholder="GitHub"
-                          style={inputStyle}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor={`link-url-${link._key}`} style={labelStyle}>
-                          URL
-                        </label>
-                        <input
-                          id={`link-url-${link._key}`}
-                          type="url"
-                          value={link.url}
-                          onChange={(e) => updateCustomLink(link._key, 'url', e.target.value)}
-                          placeholder="https://github.com/yourname"
-                          style={inputStyle}
-                        />
+                    <div key={link._key} className="card">
+                      <div className="card-body">
+                        <span className="tag mb-s" style={{ display: 'inline-block' }}>Custom Link {linkNum + 1}</span>
+                        <div className="flex flex-col gap-s">
+                          <div>
+                            <label htmlFor={`link-label-${link._key}`} className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                              Label
+                            </label>
+                            <input id={`link-label-${link._key}`} type="text" className="input" value={link.label} onChange={(e) => updateCustomLink(link._key, 'label', e.target.value)} placeholder="GitHub" />
+                          </div>
+                          <div>
+                            <label htmlFor={`link-url-${link._key}`} className="text-sm text-secondary" style={{ display: 'block', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                              URL
+                            </label>
+                            <input id={`link-url-${link._key}`} type="url" className="input" value={link.url} onChange={(e) => updateCustomLink(link._key, 'url', e.target.value)} placeholder="https://github.com/yourname" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -794,14 +480,15 @@ export default function BuildStep1() {
               </div>
 
               <div style={{ marginTop: '48px' }}>
-                <Button type="submit" variant="primary" size="lg">
+                <button type="submit" className="btn btn-primary btn-large">
                   Next: Choose template →
-                </Button>
+                </button>
               </div>
             </form>
           </>
         )}
+        </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

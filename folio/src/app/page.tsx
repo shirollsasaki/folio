@@ -1,5 +1,5 @@
-import { EditorialLanding } from '@/components/landing/EditorialLanding';
+import { WarmGreyLanding } from '@/components/landing/WarmGreyLanding';
 
 export default function HomePage() {
-  return <EditorialLanding />;
+  return <WarmGreyLanding />;
 }
