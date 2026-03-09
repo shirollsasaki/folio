@@ -1,5 +1,10 @@
 import type { TemplateEntry } from '@/types';
 
+// 3D immersive templates
+import CosmosTemplate from '@/templates/cosmos-3d';
+import FloatingBento3D from '@/templates/floating-bento-3d';
+import ParticleNetwork from '@/templates/particle-network';
+
 // Original working templates
 import ImpactReport from '@/templates/impact-report';
 import TerminalHacker from '@/templates/terminal-hacker';
@@ -24,6 +29,40 @@ import { createMockProfile } from '@/test/mocks/profile';
 const mockProfile = createMockProfile();
 
 export const templates: TemplateEntry[] = [
+  {
+    Component: CosmosTemplate,
+    meta: {
+      name: 'Cosmos 3D',
+      slug: 'cosmos-3d',
+      tag: 'dark',
+      previewImage: '/previews/cosmos-3d.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: FloatingBento3D,
+    meta: {
+      name: 'Floating Bento 3D',
+      slug: 'floating-bento-3d',
+      tag: 'dark',
+      previewImage: '/previews/floating-bento-3d.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+  {
+    Component: ParticleNetwork,
+    meta: {
+      name: 'Particle Network',
+      slug: 'particle-network',
+      tag: 'dark',
+      previewImage: '/previews/particle-network.png',
+      isPremium: true,
+    },
+    defaultProps: { profile: mockProfile },
+  },
+
   // New working templates
   {
     Component: MinimalPro,

@@ -25,8 +25,8 @@ export function Footer() {
           <div>
             <p style={{ fontFamily: 'var(--font-dm-mono)', fontSize: '0.7rem', color: 'var(--cream-dim)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px', fontWeight: 600 }}>Account</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <Link href="/folio/sign-in" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign In</Link>
-              <Link href="/folio/sign-up" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign Up</Link>
+              <Link href="/sign-in" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign In</Link>
+              <Link href="/sign-up" style={{ fontFamily: 'var(--font-dm-sans)', color: 'var(--cream-dim)', fontSize: '0.875rem', textDecoration: 'none' }}>Sign Up</Link>
             </div>
           </div>
           <div>
