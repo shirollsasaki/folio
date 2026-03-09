@@ -7,3 +7,4 @@ export { FAQ } from './FAQ';
 export { FinalCTA } from './FinalCTA';
 export { Footer } from './Footer';
 export { TerminalLanding } from './TerminalLanding';
+export { default as FolioLanding } from './FolioLanding';

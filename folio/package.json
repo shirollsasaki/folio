@@ -18,6 +18,8 @@
     "@react-three/fiber": "^9.5.0",
     "@supabase/supabase-js": "^2.98.0",
     "@tabler/icons-react": "^3.40.0",
+    "@types/aos": "^3.0.7",
+    "aos": "^2.3.4",
     "clsx": "^2.1.1",
     "dodopayments": "^2.23.2",
     "framer-motion": "^12.35.0",
