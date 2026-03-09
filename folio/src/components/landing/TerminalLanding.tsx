@@ -134,27 +134,28 @@ const NAV_KEY_MAP: Record<string, SectionKey | 'get-started' | 'sign-in'> = {
 
 const SECTION_ORDER: SectionKey[] = ['hero', 'how', 'features', 'pricing', 'faq'];
 
-function getCharDelay(char: string, nextChar: string | undefined): number {
+function getCharDelay(char: string): number {
   if (char === '━') return 8;
-  if (char === '┌' || char === '│' || char === '└' || char === '┐' || char === '┘' || char === '─') return 60;
-  if (char === '0' || char === '1' || char === '2' || char === '3' || char === '4' || char === '5' || char === '6' || char === '7' || char === '8' || char === '9') {
-    return 20;
-  }
-  if (char === ',' || char === ';') return 32 + 80;
-  if (char === '.' || char === ':') return 32 + 150;
-  if (char === '\n') return 32 + 200;
+  if ('┌│└┐┘─'.includes(char)) return 60;
+  if (char >= '0' && char <= '9') return 20;
+  if (char === ',' || char === ';') return 112;
+  if (char === '.' || char === ':') return 182;
+  if (char === '\n') return 232;
   return 32;
 }
 
+type Phase = 'splash' | 'terminal';
+
 export function TerminalLanding() {
   const router = useRouter();
+  const [phase, setPhase] = useState<Phase>('splash');
+  const [splashFading, setSplashFading] = useState(false);
   const [currentSection, setCurrentSection] = useState<SectionKey>('hero');
   const [typedIndex, setTypedIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
   const [isFading, setIsFading] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
   const typingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pendingSectionRef = useRef<SectionKey | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const sectionText = SECTIONS[currentSection];
@@ -171,14 +172,31 @@ export function TerminalLanding() {
       }
       idx++;
       setTypedIndex(idx);
-      const currentChar = text[idx - 1];
-      const nextChar = text[idx];
-      const delay = getCharDelay(currentChar, nextChar);
+      const delay = getCharDelay(text[idx - 1]);
       typingRef.current = setTimeout(type, delay);
     };
 
     typingRef.current = setTimeout(type, 100);
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSplashFading(true);
+      setTimeout(() => {
+        setPhase('terminal');
+        const hash = window.location.hash.slice(1) as SectionKey;
+        const initial = SECTION_ORDER.includes(hash) ? hash : 'hero';
+        setCurrentSection(initial);
+        document.title = SECTION_TITLES[initial];
+        startTyping(SECTIONS[initial]);
+      }, 600);
+    }, 2200);
+
+    return () => {
+      clearTimeout(timer);
+      if (typingRef.current) clearTimeout(typingRef.current);
+    };
+  }, [startTyping]);
 
   const transitionToSection = useCallback((section: SectionKey) => {
     if (typingRef.current) {
@@ -188,13 +206,11 @@ export function TerminalLanding() {
 
     if (section === currentSection && !isTyping) return;
 
-    pendingSectionRef.current = section;
     setIsFading(true);
 
     setTimeout(() => {
       setCurrentSection(section);
       setIsFading(false);
-      pendingSectionRef.current = null;
 
       window.history.replaceState(null, '', `#${section}`);
       document.title = SECTION_TITLES[section];
@@ -204,18 +220,6 @@ export function TerminalLanding() {
       }, 50);
     }, 330);
   }, [currentSection, isTyping, startTyping]);
-
-  useEffect(() => {
-    const hash = window.location.hash.slice(1) as SectionKey;
-    const initial = SECTION_ORDER.includes(hash) ? hash : 'hero';
-    setCurrentSection(initial);
-    document.title = SECTION_TITLES[initial];
-    startTyping(SECTIONS[initial]);
-
-    return () => {
-      if (typingRef.current) clearTimeout(typingRef.current);
-    };
-  }, [startTyping]);
 
   useEffect(() => {
     const onPopState = () => {
@@ -230,21 +234,22 @@ export function TerminalLanding() {
 
   const handleKeyEvent = useCallback((event: KeyboardInteractionEvent) => {
     if (event.phase !== 'down') return;
+    if (phase === 'splash') return;
 
     const action = NAV_KEY_MAP[event.code];
     if (!action) return;
 
     if (action === 'get-started') {
-      router.push('/folio/sign-up');
+      router.push('/sign-up');
       return;
     }
     if (action === 'sign-in') {
-      router.push('/folio/sign-in');
+      router.push('/sign-in');
       return;
     }
 
     transitionToSection(action);
-  }, [router, transitionToSection]);
+  }, [router, transitionToSection, phase]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -264,6 +269,42 @@ export function TerminalLanding() {
 
   const renderedText = sectionText.slice(0, typedIndex);
   const ghostText = sectionText.slice(typedIndex);
+
+  if (phase === 'splash') {
+    return (
+      <div className="terminal-page">
+        <div
+          className={`terminal-splash ${splashFading ? 'terminal-splash--fading' : ''}`}
+        >
+          <span className="terminal-splash-text">Folio</span>
+          <span className="terminal-splash-sub">your linkedin, deployed.</span>
+        </div>
+        <div className="terminal-keyboard-zone">
+          <div className="terminal-keyboard-inner">
+            <Keyboard
+              theme="dolch"
+              enableHaptics={false}
+              enableSound={soundEnabled}
+              onKeyEvent={handleKeyEvent}
+              className="keyboard-terminal"
+            />
+          </div>
+          <div className="terminal-mobile-tabs" style={{ display: 'none' }}>
+            {SECTION_ORDER.map((key) => (
+              <button
+                key={key}
+                type="button"
+                className="terminal-mobile-tab"
+                onClick={() => {}}
+              >
+                {key === 'how' ? 'How' : key === 'faq' ? 'FAQ' : key.charAt(0).toUpperCase() + key.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="terminal-page">
@@ -290,7 +331,7 @@ export function TerminalLanding() {
           <button
             type="button"
             className="terminal-nav-link"
-            onClick={() => router.push('/folio/sign-in')}
+            onClick={() => router.push('/sign-in')}
           >
             Sign In
           </button>
@@ -311,7 +352,7 @@ export function TerminalLanding() {
           {!isTyping && (
             <pre className="terminal-line" style={{ marginTop: '0.5rem' }}>
               <span className="terminal-typed terminal-accent">{'\n> '}</span>
-              <span className={`terminal-cursor ${isTyping ? 'terminal-cursor--typing' : ''}`} />
+              <span className="terminal-cursor" />
             </pre>
           )}
         </div>
@@ -334,7 +375,7 @@ export function TerminalLanding() {
             enableHaptics={false}
             enableSound={soundEnabled}
             onKeyEvent={handleKeyEvent}
-            className="keyboard-hero"
+            className="keyboard-terminal"
           />
         </div>
         <div className="terminal-mobile-tabs" style={{ display: 'none' }}>

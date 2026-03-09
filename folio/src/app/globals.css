@@ -145,7 +145,6 @@ a:hover {
    TERMINAL LANDING PAGE STYLES
    ============================================ */
 
-/* Terminal page wrapper — full viewport, no scroll */
 .terminal-page {
   position: fixed;
   inset: 0;
@@ -156,13 +155,11 @@ a:hover {
   font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
 }
 
-/* Terminal display area — top 72% */
 .terminal-display {
   flex: 1;
   position: relative;
   overflow: hidden;
   padding: 0;
-  background: #0a0a0a;
 }
 
 .terminal-content {
@@ -178,17 +175,14 @@ a:hover {
   display: none;
 }
 
-/* Ghost text (pre-rendered, not yet typed) */
 .terminal-ghost {
   color: #1e1e1e;
 }
 
-/* Typed text (revealed) */
 .terminal-typed {
   color: #e2e2e2;
 }
 
-/* Blinking block cursor */
 .terminal-cursor {
   display: inline-block;
   width: 0.6em;
@@ -208,7 +202,6 @@ a:hover {
   50%, 100% { opacity: 0; }
 }
 
-/* CRT scanline overlay */
 .terminal-scanlines {
   position: absolute;
   inset: 0;
@@ -223,7 +216,6 @@ a:hover {
   );
 }
 
-/* CRT subtle vignette */
 .terminal-vignette {
   position: absolute;
   inset: 0;
@@ -236,7 +228,6 @@ a:hover {
   );
 }
 
-/* Terminal text styling */
 .terminal-line {
   font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
   font-size: 14px;
@@ -245,33 +236,26 @@ a:hover {
   letter-spacing: 0.02em;
 }
 
-/* Section divider */
 .terminal-divider {
   color: #00ff9d;
   opacity: 0.4;
 }
 
-/* Terminal accent color for special chars */
 .terminal-accent {
   color: #00ff9d;
 }
 
-/* Keyboard zone — bottom 28% */
 .terminal-keyboard-zone {
-  height: 28vh;
-  min-height: 200px;
-  max-height: 320px;
-  background: #111111;
+  background: #0a0a0a;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-top: 1px solid #1a1a1a;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
   position: relative;
   flex-shrink: 0;
 }
 
-/* Hint bar above keyboard */
 .terminal-hints {
   display: flex;
   gap: 1.5rem;
@@ -292,7 +276,6 @@ a:hover {
   font-size: inherit;
 }
 
-/* Terminal nav bar */
 .terminal-nav {
   position: fixed;
   top: 0;
@@ -338,7 +321,6 @@ a:hover {
   color: #00ff9d;
 }
 
-/* Terminal fade transition */
 .terminal-fade-out {
   opacity: 0;
   transition: opacity 150ms ease;
@@ -349,13 +331,68 @@ a:hover {
   transition: opacity 150ms ease;
 }
 
-/* Mobile: hide keyboard, show tab strip */
+/* Keyboard flush overrides — strip borders, match background */
+.keyboard-terminal {
+  transform: scale(0.85);
+  transform-origin: center bottom;
+}
+
+.keyboard-terminal > div > div:first-child {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.keyboard-terminal > div > div:first-child > div {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  height: auto !important;
+}
+
+/* Splash screen */
+.terminal-splash {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 1;
+  transition: opacity 600ms ease;
+}
+
+.terminal-splash--fading {
+  opacity: 0;
+}
+
+.terminal-splash-text {
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  color: #e2e2e2;
+  letter-spacing: -0.02em;
+  animation: splash-glow 2.2s ease-in-out infinite alternate;
+}
+
+.terminal-splash-sub {
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  color: #555;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+}
+
+@keyframes splash-glow {
+  0% { text-shadow: 0 0 20px rgba(0, 255, 157, 0); }
+  100% { text-shadow: 0 0 30px rgba(0, 255, 157, 0.15), 0 0 60px rgba(0, 255, 157, 0.05); }
+}
+
+/* Mobile */
 @media (max-width: 767px) {
   .terminal-keyboard-zone {
-    height: auto;
-    min-height: auto;
-    max-height: none;
-    padding: 0;
+    padding-bottom: 0;
   }
 
   .terminal-keyboard-inner {
@@ -373,7 +410,7 @@ a:hover {
     padding: 0;
     width: 100%;
     border-top: 1px solid #1a1a1a;
-    background: #111111;
+    background: #0a0a0a;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -421,11 +458,20 @@ a:hover {
   .terminal-nav-links {
     display: none;
   }
+
+  .keyboard-terminal {
+    transform: scale(0.7);
+  }
 }
 
-/* Desktop: hide mobile tabs */
 @media (min-width: 768px) {
   .terminal-mobile-tabs {
     display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .keyboard-terminal {
+    transform: scale(0.5);
   }
 }
