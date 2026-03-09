@@ -6,6 +6,7 @@ import ExamplesFolio from './ExamplesFolio';
 import HowItWorksFolio from './HowItWorksFolio';
 import FeaturesFolio from './FeaturesFolio';
 import { Pricing } from './Pricing';
+import { Testimonials } from './Testimonials';
 import { FAQ } from './FAQ';
 import { FinalCTA } from './FinalCTA';
 import { Footer } from './Footer';
@@ -74,6 +75,7 @@ export default function FolioLanding() {
         <div id="pricing">
           <Pricing />
         </div>
+        <Testimonials />
         <div id="faq">
           <FAQ />
         </div>

@@ -38,9 +38,14 @@
   --border-medium: var(--gray-300);
   --border-dark: var(--gray-400);
   
-  --accent-primary: var(--orange-500);
-  --accent-hover: var(--orange-600);
-  --accent-light: var(--orange-400);
+  /* LinkedIn blue color system */
+  --linkedin-blue: #0077B5;
+  --linkedin-blue-dark: #005582;
+  --linkedin-blue-light: #00A0DC;
+  
+  --accent-primary: var(--linkedin-blue);
+  --accent-hover: var(--linkedin-blue-dark);
+  --accent-light: var(--linkedin-blue-light);
   
   /* === TYPOGRAPHY === */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
