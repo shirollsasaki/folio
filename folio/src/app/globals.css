@@ -331,27 +331,24 @@ a:hover {
   transition: opacity 150ms ease;
 }
 
-/* Keyboard flush overrides — strip borders, match background */
 .keyboard-terminal {
-  transform: scale(0.85);
+  transform: scale(1.15);
   transform-origin: center bottom;
 }
 
-.keyboard-terminal > div > div:first-child {
-  background: transparent !important;
+.terminal-page .terminal-keyboard-inner .keyboard-terminal > div > div,
+.terminal-page .terminal-keyboard-inner .keyboard-terminal > div > div > div {
+  background: #0a0a0a !important;
+  background-color: #0a0a0a !important;
   border: none !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
   padding: 0 !important;
   border-radius: 0 !important;
-}
-
-.keyboard-terminal > div > div:first-child > div {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
   height: auto !important;
+  box-shadow: none !important;
 }
 
-/* Splash screen */
 .terminal-splash {
   flex: 1;
   display: flex;
@@ -389,7 +386,6 @@ a:hover {
   100% { text-shadow: 0 0 30px rgba(0, 255, 157, 0.15), 0 0 60px rgba(0, 255, 157, 0.05); }
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .terminal-keyboard-zone {
     padding-bottom: 0;
