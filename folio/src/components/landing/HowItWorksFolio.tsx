@@ -24,7 +24,7 @@ const steps = [
 export default function HowItWorksFolio() {
 
   return (
-    <section className="relative py-12 md:py-20">
+    <section className="relative py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section header */}
         <div className="pb-12 text-center md:pb-16">

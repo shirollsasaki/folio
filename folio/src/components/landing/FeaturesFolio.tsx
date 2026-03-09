@@ -36,7 +36,7 @@ const features = [
 export default function FeaturesFolio() {
 
   return (
-    <section className="relative bg-gray-50 py-12 md:py-20">
+    <section className="relative bg-gray-50 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section header */}
         <div className="pb-12 text-center md:pb-16">

@@ -5,7 +5,7 @@ export default function HeroFolio() {
     <section className="relative">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Hero content */}
-        <div className="py-12 md:py-20">
+        <div className="py-24">
           {/* Section header */}
           <div className="pb-12 text-center md:pb-16">
             <h1
