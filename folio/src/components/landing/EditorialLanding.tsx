@@ -175,148 +175,175 @@ export function EditorialLanding() {
         onLoad={() => setThreeLoaded(true)}
       />
 
-      <div className="editorial-layout">
-        <div className="editorial-left">
-          <div ref={canvasRef} className="editorial-webgl" />
-
-          <div className="editorial-left-overlay">
-            <div className="editorial-top-corners">
-              <span>01</span>
-              <span>FOLIO</span>
-            </div>
-
-            <h1 className="editorial-hero">
-              Your LinkedIn,
-              <br />
-              deployed.
-            </h1>
-
-            <div>
-              <div className="editorial-pills">
-                <div className="editorial-pill-group">
-                  <span className="editorial-pill editorial-pill-solid">FREE</span>
-                  <span className="editorial-pill">AUTO-SYNC</span>
-                  <span className="editorial-pill">SSL</span>
-                  <span className="editorial-pill">CDN</span>
-                </div>
-                <span className="editorial-pill">PERSONAL WEBSITE BUILDER</span>
-                <span className="editorial-pill">NO CODE REQUIRED</span>
-              </div>
-
-              <div className="editorial-footer-corners">
-                <span>Import</span>
-                <span>Deploy</span>
-                <span>Done</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="editorial-right">
-          <div className="editorial-right-header">
-            <span>folio.site</span>
-            <span>By After App</span>
-            <button
-              type="button"
-              className="editorial-sign-in"
-              onClick={() => router.push('/sign-in')}
-            >
+      <div className="ed-page">
+        <nav className="ed-nav">
+          <span className="ed-nav-logo">folio</span>
+          <div className="ed-nav-links">
+            <a href="#how">How It Works</a>
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <button type="button" onClick={() => router.push('/sign-in')}>
               Sign In
             </button>
           </div>
+        </nav>
 
-          <div className="editorial-right-content">
-            <p className="editorial-lead">
-              Turn your LinkedIn profile into a stunning personal website in minutes. 
-              Import your experience, skills, and bio automatically. Choose a domain. 
-              Go live instantly. Your site stays synced with LinkedIn forever.
+        <section className="ed-hero">
+          <div ref={canvasRef} className="ed-hero-canvas" />
+          <div className="ed-hero-content">
+            <div className="ed-hero-pills">
+              <span className="ed-pill ed-pill-solid">FREE</span>
+              <span className="ed-pill">AUTO-SYNC</span>
+              <span className="ed-pill">NO CODE</span>
+            </div>
+            <h1 className="ed-hero-title">
+              Your LinkedIn,<br />deployed.
+            </h1>
+            <p className="ed-hero-sub">
+              Turn your LinkedIn profile into a stunning personal website in minutes.
             </p>
-
-            <div className="editorial-data-grid">
-              <div className="editorial-data-column">
-                <div className="editorial-flow-item">
-                  <div className="editorial-flow-marker">1</div>
-                  <div className="editorial-flow-text">
-                    <span className="editorial-flow-label">Connect LinkedIn</span>
-                    Import your profile data in one click. Work history, skills, and 
-                    experience flow directly into your site. No manual entry required.
-                  </div>
-                </div>
-
-                <div className="editorial-flow-item">
-                  <div className="editorial-flow-marker">2</div>
-                  <div className="editorial-flow-text">
-                    <span className="editorial-flow-label">Choose Your Domain</span>
-                    Use your custom domain or get a free folio.site subdomain. 
-                    SSL certificates are configured automatically.
-                  </div>
-                </div>
-
-                <div className="editorial-flow-item">
-                  <div className="editorial-flow-marker">3</div>
-                  <div className="editorial-flow-text">
-                    <span className="editorial-flow-label">Deploy Instantly</span>
-                    Your site goes live on a global CDN. Updates to your LinkedIn 
-                    sync automatically. Zero maintenance required.
-                  </div>
-                </div>
-              </div>
-
-              <div className="editorial-data-column">
-                <div className="editorial-features">
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">↻</span>
-                    <span>Auto-Sync</span>
-                  </div>
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">⬡</span>
-                    <span>Custom Domains</span>
-                  </div>
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">⚡</span>
-                    <span>Global CDN</span>
-                  </div>
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">✦</span>
-                    <span>Clean Templates</span>
-                  </div>
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">↑</span>
-                    <span>SEO Ready</span>
-                  </div>
-                  <div className="editorial-feature">
-                    <span className="editorial-feature-icon">○</span>
-                    <span>Zero Maintenance</span>
-                  </div>
-                </div>
-
-                <div className="editorial-pricing">
-                  <div className="editorial-price-card">
-                    <div className="editorial-price-tier">Free</div>
-                    <div className="editorial-price-amount">$0</div>
-                    <div className="editorial-price-desc">folio.site subdomain</div>
-                  </div>
-                  <div className="editorial-price-card editorial-price-card-pro">
-                    <div className="editorial-price-tier">Pro</div>
-                    <div className="editorial-price-amount">$9/mo</div>
-                    <div className="editorial-price-desc">Custom domain + analytics</div>
-                  </div>
-                </div>
-              </div>
+            <div className="ed-hero-cta">
+              <button
+                type="button"
+                className="ed-btn-primary"
+                onClick={() => router.push('/sign-up')}
+              >
+                Get Started Free →
+              </button>
+              <span className="ed-hero-note">No credit card required</span>
             </div>
           </div>
-
-          <div className="editorial-right-footer">
-            <span>No credit card required</span>
-            <button
-              type="button"
-              className="editorial-cta"
-              onClick={() => router.push('/sign-up')}
-            >
-              Get Started Free →
-            </button>
+          <div className="ed-hero-scroll">
+            <span>Scroll to explore</span>
+            <div className="ed-scroll-line" />
           </div>
-        </div>
+        </section>
+
+        <section id="how" className="ed-section ed-section-green">
+          <div className="ed-section-header">
+            <span className="ed-section-num">01</span>
+            <h2 className="ed-section-title">How It Works</h2>
+          </div>
+          <div className="ed-steps">
+            <div className="ed-step">
+              <div className="ed-step-num">1</div>
+              <h3>Connect LinkedIn</h3>
+              <p>Import your profile data in one click. Work history, skills, and experience flow directly into your site.</p>
+            </div>
+            <div className="ed-step">
+              <div className="ed-step-num">2</div>
+              <h3>Choose Your Domain</h3>
+              <p>Use your custom domain or get a free folio.site subdomain. SSL certificates configured automatically.</p>
+            </div>
+            <div className="ed-step">
+              <div className="ed-step-num">3</div>
+              <h3>Deploy Instantly</h3>
+              <p>Your site goes live on a global CDN. Updates to LinkedIn sync automatically. Zero maintenance.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" className="ed-section ed-section-dark">
+          <div className="ed-section-header">
+            <span className="ed-section-num">02</span>
+            <h2 className="ed-section-title">Features</h2>
+          </div>
+          <div className="ed-features-grid">
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">↻</span>
+              <h3>Auto-Sync</h3>
+              <p>Website updates when LinkedIn changes. Set it once, forget it.</p>
+            </div>
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">⬡</span>
+              <h3>Custom Domains</h3>
+              <p>Bring your own or use ours. SSL configured automatically.</p>
+            </div>
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">⚡</span>
+              <h3>Global CDN</h3>
+              <p>Fast hosting worldwide. Loads in milliseconds.</p>
+            </div>
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">✦</span>
+              <h3>Clean Templates</h3>
+              <p>Minimal designs. Your work front and center.</p>
+            </div>
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">↑</span>
+              <h3>SEO Ready</h3>
+              <p>Meta tags, structured data, clean URLs. Built to rank.</p>
+            </div>
+            <div className="ed-feature-card">
+              <span className="ed-feature-icon">○</span>
+              <h3>Zero Maintenance</h3>
+              <p>No CMS. No plugins. No server management.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="pricing" className="ed-section ed-section-green">
+          <div className="ed-section-header">
+            <span className="ed-section-num">03</span>
+            <h2 className="ed-section-title">Pricing</h2>
+          </div>
+          <div className="ed-pricing-grid">
+            <div className="ed-price-card">
+              <div className="ed-price-tier">Free</div>
+              <div className="ed-price-amount">$0<span>/forever</span></div>
+              <ul className="ed-price-features">
+                <li>folio.site subdomain</li>
+                <li>LinkedIn auto-sync</li>
+                <li>SSL included</li>
+                <li>Community support</li>
+              </ul>
+              <button
+                type="button"
+                className="ed-btn-secondary"
+                onClick={() => router.push('/sign-up')}
+              >
+                Start Free
+              </button>
+            </div>
+            <div className="ed-price-card ed-price-card-featured">
+              <div className="ed-price-badge">Popular</div>
+              <div className="ed-price-tier">Pro</div>
+              <div className="ed-price-amount">$9<span>/month</span></div>
+              <ul className="ed-price-features">
+                <li>Custom domain</li>
+                <li>Priority sync</li>
+                <li>Analytics dashboard</li>
+                <li>Email support</li>
+              </ul>
+              <button
+                type="button"
+                className="ed-btn-primary"
+                onClick={() => router.push('/sign-up')}
+              >
+                Get Pro →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section className="ed-section ed-section-cta">
+          <h2>Ready to launch your site?</h2>
+          <p>Join thousands of professionals with their own personal website.</p>
+          <button
+            type="button"
+            className="ed-btn-primary ed-btn-large"
+            onClick={() => router.push('/sign-up')}
+          >
+            Get Started Free →
+          </button>
+        </section>
+
+        <footer className="ed-footer">
+          <div className="ed-footer-content">
+            <span className="ed-footer-logo">folio</span>
+            <span className="ed-footer-text">By After App Studios</span>
+          </div>
+        </footer>
       </div>
     </>
   );
