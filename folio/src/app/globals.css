@@ -140,3 +140,292 @@ a:hover {
 .ease-lumo {
   transition-timing-function: var(--ease-lumo);
 }
+
+/* ============================================
+   TERMINAL LANDING PAGE STYLES
+   ============================================ */
+
+/* Terminal page wrapper — full viewport, no scroll */
+.terminal-page {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  overflow: hidden;
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+}
+
+/* Terminal display area — top 72% */
+.terminal-display {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background: #0a0a0a;
+}
+
+.terminal-content {
+  position: absolute;
+  inset: 0;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.terminal-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ghost text (pre-rendered, not yet typed) */
+.terminal-ghost {
+  color: #1e1e1e;
+}
+
+/* Typed text (revealed) */
+.terminal-typed {
+  color: #e2e2e2;
+}
+
+/* Blinking block cursor */
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.15em;
+  background: #00ff9d;
+  vertical-align: text-bottom;
+  animation: terminal-blink 1060ms step-end infinite;
+}
+
+.terminal-cursor--typing {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes terminal-blink {
+  0%, 49.9% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* CRT scanline overlay */
+.terminal-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
+  );
+}
+
+/* CRT subtle vignette */
+.terminal-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 11;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+/* Terminal text styling */
+.terminal-line {
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre;
+  letter-spacing: 0.02em;
+}
+
+/* Section divider */
+.terminal-divider {
+  color: #00ff9d;
+  opacity: 0.4;
+}
+
+/* Terminal accent color for special chars */
+.terminal-accent {
+  color: #00ff9d;
+}
+
+/* Keyboard zone — bottom 28% */
+.terminal-keyboard-zone {
+  height: 28vh;
+  min-height: 200px;
+  max-height: 320px;
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #1a1a1a;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Hint bar above keyboard */
+.terminal-hints {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.terminal-hints kbd {
+  color: #00ff9d;
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Terminal nav bar */
+.terminal-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border-bottom: 1px solid #1a1a1a;
+  font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+}
+
+.terminal-nav-logo {
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.terminal-nav-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.terminal-nav-link {
+  color: #444;
+  font-size: 12px;
+  text-decoration: none;
+  transition: color 150ms ease;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.terminal-nav-link:hover {
+  color: #00ff9d;
+}
+
+/* Terminal fade transition */
+.terminal-fade-out {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.terminal-fade-in {
+  opacity: 1;
+  transition: opacity 150ms ease;
+}
+
+/* Mobile: hide keyboard, show tab strip */
+@media (max-width: 767px) {
+  .terminal-keyboard-zone {
+    height: auto;
+    min-height: auto;
+    max-height: none;
+    padding: 0;
+  }
+
+  .terminal-keyboard-inner {
+    display: none;
+  }
+
+  .terminal-hints {
+    display: none;
+  }
+
+  .terminal-mobile-tabs {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 0;
+    padding: 0;
+    width: 100%;
+    border-top: 1px solid #1a1a1a;
+    background: #111111;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .terminal-mobile-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .terminal-mobile-tab {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    font-family: var(--font-jetbrains), 'JetBrains Mono', 'DM Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    background: none;
+    border: none;
+    border-top: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+
+  .terminal-mobile-tab:hover {
+    color: #888;
+  }
+
+  .terminal-mobile-tab--active {
+    color: #00ff9d;
+    border-top-color: #00ff9d;
+  }
+
+  .terminal-display {
+    flex: 1;
+  }
+
+  .terminal-content {
+    padding: 1rem 1.25rem;
+  }
+
+  .terminal-line {
+    font-size: 12px;
+  }
+
+  .terminal-nav-links {
+    display: none;
+  }
+}
+
+/* Desktop: hide mobile tabs */
+@media (min-width: 768px) {
+  .terminal-mobile-tabs {
+    display: none !important;
+  }
+}

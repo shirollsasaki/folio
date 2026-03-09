@@ -1,25 +1,5 @@
-import { 
-  Nav, 
-  Hero,
-  HowItWorks, 
-  Features, 
-  Pricing, 
-  FAQ, 
-  FinalCTA, 
-  Footer 
-} from '@/components/landing';
+import { TerminalLanding } from '@/components/landing';
 
 export default function HomePage() {
-  return (
-    <>
-      <Nav />
-      <Hero />
-      <HowItWorks />
-      <Features />
-      <Pricing />
-      <FAQ />
-      <FinalCTA />
-      <Footer />
-    </>
-  );
+  return <TerminalLanding />;
 }

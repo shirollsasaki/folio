@@ -6,3 +6,4 @@ export { Pricing } from './Pricing';
 export { FAQ } from './FAQ';
 export { FinalCTA } from './FinalCTA';
 export { Footer } from './Footer';
+export { TerminalLanding } from './TerminalLanding';

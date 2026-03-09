@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, DM_Sans, DM_Mono } from 'next/font/google';
+import { Playfair_Display, DM_Sans, DM_Mono, JetBrains_Mono } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 
@@ -19,6 +19,12 @@ const dmMono = DM_Mono({
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   variable: '--font-dm-mono',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
   display: 'swap',
 });
 
@@ -44,7 +50,7 @@ export default function RootLayout({
       signInFallbackRedirectUrl="/folio/dashboard"
       signUpFallbackRedirectUrl="/folio/build"
     >
-      <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable}`}>
+      <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} ${jetbrainsMono.variable}`}>
         <body className="antialiased">
           {children}
         </body>
