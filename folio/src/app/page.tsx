@@ -1,5 +1,5 @@
-import FolioLanding from '@/components/landing/FolioLanding';
+import { EditorialLanding } from '@/components/landing/EditorialLanding';
 
 export default function HomePage() {
-  return <FolioLanding />;
+  return <EditorialLanding />;
 }
