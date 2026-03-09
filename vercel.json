@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "buildCommand": "cd folio && npm install && npm run build",
-  "devCommand": "cd folio && npm run dev", 
-  "installCommand": "npm install --prefix ./folio",
-  "outputDirectory": "folio/.next",
-  "framework": "nextjs"
-}
