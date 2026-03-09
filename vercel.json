@@ -1,7 +1,8 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "cd folio && pnpm build",
-  "devCommand": "cd folio && pnpm dev",
-  "installCommand": "cd folio && pnpm install",
-  "outputDirectory": "folio/.next"
+  "version": 2,
+  "buildCommand": "cd folio && npm install && npm run build",
+  "devCommand": "cd folio && npm run dev", 
+  "installCommand": "npm install --prefix ./folio",
+  "outputDirectory": "folio/.next",
+  "framework": "nextjs"
 }
