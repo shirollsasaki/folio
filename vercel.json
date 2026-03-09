@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd folio && pnpm build",
+  "devCommand": "cd folio && pnpm dev",
+  "installCommand": "cd folio && pnpm install",
+  "outputDirectory": "folio/.next"
+}
