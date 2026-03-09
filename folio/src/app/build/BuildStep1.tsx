@@ -61,7 +61,7 @@ export default function BuildStep1() {
     setExtractError('');
 
     try {
-      const response = await fetch('/api/extract', {
+      const response = await fetch('/folio/api/extract', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ linkedin_url: linkedinExtractUrl.trim() }),

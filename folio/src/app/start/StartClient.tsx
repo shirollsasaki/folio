@@ -17,7 +17,7 @@ export default function StartClient({ currentPlan, proPriceId, agencyPriceId }: 
   async function handleCheckout(productId: string, planType: 'pro' | 'agency') {
     setLoading(planType);
     try {
-      const res = await fetch('/api/checkout', {
+      const res = await fetch('/folio/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId, planType }),

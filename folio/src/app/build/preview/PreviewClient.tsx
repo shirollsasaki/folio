@@ -54,7 +54,7 @@ export default function PreviewClient() {
     setError(null);
 
     try {
-      const res = await fetch('/api/deploy', {
+      const res = await fetch('/folio/api/deploy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

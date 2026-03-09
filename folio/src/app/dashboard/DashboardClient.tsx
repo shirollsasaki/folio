@@ -34,7 +34,7 @@ export default function DashboardClient({ user, initialSites }: DashboardClientP
   async function handlePortal() {
     setPortalLoading(true);
     try {
-      const res = await fetch('/api/customer-portal', { method: 'POST' });
+      const res = await fetch('/folio/api/customer-portal', { method: 'POST' });
       const data = await res.json() as { url?: string };
       if (data.url) {
         window.location.href = data.url;
