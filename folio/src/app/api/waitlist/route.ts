@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     if (error) {
       if (error.code === '23505') {
-        return Response.json({ success: true, message: 'Already on the list!' });
+        return Response.json({ success: true, status: 'duplicate', message: 'Already on the list!' });
       }
       console.error('[waitlist] Supabase error:', error.code, error.message, error.details);
       return Response.json({ error: 'Something went wrong', detail: error.message }, { status: 500 });
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
     const position = (count ?? 0) + 1200;
 
-    return Response.json({ success: true, message: "You're on the list!", position });
+    return Response.json({ success: true, status: 'new', message: "You're on the list!", position });
   } catch {
     return Response.json({ error: 'Something went wrong' }, { status: 500 });
   }

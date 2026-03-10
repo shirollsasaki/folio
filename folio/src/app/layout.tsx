@@ -29,12 +29,21 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://afterapp.fun'),
   title: 'Folio — Your Personal Website in Minutes',
   description: 'Turn your LinkedIn profile into a stunning personal website. Pick a template, customize, and deploy in minutes.',
   openGraph: {
     title: 'Folio — Your Personal Website in Minutes',
     description: 'Turn your LinkedIn profile into a stunning personal website.',
     type: 'website',
+    images: [{ url: '/folio/og-image.png', width: 1200, height: 630, alt: 'Folio — Your LinkedIn, deployed.' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/folio/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://afterapp.fun/folio',
   },
 };
 

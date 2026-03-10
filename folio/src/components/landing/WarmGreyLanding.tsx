@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error' | 'duplicate';
 
@@ -33,9 +32,9 @@ export function WarmGreyLanding() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      const data = await res.json() as { success?: boolean; message?: string; error?: string; position?: number };
+      const data = await res.json() as { success?: boolean; message?: string; error?: string; position?: number; status?: 'new' | 'duplicate' };
       if (data.success) {
-        if (data.message?.includes('Already')) {
+        if (data.status === 'duplicate') {
           setStatus('duplicate');
         } else {
           setStatus('success');
@@ -55,10 +54,10 @@ export function WarmGreyLanding() {
   return (
     <div className="app-frame" style={{ minHeight: 'auto', height: 'auto' }}>
       <div className="app-tabs">
-        <Link href="/" className="app-tab active">Home</Link>
-        <Link href="#how" className="app-tab">How It Works</Link>
-        <Link href="#features" className="app-tab">Features</Link>
-        <Link href="#pricing" className="app-tab">Pricing</Link>
+        <a href="/folio" className="app-tab active">Home</a>
+        <a href="#how" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' }); }}>How It Works</a>
+        <a href="#features" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }); }}>Features</a>
+        <a href="#pricing" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }}>Pricing</a>
       </div>
       
       <div className="app-body" style={{ display: 'block', overflow: 'visible' }}>
@@ -73,7 +72,6 @@ export function WarmGreyLanding() {
         }}>
           <div className="landing-hero">
             <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '32px' }}>
-              <span className="tag">FREE</span>
               <span className="tag">AUTO-SYNC</span>
               <span className="tag">NO CODE</span>
             </div>
@@ -268,7 +266,7 @@ export function WarmGreyLanding() {
               <h2 className="text-2xl">Pricing</h2>
             </div>
             
-            <div className="card" style={{ border: '2px solid var(--border-color)' }}>
+            <div className="card" style={{ border: '2px solid var(--border-color)', overflow: 'visible' }}>
               <div className="card-body" style={{ textAlign: 'center', padding: '40px 32px', position: 'relative' }}>
                 <span className="tag tag-filled" style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)' }}>
                   Coming Soon
