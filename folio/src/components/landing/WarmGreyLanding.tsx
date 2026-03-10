@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 type WaitlistStatus = 'idle' | 'loading' | 'success' | 'error' | 'duplicate';
@@ -12,22 +12,37 @@ const scrollToWaitlist = () => {
 export function WarmGreyLanding() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<WaitlistStatus>('idle');
+  const [waitlistCount, setWaitlistCount] = useState<number>(1200);
+  const [position, setPosition] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch('/folio/api/waitlist/count')
+      .then(res => res.json())
+      .then((data: { count?: number }) => {
+        if (data.count) setWaitlistCount(data.count);
+      })
+      .catch(() => {});
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      const res = await fetch('/api/waitlist', {
+      const res = await fetch('/folio/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
-      const data = await res.json() as { success?: boolean; message?: string; error?: string };
+      const data = await res.json() as { success?: boolean; message?: string; error?: string; position?: number };
       if (data.success) {
         if (data.message?.includes('Already')) {
           setStatus('duplicate');
         } else {
           setStatus('success');
+          if (data.position) {
+            setPosition(data.position);
+            setWaitlistCount(data.position);
+          }
         }
       } else {
         setStatus('error');
@@ -95,7 +110,7 @@ export function WarmGreyLanding() {
             </form>
             {status === 'success' && (
               <p style={{ marginTop: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                You're on the list! We'll reach out when we launch.
+                {position ? `You're #${position.toLocaleString()} in line!` : "You're on the list!"} We'll reach out when we launch.
               </p>
             )}
             {status === 'duplicate' && (
@@ -109,9 +124,11 @@ export function WarmGreyLanding() {
               </p>
             )}
             
-            <p className="text-secondary text-sm" style={{ marginTop: '24px' }}>
-              No credit card required
-            </p>
+            {status === 'idle' && (
+              <p style={{ marginTop: '16px', color: 'var(--text-secondary)', fontSize: '14px' }}>
+                {waitlistCount.toLocaleString()}+ people on the waitlist
+              </p>
+            )}
           </div>
 
           <div style={{ 
@@ -258,7 +275,7 @@ export function WarmGreyLanding() {
                 </span>
                 <p className="text-secondary text-sm mb-xs">Pro</p>
                 <p className="text-3xl font-medium mb-m">$12<span className="text-secondary text-sm">/month</span></p>
-                <ul style={{ listStyle: 'none', textAlign: 'left', marginBottom: '32px' }}>
+                <ul style={{ listStyle: 'none', textAlign: 'center', marginBottom: '32px' }}>
                   <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>Custom domain</li>
                   <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>All 15 templates</li>
                   <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>AI bio cleanup</li>

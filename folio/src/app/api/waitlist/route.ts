@@ -27,7 +27,13 @@ export async function POST(request: Request) {
       return Response.json({ error: 'Something went wrong', detail: error.message }, { status: 500 });
     }
 
-    return Response.json({ success: true, message: "You're on the list!" });
+    const { count } = await supabase
+      .from('waitlist')
+      .select('*', { count: 'exact', head: true });
+
+    const position = (count ?? 0) + 1200;
+
+    return Response.json({ success: true, message: "You're on the list!", position });
   } catch {
     return Response.json({ error: 'Something went wrong' }, { status: 500 });
   }
