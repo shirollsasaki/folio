@@ -61,17 +61,9 @@ export function WarmGreyLanding() {
       </div>
       
       <div className="app-body" style={{ display: 'block', overflow: 'visible' }}>
-        <section style={{ 
-          minHeight: '80vh', 
-          display: 'flex', 
-          flexDirection: 'column',
-          alignItems: 'center', 
-          justifyContent: 'center',
-          padding: '80px 24px',
-          position: 'relative'
-        }}>
+        <section className="hero-section">
           <div className="landing-hero">
-            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '32px' }}>
+            <div className="flex gap-xs justify-center mb-l">
               <span className="tag">AUTO-SYNC</span>
               <span className="tag">NO CODE</span>
             </div>
@@ -86,9 +78,11 @@ export function WarmGreyLanding() {
             <form
               id="waitlist-form"
               onSubmit={handleSubmit}
-              style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '8px' }}
+              className="form-waitlist"
             >
+              <label htmlFor="waitlist-email" className="sr-only">Email address</label>
               <input
+                id="waitlist-email"
                 type="email"
                 className="input input-large"
                 placeholder="your@email.com"
@@ -96,66 +90,54 @@ export function WarmGreyLanding() {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === 'loading' || status === 'success'}
                 required
+                aria-label="Email address"
                 style={{ maxWidth: '320px', flex: '1' }}
               />
               <button
                 type="submit"
                 className="btn btn-primary btn-large"
                 disabled={status === 'loading' || status === 'success'}
+                aria-label="Join waitlist"
               >
-                {status === 'loading' ? 'Joining...' : status === 'success' ? '✓ You\'re in' : 'Join Waitlist →'}
+                {status === 'loading' ? (
+                  <><span className="spinner" aria-hidden="true" />Joining...</>
+                ) : status === 'success' ? '✓ You\'re in' : 'Join Waitlist →'}
               </button>
             </form>
-            {status === 'success' && (
-              <p style={{ marginTop: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                {position ? `You're #${position.toLocaleString()} in line!` : "You're on the list!"} We'll reach out when we launch.
-              </p>
-            )}
-            {status === 'duplicate' && (
-              <p style={{ marginTop: '12px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                You're already on the list! We'll reach out when we launch.
-              </p>
-            )}
-            {status === 'error' && (
-              <p style={{ marginTop: '12px', color: '#cc0000', fontSize: '14px' }}>
-                Something went wrong. Please try again.
-              </p>
-            )}
-            
-            {status === 'idle' && (
-              <p style={{ marginTop: '16px', color: 'var(--text-secondary)', fontSize: '14px' }}>
-                {waitlistCount.toLocaleString()}+ people on the waitlist
-              </p>
-            )}
+            <div role="status" aria-live="polite">
+              {status === 'success' && (
+                <p className="hero-status">
+                  {position ? `You're #${position.toLocaleString()} in line!` : "You're on the list!"} We'll reach out when we launch.
+                </p>
+              )}
+              {status === 'duplicate' && (
+                <p className="hero-status">
+                  You're already on the list! We'll reach out when we launch.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="hero-status error">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+              
+              {status === 'idle' && (
+                <p className="hero-counter">
+                  {waitlistCount.toLocaleString()}+ people on the waitlist
+                </p>
+              )}
+            </div>
           </div>
 
-          <div style={{ 
-            position: 'absolute', 
-            bottom: '32px', 
-            left: '50%', 
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '8px',
-            color: 'var(--text-secondary)',
-            fontSize: '13px'
-          }}>
+          <div className="scroll-indicator">
             <span>Scroll to explore</span>
-            <div style={{ 
-              width: '1px', 
-              height: '32px', 
-              background: 'linear-gradient(to bottom, var(--text-secondary), transparent)' 
-            }} />
+            <div className="scroll-indicator-line" />
           </div>
         </section>
 
-        <section id="how" style={{ 
-          padding: '80px 48px',
-          borderTop: '1px solid var(--border-light)'
-        }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '48px' }}>
+        <section id="how" className="section section-bordered">
+          <div className="section-content">
+            <div className="section-header">
               <span className="tag tag-filled">01</span>
               <h2 className="text-2xl">How It Works</h2>
             </div>
@@ -163,17 +145,7 @@ export function WarmGreyLanding() {
             <div className="grid-3">
               <div className="card">
                 <div className="card-body">
-                  <div style={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    border: '1px solid var(--border-color)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px',
-                    fontSize: '20px'
-                  }}>1</div>
+                  <div className="step-circle">1</div>
                   <h3 className="text-lg font-medium mb-s">Connect LinkedIn</h3>
                   <p className="text-secondary">
                     Import your profile data in one click. Work history, skills, and experience flow directly into your site.
@@ -183,17 +155,7 @@ export function WarmGreyLanding() {
               
               <div className="card">
                 <div className="card-body">
-                  <div style={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    border: '1px solid var(--border-color)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px',
-                    fontSize: '20px'
-                  }}>2</div>
+                  <div className="step-circle">2</div>
                   <h3 className="text-lg font-medium mb-s">Choose Your Template</h3>
                   <p className="text-secondary">
                     Pick from professionally designed templates. Light or dark, minimal or bold.
@@ -203,17 +165,7 @@ export function WarmGreyLanding() {
               
               <div className="card">
                 <div className="card-body">
-                  <div style={{ 
-                    width: '48px', 
-                    height: '48px', 
-                    borderRadius: '50%', 
-                    border: '1px solid var(--border-color)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px',
-                    fontSize: '20px'
-                  }}>3</div>
+                  <div className="step-circle">3</div>
                   <h3 className="text-lg font-medium mb-s">Deploy Instantly</h3>
                   <p className="text-secondary">
                     Your site goes live on a global CDN. Updates to LinkedIn sync automatically. Zero maintenance.
@@ -224,13 +176,9 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
-        <section id="features" style={{ 
-          padding: '80px 48px',
-          borderTop: '1px solid var(--border-light)',
-          backgroundColor: 'rgba(0,0,0,0.02)'
-        }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '48px' }}>
+        <section id="features" className="section section-bordered section-tinted">
+          <div className="section-content">
+            <div className="section-header">
               <span className="tag tag-filled">02</span>
               <h2 className="text-2xl">Features</h2>
             </div>
@@ -246,7 +194,7 @@ export function WarmGreyLanding() {
               ].map((feature) => (
                 <div key={feature.title} className="card">
                   <div className="card-body">
-                    <span style={{ fontSize: '24px', display: 'block', marginBottom: '12px' }}>{feature.icon}</span>
+                    <span className="feature-icon">{feature.icon}</span>
                     <h3 className="text-lg font-medium mb-xs">{feature.title}</h3>
                     <p className="text-secondary text-sm">{feature.desc}</p>
                   </div>
@@ -256,29 +204,26 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
-        <section id="pricing" style={{ 
-          padding: '80px 48px',
-          borderTop: '1px solid var(--border-light)'
-        }}>
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '48px', justifyContent: 'center' }}>
+        <section id="pricing" className="section section-bordered">
+          <div className="pricing-content">
+            <div className="section-header">
               <span className="tag tag-filled">03</span>
               <h2 className="text-2xl">Pricing</h2>
             </div>
             
-            <div className="card" style={{ border: '2px solid var(--border-color)', overflow: 'visible' }}>
-              <div className="card-body" style={{ textAlign: 'center', padding: '40px 32px', position: 'relative' }}>
-                <span className="tag tag-filled" style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)' }}>
+            <div className="card card-featured">
+              <div className="card-body pricing-card-body">
+                <span className="tag tag-filled pricing-badge">
                   Coming Soon
                 </span>
                 <p className="text-secondary text-sm mb-xs">Pro</p>
                 <p className="text-3xl font-medium mb-m">$12<span className="text-secondary text-sm">/month</span></p>
-                <ul style={{ listStyle: 'none', textAlign: 'center', marginBottom: '32px' }}>
-                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>Custom domain</li>
-                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>All 15 templates</li>
-                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>AI bio cleanup</li>
-                  <li style={{ padding: '8px 0', borderBottom: '1px solid var(--border-light)' }}>LinkedIn auto-sync</li>
-                  <li style={{ padding: '8px 0' }}>Email support</li>
+                <ul className="pricing-list">
+                  <li>Custom domain</li>
+                  <li>All 15 templates</li>
+                  <li>AI bio cleanup</li>
+                  <li>LinkedIn auto-sync</li>
+                  <li>Email support</li>
                 </ul>
                 <button
                   type="button"
@@ -292,11 +237,7 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
-        <section style={{ 
-          padding: '80px 48px',
-          borderTop: '1px solid var(--border-light)',
-          textAlign: 'center'
-        }}>
+        <section className="section section-bordered section-centered">
           <h2 className="text-2xl mb-s">Ready to launch your site?</h2>
           <p className="text-secondary mb-l">Join thousands of professionals with their own personal website.</p>
           <button 
@@ -308,14 +249,8 @@ export function WarmGreyLanding() {
           </button>
         </section>
 
-        <footer style={{ 
-          padding: '32px 48px',
-          borderTop: '1px solid var(--border-light)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <span style={{ fontWeight: 600 }}>folio</span>
+        <footer className="landing-footer">
+          <span className="font-semibold">folio</span>
           <span className="text-secondary text-sm">By After App Studios</span>
         </footer>
       </div>
