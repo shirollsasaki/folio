@@ -23,7 +23,8 @@ export async function POST(request: Request) {
       if (error.code === '23505') {
         return Response.json({ success: true, message: 'Already on the list!' });
       }
-      return Response.json({ error: 'Something went wrong' }, { status: 500 });
+      console.error('[waitlist] Supabase error:', error.code, error.message, error.details);
+      return Response.json({ error: 'Something went wrong', detail: error.message }, { status: 500 });
     }
 
     return Response.json({ success: true, message: "You're on the list!" });
