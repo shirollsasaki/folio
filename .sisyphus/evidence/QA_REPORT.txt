@@ -1,0 +1,22 @@
+FOLIO PAGE QA REPORT
+Generated: 2026-03-10T06:56:59.147Z
+
+ISSUES FOUND: 1
+
+1. ISSUE: Waitlist counter not found on page
+
+SCREENSHOTS GENERATED:
+- 01_desktop_full_page.png
+- 02_desktop_hero_section.png
+- 03_desktop_form_success.png
+- 05_desktop_footer.png
+- 11_desktop_how_it_works.png
+- 12_desktop_features.png
+- 13_desktop_pricing_detailed.png
+- 06_mobile_full_page.png
+- 07_mobile_hero_section.png
+- 08_mobile_form_success.png
+- 10_mobile_footer.png
+- 14_mobile_how_it_works.png
+- 15_mobile_features.png
+- 16_mobile_pricing_detailed.png

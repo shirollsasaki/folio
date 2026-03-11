@@ -1,0 +1,8 @@
+Global .card overflow rule unchanged - still has overflow: hidden
+
+.card {
+  background-color: var(--bg-canvas);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, DM_Sans, DM_Mono, JetBrains_Mono } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
+import { Analytics } from '@/components/analytics';
 import './globals.css';
 
 const playfair = Playfair_Display({
@@ -61,6 +62,7 @@ export default function RootLayout({
     >
       <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} ${jetbrainsMono.variable}`}>
         <body className="antialiased">
+          <Analytics />
           {children}
         </body>
       </html>

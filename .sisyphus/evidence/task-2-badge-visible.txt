@@ -1,0 +1,4 @@
+COMING SOON badge fix applied: overflow: 'visible' added to pricing card at line 271
+
+Fixed line:
+271:            <div className="card" style={{ border: '2px solid var(--border-color)', overflow: 'visible' }}>

@@ -1,0 +1,21 @@
+Nav and tags verified
+
+Navigation tabs (lines 57-61):
+57:        <a href="/folio" className="app-tab active">Home</a>
+58:        <a href="#how" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' }); }}>How It Works</a>
+59:        <a href="#features" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }); }}>Features</a>
+60:        <a href="#pricing" className="app-tab" onClick={(e) => { e.preventDefault(); document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); }}>Pricing</a>
+
+Tags section (lines 74-77):
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '32px' }}>
+              <span className="tag">AUTO-SYNC</span>
+              <span className="tag">NO CODE</span>
+            </div>
+
+Verification results:
+✓ No href="/" found
+✓ Home tab has href="/folio"
+✓ FREE tag removed
+✓ AUTO-SYNC tag present
+✓ NO CODE tag present
+✓ Link import removed

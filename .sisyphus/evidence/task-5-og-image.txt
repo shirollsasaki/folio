@@ -1,0 +1,5 @@
+32:  metadataBase: new URL('https://afterapp.fun'),
+39:    images: [{ url: '/folio/og-image.png', width: 1200, height: 630, alt: 'Folio — Your LinkedIn, deployed.' }],
+43:    images: ['/folio/og-image.png'],
+46:    canonical: 'https://afterapp.fun/folio',
+-rw-r--r--@ 1 namanshiroha  staff  67 Mar 10 13:26 /Users/namanshiroha/folio/folio/public/og-image.png

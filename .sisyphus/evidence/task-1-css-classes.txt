@@ -1,0 +1,11 @@
+  --color-error: #cc0000;
+.btn:focus-visible {
+.section {
+  .section {
+.section-content {
+.section-header {
+.form-waitlist {
+  .form-waitlist {
+  color: var(--color-error);
+.spinner {
+.sr-only {
