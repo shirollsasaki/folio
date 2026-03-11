@@ -3,8 +3,8 @@
 :root {
   --bg-canvas: #EAEAE6;
   --bg-frame: #000000;
-  --bg-tab-inactive-1: #1A1A1A;
-  --bg-tab-inactive-2: #2D2D2D;
+  --bg-tab-inactive-1: #C8C4BA;
+  --bg-tab-inactive-2: #AEAAA0;
   --bg-hover: rgba(0, 0, 0, 0.03);
   --bg-selected: rgba(0, 0, 0, 0.05);
 
