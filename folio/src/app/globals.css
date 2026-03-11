@@ -2,9 +2,9 @@
 
 :root {
   --bg-canvas: #EAEAE6;
-  --bg-frame: #D8E6F3;
-  --bg-tab-inactive-1: #CED7DE;
-  --bg-tab-inactive-2: #94A3B0;
+  --bg-frame: #000000;
+  --bg-tab-inactive-1: #1A1A1A;
+  --bg-tab-inactive-2: #2D2D2D;
   --bg-hover: rgba(0, 0, 0, 0.03);
   --bg-selected: rgba(0, 0, 0, 0.05);
 
