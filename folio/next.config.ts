@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   basePath: '/folio',
@@ -46,4 +47,21 @@ const nextConfig: NextConfig = {
   ],
 };
 
-export default nextConfig;
+// Sentry configuration options
+const sentryWebpackPluginOptions = {
+  // Suppresses source map uploading logs during build (optional)
+  silent: true,
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  // Only upload source maps in production
+  widenClientFileUpload: process.env.NODE_ENV === 'production',
+  // Hides Sentry from bundler warnings
+  hideSourceMaps: true,
+  // Automatically tree-shake Sentry logger statements
+  disableLogger: true,
+};
+
+// Wrap config with Sentry only if DSN is configured
+export default process.env.NEXT_PUBLIC_SENTRY_DSN 
+  ? withSentryConfig(nextConfig, sentryWebpackPluginOptions)
+  : nextConfig;
