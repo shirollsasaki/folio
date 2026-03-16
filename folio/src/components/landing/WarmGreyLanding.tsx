@@ -8,6 +8,38 @@ const scrollToWaitlist = () => {
   document.getElementById('waitlist-form')?.scrollIntoView({ behavior: 'smooth' });
 };
 
+const EXAMPLE_PORTFOLIOS = [
+  { name: 'Alex Chen', title: 'Full-Stack Developer', industry: 'Tech', image: '/folio/examples/alex-chen.jpg' },
+  { name: 'Sarah Martinez', title: 'UX/UI Designer', industry: 'Design', image: '/folio/examples/sarah-martinez.jpg' },
+  { name: 'James Wilson', title: 'Marketing Consultant', industry: 'Marketing', image: '/folio/examples/james-wilson.jpg' },
+  { name: 'Priya Patel', title: 'Product Manager', industry: 'Product', image: '/folio/examples/priya-patel.jpg' },
+  { name: 'Michael Brown', title: 'Freelance Writer', industry: 'Content', image: '/folio/examples/michael-brown.jpg' },
+  { name: 'Emma Davis', title: 'Startup Founder', industry: 'Entrepreneurship', image: '/folio/examples/emma-davis.jpg' },
+];
+
+const TESTIMONIALS = [
+  {
+    quote: "Turned my LinkedIn into a portfolio in 5 minutes. My clients are impressed.",
+    name: "Alex Chen",
+    title: "Full-Stack Developer"
+  },
+  {
+    quote: "No more 'under construction' pages. Just connected LinkedIn and I was live.",
+    name: "Sarah Martinez",
+    title: "UX Designer"
+  },
+  {
+    quote: "Finally, a portfolio that doesn't look like everyone else's template.",
+    name: "James Wilson",
+    title: "Marketing Consultant"
+  },
+  {
+    quote: "Best $9/month I spend. Custom domain + clean design = worth it.",
+    name: "Priya Patel",
+    title: "Product Manager"
+  },
+];
+
 export function WarmGreyLanding() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<WaitlistStatus>('idle');
@@ -61,6 +93,7 @@ export function WarmGreyLanding() {
       </div>
       
       <div className="app-body" style={{ display: 'block', overflow: 'visible' }}>
+        {/* Hero Section */}
         <section className="hero-section">
           <div className="landing-hero">
             <div className="flex gap-xs justify-center mb-l">
@@ -135,6 +168,7 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
+        {/* How It Works */}
         <section id="how" className="section section-bordered">
           <div className="section-content">
             <div className="section-header">
@@ -176,6 +210,7 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
+        {/* Features */}
         <section id="features" className="section section-bordered section-tinted">
           <div className="section-content">
             <div className="section-header">
@@ -204,39 +239,134 @@ export function WarmGreyLanding() {
           </div>
         </section>
 
-        <section id="pricing" className="section section-bordered">
-          <div className="pricing-content">
-            <div className="section-header">
+        {/* NEW: Examples Section */}
+        <section id="examples" className="section section-bordered">
+          <div className="section-content">
+            <div className="section-header-centered">
+              <h2 className="text-2xl">Beautiful Portfolios in Minutes</h2>
+            </div>
+            <p className="text-center text-secondary mb-l" style={{ maxWidth: '600px', margin: '0 auto 48px' }}>
+              Join hundreds of professionals who turned their LinkedIn into a stunning portfolio
+            </p>
+            
+            <div className="grid-3" style={{ gap: '32px' }}>
+              {EXAMPLE_PORTFOLIOS.map((example) => (
+                <a
+                  key={example.name}
+                  href="#pricing"
+                  onClick={(e) => { 
+                    e.preventDefault(); 
+                    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' }); 
+                  }}
+                  className="example-card"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <div className="example-preview">
+                    <div className="example-preview-placeholder">
+                      <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
+                        {example.name.split(' ')[0]}'s Portfolio
+                      </div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
+                        {example.title}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="example-info">
+                    <div className="example-name">{example.name}</div>
+                    <div className="example-title">{example.title}</div>
+                    <div className="example-industry">{example.industry}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section id="pricing" className="section section-bordered section-tinted">
+          <div className="section-content">
+            <div className="section-header-centered">
               <span className="tag tag-filled">03</span>
               <h2 className="text-2xl">Pricing</h2>
             </div>
             
-            <div className="card card-featured">
-              <div className="card-body pricing-card-body">
-                <span className="tag tag-filled pricing-badge">
-                  Coming Soon
-                </span>
-                <p className="text-secondary text-sm mb-xs">Pro</p>
-                <p className="text-3xl font-medium mb-m">$12<span className="text-secondary text-sm">/month</span></p>
-                <ul className="pricing-list">
-                  <li>Custom domain</li>
-                  <li>All 15 templates</li>
-                  <li>AI bio cleanup</li>
-                  <li>LinkedIn auto-sync</li>
-                  <li>Email support</li>
-                </ul>
-                <button
-                  type="button"
-                  className="btn btn-primary w-full"
-                  onClick={scrollToWaitlist}
-                >
-                  Join Waitlist →
-                </button>
+            <div className="pricing-grid">
+              {/* Free Tier */}
+              <div className="card">
+                <div className="card-body pricing-card-body">
+                  <p className="text-secondary text-sm mb-xs">Free</p>
+                  <p className="text-3xl font-medium mb-m">$0</p>
+                  <ul className="pricing-list">
+                    <li>✅ LinkedIn import</li>
+                    <li>✅ afterapp.fun subdomain</li>
+                    <li>✅ 3 basic templates</li>
+                    <li>✅ Mobile responsive</li>
+                    <li style={{ opacity: 0.4 }}>❌ Custom domain</li>
+                    <li style={{ opacity: 0.4 }}>❌ Premium templates</li>
+                    <li style={{ opacity: 0.4 }}>❌ Remove branding</li>
+                  </ul>
+                  <button
+                    type="button"
+                    className="btn btn-secondary w-full"
+                    onClick={scrollToWaitlist}
+                  >
+                    Start Free
+                  </button>
+                </div>
+              </div>
+
+              {/* Pro Tier */}
+              <div className="card card-featured">
+                <div className="card-body pricing-card-body">
+                  <span className="tag tag-filled pricing-badge">Most Popular</span>
+                  <p className="text-secondary text-sm mb-xs">Pro</p>
+                  <p className="text-3xl font-medium mb-m">$9<span className="text-secondary text-sm">/month</span></p>
+                  <ul className="pricing-list">
+                    <li>✅ Everything in Free</li>
+                    <li>✅ Custom domain</li>
+                    <li>✅ 12+ premium templates</li>
+                    <li>✅ Remove afterapp.fun branding</li>
+                    <li>✅ Analytics dashboard</li>
+                    <li>✅ Priority support</li>
+                  </ul>
+                  <button
+                    type="button"
+                    className="btn btn-primary w-full"
+                    onClick={scrollToWaitlist}
+                  >
+                    Start 7-Day Free Trial
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* NEW: Social Proof Section */}
+        <section className="section section-bordered">
+          <div className="section-content">
+            <div className="section-header-centered">
+              <h2 className="text-2xl">Loved by Professionals</h2>
+            </div>
+            
+            <div className="testimonials-grid">
+              {TESTIMONIALS.map((testimonial, idx) => (
+                <div key={idx} className="testimonial-card">
+                  <div className="testimonial-avatar">
+                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <p className="testimonial-quote">"{testimonial.quote}"</p>
+                  <div className="testimonial-author">
+                    <div className="testimonial-name">{testimonial.name}</div>
+                    <div className="testimonial-title">{testimonial.title}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
         <section className="section section-bordered section-centered">
           <h2 className="text-2xl mb-s">Ready to launch your site?</h2>
           <p className="text-secondary mb-l">Join thousands of professionals with their own personal website.</p>
