@@ -48,7 +48,7 @@ export function Hero() {
 
   const handleKeyEvent = (event: KeyboardInteractionEvent) => {
     // Optional: Add any keyboard interaction effects here
-    console.log('Key event:', event.code, event.phase);
+    // Event logging removed for production
   };
 
   return (

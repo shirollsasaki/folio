@@ -16,7 +16,8 @@ export function Analytics() {
     const initPostHog = () => {
       const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
       
-      if (posthogKey && !initialized) {
+      // Check if PostHog is already initialized to prevent double-init
+      if (posthogKey && !initialized && !posthog.__loaded) {
         posthog.init(posthogKey, {
           api_host: 'https://us.posthog.com',
           loaded: (ph) => {
@@ -26,6 +27,9 @@ export function Analytics() {
             setInitialized(true);
           },
         });
+      } else if (posthog.__loaded) {
+        // If already loaded (e.g., hot reload in dev), mark as initialized
+        setInitialized(true);
       }
     };
 

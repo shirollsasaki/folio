@@ -51,15 +51,24 @@ export class ProxycurlExtractor implements LinkedInExtractor {
     });
 
     if (response.status === 404) {
+      console.error('[Proxycurl] Profile not found:', linkedinUrl);
       throw new Error('LinkedIn profile not found. Please check the URL.');
     }
 
     if (response.status === 429) {
+      console.error('[Proxycurl] Rate limit exceeded for:', linkedinUrl);
       throw new Error('Rate limit exceeded. Please try again later.');
     }
 
+    if (response.status === 402) {
+      console.error('[Proxycurl] Payment required - credits exhausted');
+      throw new Error('LinkedIn extraction service temporarily unavailable. Please try again later.');
+    }
+
     if (!response.ok) {
-      throw new Error(`Proxycurl API error: ${response.status} ${response.statusText}`);
+      const errorBody = await response.text().catch(() => 'No error body');
+      console.error('[Proxycurl API Error]:', response.status, response.statusText, errorBody);
+      throw new Error(`LinkedIn extraction failed: ${response.status} ${response.statusText}`);
     }
 
     const data: ProxycurlProfile = await response.json() as ProxycurlProfile;

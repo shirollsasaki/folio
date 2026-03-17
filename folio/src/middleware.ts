@@ -7,7 +7,8 @@ export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
     const { userId } = await auth();
     if (!userId) {
-      const signInUrl = new URL('/folio/sign-in', req.nextUrl.origin);
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/folio';
+      const signInUrl = new URL(`${basePath}/sign-in`, req.nextUrl.origin);
       signInUrl.searchParams.set('redirect_url', req.nextUrl.href);
       return NextResponse.redirect(signInUrl);
     }

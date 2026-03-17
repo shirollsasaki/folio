@@ -14,6 +14,10 @@ export function EditorialLanding() {
 
     const THREE = (window as unknown as { THREE: typeof import('three') }).THREE;
     if (!THREE) return;
+    
+    // Type aliases for THREE in this scope
+    type Vector3 = import('three').Vector3;
+    type Line = import('three').Line;
 
     const container = canvasRef.current;
     const scene = new THREE.Scene();
@@ -68,7 +72,7 @@ export function EditorialLanding() {
     const markerGeo = new THREE.SphereGeometry(0.15, 8, 8);
     const markerMat = new THREE.MeshBasicMaterial({ color: 0x00ff9d });
 
-    const hubPoints: Record<string, THREE.Vector3> = {};
+    const hubPoints: Record<string, Vector3> = {};
     for (const [name, coords] of Object.entries(hubs)) {
       const pos = getPos(coords.lat, coords.lon, radius);
       hubPoints[name] = pos;
@@ -85,7 +89,7 @@ export function EditorialLanding() {
       { start: hubPoints.singapore, end: hubPoints.sanFrancisco },
     ];
 
-    interface ArcLine extends THREE.Line {
+    interface ArcLine extends Line {
       userData: {
         drawCount: number;
         maxPoints: number;
@@ -112,7 +116,7 @@ export function EditorialLanding() {
         opacity: 0.8,
       });
 
-      const line = new THREE.Line(geometry, material) as ArcLine;
+      const line = new THREE.Line(geometry, material) as unknown as ArcLine;
       line.userData = {
         drawCount: 0,
         maxPoints: points.length,

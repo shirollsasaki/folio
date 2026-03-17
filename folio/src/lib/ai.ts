@@ -9,13 +9,14 @@ export async function cleanupBio(rawBio: string, name: string, headline: string)
     return rawBio;
   }
 
-  const message = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 300,
-    messages: [
-      {
-        role: 'user',
-        content: `You are helping ${name}, a ${headline}, improve their personal website bio.
+  try {
+    const message = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 300,
+      messages: [
+        {
+          role: 'user',
+          content: `You are helping ${name}, a ${headline}, improve their personal website bio.
 
 Here is their raw LinkedIn summary:
 """
@@ -28,14 +29,20 @@ Rewrite this as a clean, compelling 2-3 sentence bio in first person.
 - Focus on what makes them unique
 - Do NOT add information that wasn't in the original
 - Return ONLY the rewritten bio, no explanation`,
-      },
-    ],
-  });
+        },
+      ],
+    });
 
-  const content = message.content[0];
-  if (content.type !== 'text') {
+    const content = message.content[0];
+    if (content.type !== 'text') {
+      console.error('[AI Cleanup] Unexpected content type:', content.type);
+      return rawBio;
+    }
+
+    return content.text.trim();
+  } catch (error) {
+    // Gracefully fall back to original bio on API errors
+    console.error('[AI Cleanup Error]:', error);
     return rawBio;
   }
-
-  return content.text.trim();
 }

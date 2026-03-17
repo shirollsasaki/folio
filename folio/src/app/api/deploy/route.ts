@@ -1,6 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import { DeployRequestSchema } from '@/types';
+import { rateLimiters } from '@/lib/rate-limit';
+import { checkSiteQuota } from '@/lib/quota';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,6 +10,14 @@ export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  // Rate limit: 5 deploys per hour per user
+  if (!rateLimiters.deploy(userId)) {
+    return NextResponse.json(
+      { error: 'Rate limit exceeded. You can deploy up to 5 sites per hour. Please try again later.' },
+      { status: 429 }
+    );
   }
 
   try {
@@ -35,6 +45,15 @@ export async function POST(req: Request) {
     const user = await getUser(userId);
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    // Check plan-based quota
+    const quotaCheck = await checkSiteQuota(userId, user.plan);
+    if (!quotaCheck.allowed) {
+      return NextResponse.json(
+        { error: quotaCheck.reason },
+        { status: 403 }
+      );
     }
 
     if (templateEntry.meta.isPremium && user.plan === 'free') {
@@ -73,6 +92,7 @@ export async function POST(req: Request) {
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Deploy failed';
+    console.error('[Deploy API Error]:', error);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

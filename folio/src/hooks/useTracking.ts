@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
-import { useAuth } from '@clerk/nextjs';
+import { useAuth, useUser } from '@clerk/nextjs';
 import { captureEvent, captureIdentify } from '@/components/analytics';
 
 export function useTracking() {
-  const { userId, user } = useAuth();
+  const { userId } = useAuth();
+  const { user } = useUser();
 
   /**
    * Track a custom event

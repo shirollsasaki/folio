@@ -12,8 +12,11 @@ interface TemplatePickerClientProps {
 export default function TemplatePickerClient({ templateMetas, userPlan }: TemplatePickerClientProps) {
   const router = useRouter();
   const [selected, setSelected] = useState<string | null>(null);
-  const [hasProfile, setHasProfile] = useState(false);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  
+  // Check profile immediately during render instead of in useEffect
+  const profile = typeof window !== 'undefined' ? sessionStorage.getItem('folio_profile') : null;
+  const hasProfile = !!profile;
 
   async function handleUnlock() {
     setCheckoutLoading(true);
@@ -33,13 +36,11 @@ export default function TemplatePickerClient({ templateMetas, userPlan }: Templa
   }
 
   useEffect(() => {
-    const profile = sessionStorage.getItem('folio_profile');
+    // Only perform redirect as a side effect
     if (!profile) {
       router.replace('/build');
-    } else {
-      setHasProfile(true);
     }
-  }, [router]);
+  }, [profile, router]);
 
   function handleSelect(slug: string) {
     if (userPlan === 'free') return;

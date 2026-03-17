@@ -2,7 +2,16 @@ import React from 'react';
 import type { ProfileData, TemplateProps } from '@/types';
 
 const VERCEL_API = 'https://api.vercel.com';
-const VERCEL_TOKEN = process.env.VERCEL_API_TOKEN ?? '';
+
+function getVercelToken(): string {
+  const token = process.env.VERCEL_API_TOKEN;
+  if (!token) {
+    throw new Error('VERCEL_API_TOKEN environment variable is not set');
+  }
+  return token;
+}
+
+const VERCEL_TOKEN = getVercelToken();
 const VERCEL_TEAM_ID = process.env.VERCEL_TEAM_ID ?? '';
 
 interface DeployResult {

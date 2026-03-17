@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4 text-orange-400">Overview</h2>
             <p className="text-zinc-300 leading-relaxed">
-              Folio ("we," "us," "our," or "Company") operates the website and services at folio.site. 
+              Folio (&ldquo;we,&rdquo; &ldquo;us,&rdquo; &ldquo;our,&rdquo; or &ldquo;Company&rdquo;) operates the website and services at folio.site. 
               This Privacy Policy describes how we collect, use, and handle your personal data.
             </p>
           </section>

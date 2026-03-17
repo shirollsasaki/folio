@@ -69,7 +69,6 @@ export function AppShell({
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '12px', paddingRight: '20px' }}>
             {isSignedIn ? (
               <UserButton 
-                afterSignOutUrl="/"
                 appearance={{
                   elements: {
                     avatarBox: { width: 32, height: 32 }

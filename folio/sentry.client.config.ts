@@ -44,7 +44,7 @@ if (typeof window !== 'undefined') {
 
   // Defer initialization until browser is idle
   if ('requestIdleCallback' in window) {
-    (window as any).requestIdleCallback(initSentry, { timeout: 2000 });
+    window.requestIdleCallback(initSentry, { timeout: 2000 });
   } else {
     setTimeout(initSentry, 2000);
   }

@@ -53,12 +53,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // basePath is handled by Next.js config; Clerk URLs should use relative paths
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '/folio';
+  
   return (
     <ClerkProvider
-      signInUrl="/folio/sign-in"
-      signUpUrl="/folio/sign-up"
-      signInFallbackRedirectUrl="/folio/dashboard"
-      signUpFallbackRedirectUrl="/folio/build"
+      signInUrl={`${basePath}/sign-in`}
+      signUpUrl={`${basePath}/sign-up`}
+      signInFallbackRedirectUrl={`${basePath}/dashboard`}
+      signUpFallbackRedirectUrl={`${basePath}/build`}
     >
       <html lang="en" className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} ${jetbrainsMono.variable}`}>
         <body className="antialiased">
